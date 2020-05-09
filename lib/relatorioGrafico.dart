@@ -33,77 +33,35 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     GraficoConstrutor(eixoX: 6, eixoY: 60),
   ];
 
-  static final List<GraficoConstrutor> _pressaoSiastolicaAtividadeCorrerLista = [
-    GraficoConstrutor(eixoX: 0, eixoY: 120),
-    GraficoConstrutor(eixoX: 1, eixoY: 140),
-    GraficoConstrutor(eixoX: 2, eixoY: null),
-    GraficoConstrutor(eixoX: 3, eixoY: 120),
-    GraficoConstrutor(eixoX: 4, eixoY: 140),
-    GraficoConstrutor(eixoX: 5, eixoY: 110),
-    GraficoConstrutor(eixoX: 6, eixoY: 110),
+  static final List<LinearSales> _pressaoSiastolicaAtividadeCorrerLista = [
+    LinearSales(eixoX: 0, eixoY: 120,r:8.0),
+    LinearSales(eixoX: 1, eixoY: 140,r:8.0),
+    LinearSales(eixoX: 2, eixoY: 140,r:8.0),
+    LinearSales(eixoX: 3, eixoY: 120,r:8.0),
+    LinearSales(eixoX: 4, eixoY: 140,r:8.0),
+    LinearSales(eixoX: 5, eixoY: 110,r:8.0),
+    LinearSales(eixoX: 6, eixoY: 110,r:8.0),
   ];
 
-  static final List<GraficoConstrutor> _pressaoDiastolicaAtividadeCorrerLista = [
-    GraficoConstrutor(eixoX: 0, eixoY: 90),
-    GraficoConstrutor(eixoX: 1, eixoY: 100),
-    GraficoConstrutor(eixoX: 2, eixoY: null),
-    GraficoConstrutor(eixoX: 3, eixoY: 90),
-    GraficoConstrutor(eixoX: 4, eixoY: 100),
-    GraficoConstrutor(eixoX: 5, eixoY: 75),
-    GraficoConstrutor(eixoX: 6, eixoY: 100),
-  ];
-
-   static final List<GraficoConstrutor> _pressaoSiastolicaAtividadeCozinhandoLista = [
-     GraficoConstrutor(eixoX: 0, eixoY: 100),
-     GraficoConstrutor(eixoX: 1, eixoY: 90),
-     GraficoConstrutor(eixoX: 2, eixoY: 110),
-     GraficoConstrutor(eixoX: 3, eixoY: 100),
-     GraficoConstrutor(eixoX: 4, eixoY: 90),
-     GraficoConstrutor(eixoX: 5, eixoY: 110),
-     GraficoConstrutor(eixoX: 6, eixoY: null),
+   static final List<LinearSales> _pressaoSiastolicaAtividadeCozinhandoLista = [
+     LinearSales(eixoX: 0, eixoY: 100,r:8.0),
+     LinearSales(eixoX: 1, eixoY: 90,r:8.0),
+     LinearSales(eixoX: 2, eixoY: 110,r:8.0),
+     LinearSales(eixoX: 3, eixoY: 100,r:8.0),
+     LinearSales(eixoX: 4, eixoY: 90,r:8.0),
+     LinearSales(eixoX: 5, eixoY: 110,r:8.0),
+     LinearSales(eixoX: 6, eixoY: 140,r:8.0),
    ];
 
-   static final List<GraficoConstrutor> _pressaoDiastolicaAtividadeCozinhandoLista = [
-     GraficoConstrutor(eixoX: 0, eixoY: 70),
-     GraficoConstrutor(eixoX: 1, eixoY: 55),
-     GraficoConstrutor(eixoX: 2, eixoY: 84),
-     GraficoConstrutor(eixoX: 3, eixoY: 70),
-     GraficoConstrutor(eixoX: 4, eixoY: 55),
-     GraficoConstrutor(eixoX: 5, eixoY: 84),
-     GraficoConstrutor(eixoX: 6, eixoY: null),
-
+   static final List<LinearSales> _pressaoSiastolicaAtividadeEstudandoLista = [
+     LinearSales(eixoX: 0, eixoY: null,r:8.0),
+     LinearSales(eixoX: 1, eixoY: 90,r:8.0),
+     LinearSales(eixoX: 2, eixoY: 100,r:8.0),
+     LinearSales(eixoX: 3, eixoY: 105,r:8.0),
+     LinearSales(eixoX: 4, eixoY: 110,r:8.0),
+     LinearSales(eixoX: 5, eixoY: 100,r:8.0),
+     LinearSales(eixoX: 6, eixoY: 100,r:8.0),
    ];
-
-   static final List<GraficoConstrutor> _pressaoSiastolicaAtividadeEstudandoLista = [
-     GraficoConstrutor(eixoX: 0, eixoY: 105),
-     GraficoConstrutor(eixoX: 1, eixoY: 90),
-     GraficoConstrutor(eixoX: 2, eixoY: 100),
-     GraficoConstrutor(eixoX: 3, eixoY: 105),
-     GraficoConstrutor(eixoX: 4, eixoY: 110),
-     GraficoConstrutor(eixoX: 5, eixoY: 100),
-     GraficoConstrutor(eixoX: 6, eixoY: 100),
-   ];
-
-   static final List<GraficoConstrutor> _pressaoDiastolicaAtividadeEstudandoLista = [
-     GraficoConstrutor(eixoX: 0, eixoY: 65),
-     GraficoConstrutor(eixoX: 1, eixoY: 50),
-     GraficoConstrutor(eixoX: 2, eixoY: 60),
-     GraficoConstrutor(eixoX: 3, eixoY: 65),
-     GraficoConstrutor(eixoX: 4, eixoY: 50),
-     GraficoConstrutor(eixoX: 5, eixoY: 55),
-     GraficoConstrutor(eixoX: 6, eixoY: 60),
-   ];
-
-
-
-  List<charts.Series<GraficoBarra, String>> _seriesBarra = [
-    charts.Series(
-        id: "GraficoBarraId",
-        data: _exemploBarraLista,
-        domainFn: (GraficoBarra series, _) => series.eixoX,
-        measureFn: (GraficoBarra series, _) => series.eixoY)
-  ];
-
   static List<charts.Series<GraficoConstrutor, int>> seriesSiastolica = [
     charts.Series<GraficoConstrutor, int>(
       id: 'graficoSiastolicaId',
@@ -123,52 +81,31 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
       data: _pressaoDiastolicaTempoLista,
     )
   ];
-  static List<charts.Series<GraficoConstrutor, int>> seriesAtividadeSiastolica = [
-    charts.Series<GraficoConstrutor, int>(
-      id: 'graficoSiastolicaId',
+  static List<charts.Series<LinearSales, int>> seriesAtividadeSiastolica = [
+    charts.Series<LinearSales, int>(
+      id: 'Corrida',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      domainFn: (GraficoConstrutor series, _) => series.eixoX,
-      measureFn: (GraficoConstrutor series, _) => series.eixoY,
+      domainFn: (LinearSales series, _) => series.eixoX,
+      measureFn: (LinearSales series, _) => series.eixoY,
+      radiusPxFn: (LinearSales sales, _) => sales.r,
       data: _pressaoSiastolicaAtividadeCorrerLista,
     ),
-    charts.Series<GraficoConstrutor, int>(
-      id: 'graficoSiastolicaId',
+    charts.Series<LinearSales, int>(
+      id: 'Cozinhando',
       colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-      domainFn: (GraficoConstrutor series, _) => series.eixoX,
-      measureFn: (GraficoConstrutor series, _) => series.eixoY,
+      domainFn: (LinearSales series, _) => series.eixoX,
+      measureFn: (LinearSales series, _) => series.eixoY,
+      radiusPxFn: (LinearSales sales, _) => sales.r,
       data: _pressaoSiastolicaAtividadeCozinhandoLista,
     ),
-    charts.Series<GraficoConstrutor, int>(
-      id: 'graficoSiastolicaId',
+    charts.Series<LinearSales, int>(
+      id: 'Estudando',
       colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
-      domainFn: (GraficoConstrutor series, _) => series.eixoX,
-      measureFn: (GraficoConstrutor series, _) => series.eixoY,
+      domainFn: (LinearSales series, _) => series.eixoX,
+      measureFn: (LinearSales series, _) => series.eixoY,
+      radiusPxFn: (LinearSales sales, _) => sales.r,
       data: _pressaoSiastolicaAtividadeEstudandoLista,
     )
-  ];
-
-  static List<charts.Series<GraficoConstrutor, int>> seriesAtividadeDiastolica = [
-    charts.Series<GraficoConstrutor, int>(
-      id: 'graficoDiastolicaId',
-      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      domainFn: (GraficoConstrutor series, _) => series.eixoX,
-      measureFn: (GraficoConstrutor series, _) => series.eixoY,
-      data: _pressaoDiastolicaAtividadeCorrerLista,
-    ),
-    charts.Series<GraficoConstrutor, int>(
-      id: 'graficoDiastolicaId',
-      colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-      domainFn: (GraficoConstrutor series, _) => series.eixoX,
-      measureFn: (GraficoConstrutor series, _) => series.eixoY,
-      data: _pressaoDiastolicaAtividadeCozinhandoLista,
-    ),
-    charts.Series<GraficoConstrutor, int>(
-      id: 'graficoDiastolicaId',
-      colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
-      domainFn: (GraficoConstrutor series, _) => series.eixoX,
-      measureFn: (GraficoConstrutor series, _) => series.eixoY,
-      data: _pressaoDiastolicaAtividadeEstudandoLista,
-    ),
   ];
   final eixoXPersonalizado = charts.BasicNumericTickFormatterSpec((num valor) {
     switch(valor) {
@@ -294,7 +231,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                 ),
               ),
               Container(
-                height: 400,
+                height: 300,
                 padding: EdgeInsets.all(20),
                 child: Card(
                   child: Padding(
@@ -306,21 +243,22 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                           style: Theme.of(context).textTheme.body2,
                         ),
                         Expanded(
-                          child: charts.LineChart(
+                          child: charts.ScatterPlotChart(
                             seriesAtividadeSiastolica,
-                            defaultRenderer:
-                            new charts.LineRendererConfig(includeArea: true, stacked: true),
                             animate: true,
                             primaryMeasureAxis: new charts.NumericAxisSpec(
                                 tickProviderSpec:
                                 new charts.BasicNumericTickProviderSpec(
-                                    desiredTickCount: 5)),
+                                    desiredTickCount: 3)),
                             domainAxis: charts.NumericAxisSpec(
                               tickProviderSpec:
                               charts.BasicNumericTickProviderSpec(
                                   desiredTickCount: 7),
                               tickFormatterSpec: eixoXPersonalizado,
                             ),
+                            behaviors: [
+                              new charts.SeriesLegend(position: charts.BehaviorPosition.end),
+                            ],
                           ),
                         ),
                       ],
@@ -342,7 +280,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                         ),
                         Expanded(
                           child: charts.LineChart(
-                            seriesAtividadeDiastolica,
+                            seriesAtividadeSiastolica,
                             defaultRenderer:
                             new charts.LineRendererConfig(includeArea: true, stacked: true),
                             animate: true,
@@ -369,59 +307,27 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     ])
     );
   }
-
-  static final List<GraficoBarra> _exemploBarraLista = [
-    GraficoBarra(
-      eixoX: "Segunda",
-      eixoY: 10,
-      barColor: charts.ColorUtil.fromDartColor(gc.corPadrao),
-    ),
-    GraficoBarra(
-      eixoX: "Terça",
-      eixoY: 9,
-      barColor: charts.ColorUtil.fromDartColor(gc.corPadrao),
-    ),
-    GraficoBarra(
-      eixoX: "Quarta",
-      eixoY: 11,
-      barColor: charts.ColorUtil.fromDartColor(gc.corPadrao),
-    ),
-    GraficoBarra(
-      eixoX: "Quinta",
-      eixoY: 14,
-      barColor: charts.ColorUtil.fromDartColor(gc.corPadrao),
-    ),
-    GraficoBarra(
-      eixoX: "Sexta",
-      eixoY: 15,
-      barColor: charts.ColorUtil.fromDartColor(gc.corPadrao),
-    ),
-    GraficoBarra(
-      eixoX: "Sabado",
-      eixoY: 8,
-      barColor: charts.ColorUtil.fromDartColor(gc.corPadrao),
-    ),
-    GraficoBarra(
-      eixoX: "Domingo",
-      eixoY: 11,
-      barColor: charts.ColorUtil.fromDartColor(gc.corPadrao),
-    ),
-  ];
 }
-
-class GraficoBarra {
-  final String eixoX;
-  final int eixoY;
-  final charts.Color barColor;
-
-  GraficoBarra(
-      {@required this.eixoX, @required this.eixoY, @required this.barColor});
-}
-
 /// Sample linear data type.
 class GraficoConstrutor {
   final int eixoX;
   final int eixoY;
 
   GraficoConstrutor({@required this.eixoX, @required this.eixoY});
+}
+
+class LinearSales {
+  final int eixoX;
+  final double eixoY;
+  final double r;
+
+  LinearSales({@required this.eixoX,@required  this.eixoY,@required  this.r});
+}
+
+/// Sample ordinal data type.
+class OrdinalSales {
+  final String eixoX;
+  final int eixoY;
+
+  OrdinalSales({@required this.eixoX,@required  this.eixoY});
 }
