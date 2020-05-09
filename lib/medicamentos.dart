@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'globalConfiguracoes.dart' as gc;
 
 class MedicamentosPage extends StatefulWidget {
   @override
@@ -6,7 +7,7 @@ class MedicamentosPage extends StatefulWidget {
 }
 
 class _MedicamentosPageState extends State<MedicamentosPage> {
-  final _formKey = GlobalKey<FormState>();
+  final _formularioKey = GlobalKey<FormState>();
   List<String> _unidades = ['Ml', 'Mg', 'G'];
   List<String> _tiposRemedio = [
     'Relaxante Muscular',
@@ -31,7 +32,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
         body: new Container(
           padding: EdgeInsets.all(25),
           child: Form(
-              key: _formKey,
+              key: _formularioKey,
               child: ListView(
                 children: <Widget>[
                   TextFormField(
@@ -171,7 +172,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                     child: RaisedButton(
                         child: new Text('Salvar'),
                         onPressed: () {
-                          if (_formKey.currentState.validate()) {
+                          if (_formularioKey.currentState.validate()) {
                             print('pegou');
                           }
                         }),
@@ -184,7 +185,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                       children: _tiposRemedio
                           .map((event) => Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: gc.corPadrao,
                                   border: Border.all(width: 0.8),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
