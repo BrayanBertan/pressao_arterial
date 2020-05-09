@@ -8,10 +8,6 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,14 +99,10 @@ class _loginPageState extends State<loginPage> {
                         ),
                       ),
                     ),
-
-
                   ],
                 )
             )
         )
-
-
     );
   }
 }
