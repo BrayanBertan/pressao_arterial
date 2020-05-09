@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'lista_medicoes.dart';
+import 'listaMedicoes.dart';
+import 'globalConfiguracoes.dart' as gc;
 
-class loginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState()=> _loginPageState();
+  State<StatefulWidget> createState()=> _LoginPageState();
 
 }
 
-class _loginPageState extends State<loginPage> {
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +48,7 @@ class _loginPageState extends State<loginPage> {
                       onTap: (){
                         Navigator.push(
                             context, 
-                            MaterialPageRoute(builder: (context) =>listaPage())
+                            MaterialPageRoute(builder: (context) =>ListaMedicoesPage())
                         );
                             
                       },
@@ -80,7 +77,7 @@ class _loginPageState extends State<loginPage> {
                       onTap: (){
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>listaPage())
+                            MaterialPageRoute(builder: (context) =>ListaMedicoesPage())
                         );
                       },
                       child: Container(
@@ -103,14 +100,10 @@ class _loginPageState extends State<loginPage> {
                         ),
                       ),
                     ),
-
-
                   ],
                 )
             )
         )
-
-
     );
   }
 }

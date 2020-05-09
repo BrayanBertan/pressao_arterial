@@ -1,65 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'medicamentos.dart';
-import 'relatorio_grafico.dart';
+import 'relatorioGrafico.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'globalConfiguracoes.dart' as gc;
 
-class listaPage extends StatefulWidget {
+class ListaMedicoesPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _listaPageState();
+  State<StatefulWidget> createState() => _ListaMedicoesPageState();
 }
 
-class _listaPageState extends State<listaPage> {
-  int _tela_descricao_medicao = 1;
-  List<String> remedios = [
+class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
+  int _telaDescricaoMedicao = 1;
+  List<String> _listaRemedios = [
     'Remedio 1 10ml 1 vez ao dia Aaaaaaaaa',
     'Remedio 2 1mg 3 vez ao dia Bbbbbbbbbb'
   ];
-  List<String> atividades = [
+  List<String> _atividades = [
     'Atividade 1 Andei pra krlha',
     'Atividade 2 Cozinhando',
     'Atividade 3 Estudando'
   ];
+  CalendarController _calendarioController = new CalendarController();
 
-  CalendarController _calendarController = new CalendarController();
-
-  Map<DateTime, List> _events;
-  List _selectedEvents = new List();
+  Map<DateTime, List> _listaEventos;
+  List _eventosSelecionados = new List();
   @override
   void initState() {
     super.initState();
-    final _selectedDay = DateTime.now();
+    final _diaSelecionado = DateTime.now();
 
-    _events = {
-      _selectedDay.subtract(Duration(days: 2)): [
+    _listaEventos = {
+      _diaSelecionado.subtract(Duration(days: 2)): [
         {'sis': '120', 'dia': '80', 'pulso': '50', 'Horario': '10:00'},
         {'sis': '100', 'dia': '65', 'pulso': '90', 'Horario': '15:00'}
       ],
-      _selectedDay: [
+      _diaSelecionado: [
         {'sis': '110', 'dia': '70', 'pulso': '70', 'Horario': '20:00'}
       ],
-      _selectedDay.add(Duration(days: 1)): [
+      _diaSelecionado.add(Duration(days: 1)): [
         {'sis': '90', 'dia': '50', 'pulso': '70', 'Horario': '21:00'},
         {'sis': '150', 'dia': '90', 'pulso': '70', 'Horario': '22:00'},
         {'sis': '105', 'dia': '75', 'pulso': '70', 'Horario': '05:00'}
       ],
     };
 
-    _selectedEvents = _events[_selectedDay] ?? [];
-    _calendarController = new CalendarController();
+    _eventosSelecionados = _listaEventos[_diaSelecionado] ?? [];
+    _calendarioController = new CalendarController();
   }
 
   @override
   void dispose() {
-    _calendarController.dispose();
+    _calendarioController.dispose();
     super.dispose();
   }
 
   void _onDaySelected(DateTime day, List events) {
     print('CALLBACK: _onDaySelected');
     setState(() {
-      _selectedEvents = events;
+      _eventosSelecionados = events;
     });
   }
 
@@ -74,9 +74,9 @@ class _listaPageState extends State<listaPage> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             //-----------------------
-            _buildTableCalendar(),
+            _calendarioConstrutor(),
             const SizedBox(height: 8.0),
-            Expanded(child: _buildEventList()),
+            Expanded(child: _listaEventosConstrutor()),
           ],
         ),
       ),
@@ -95,13 +95,7 @@ class _listaPageState extends State<listaPage> {
               backgroundColor: Colors.green,
               label: 'Anotar',
               labelBackgroundColor: Colors.white,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MedicamentosPage(),
-                    ));
-              }),
+              onTap: () {}),
           SpeedDialChild(
               child: Container(
                 child: CircleAvatar(
@@ -111,12 +105,11 @@ class _listaPageState extends State<listaPage> {
               backgroundColor: Colors.green,
               label: 'Medicamentos',
               labelBackgroundColor: Colors.white,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => relatorio_graficoPage(),
-                    ));
+              onTap: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MedicamentosPage(),
+                  ));
               }),
           SpeedDialChild(
               child: Container(
@@ -128,7 +121,11 @@ class _listaPageState extends State<listaPage> {
               label: 'Relátorios',
               labelBackgroundColor: Colors.white,
               onTap: () {
-                print('a');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RelatorioGraficoPage(),
+                    ));
               }),
         ],
       ),
@@ -137,15 +134,15 @@ class _listaPageState extends State<listaPage> {
 
   //=============FUCKING CALENDARIO DO SATANAS
 
-  Widget _buildTableCalendar() {
+  Widget _calendarioConstrutor() {
     return TableCalendar(
-      calendarController: _calendarController,
+      calendarController: _calendarioController,
       locale: 'pt_BR',
-      events: _events,
+      events: _listaEventos,
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
-        selectedColor: Colors.blue,
-        todayColor: Colors.blue[100],
+        selectedColor: gc.corPadrao,
+        todayColor: gc.corPadrao[100],
         markersColor: Colors.black,
         outsideDaysVisible: false,
       ),
@@ -161,17 +158,17 @@ class _listaPageState extends State<listaPage> {
     );
   }
 
-  Widget _buildEventList() {
+  Widget _listaEventosConstrutor() {
     return ListView(
       scrollDirection: Axis.vertical,
-      children: _selectedEvents
+      children: _eventosSelecionados
           .map((event) => GestureDetector(
                 onTap: () {
-                  showSimpleCustomDialog(context, event);
+                  _descricaoMedicaoDialog(context, event);
                 },
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: gc.corPadrao,
                       border: Border.all(width: 0.8),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
@@ -235,7 +232,7 @@ class _listaPageState extends State<listaPage> {
     );
   }
 
-  void showSimpleCustomDialog(BuildContext context, Map event) {
+  void _descricaoMedicaoDialog(BuildContext context, Map event) {
     showDialog(context: context, builder: (BuildContext context) {
       return StatefulBuilder(
           builder: (context, setState) {
@@ -253,7 +250,7 @@ class _listaPageState extends State<listaPage> {
                       clipper: WaveClipperOne(),
                       child: Container(
                         height: 120,
-                        color: Colors.blue,
+                        color: gc.corPadrao,
                         child: Center(child: Text("AQUI VAI ALGUMA COISA")),
                       ),
                     ),
@@ -267,14 +264,14 @@ class _listaPageState extends State<listaPage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _tela_descricao_medicao=1;
-                                print(_tela_descricao_medicao);
+                                _telaDescricaoMedicao=1;
+                                print(_telaDescricaoMedicao);
                               });
                             },
                             child: Container(
                               height: 65,
                               width: 65,
-                              color: _tela_descricao_medicao == 0
+                              color: _telaDescricaoMedicao == 0
                                   ? Colors.grey
                                   : Colors.transparent,
                               child: CircleAvatar(
@@ -291,14 +288,14 @@ class _listaPageState extends State<listaPage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _tela_descricao_medicao=2;
-                                print(_tela_descricao_medicao);
+                                _telaDescricaoMedicao=2;
+                                print(_telaDescricaoMedicao);
                               });
                             },
                             child: Container(
                               height: 65,
                               width: 65,
-                              color: _tela_descricao_medicao == 0
+                              color: _telaDescricaoMedicao == 0
                                   ? Colors.grey
                                   : Colors.transparent,
                               child: CircleAvatar(
@@ -322,7 +319,7 @@ class _listaPageState extends State<listaPage> {
                               return Container(
                                 padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
                                 decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: gc.corPadrao,
                                   border: Border.all(width: 0.8),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
@@ -330,19 +327,19 @@ class _listaPageState extends State<listaPage> {
                                     horizontal: 8.0, vertical: 4.0),
                                 child: Column(
                                   children: <Widget>[
-                                    Text( (_tela_descricao_medicao==1)?remedios[index]:atividades[index]),
+                                    Text( (_telaDescricaoMedicao==1)?_listaRemedios[index]:_atividades[index]),
                                   ],
                                 ),
                               );
                             },
-                            itemCount: (_tela_descricao_medicao==1)?2:3,
+                            itemCount: (_telaDescricaoMedicao==1)?2:3,
                           ),
                         )),
                     Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10, top: 1),
                         child: Center(
                           child: RaisedButton(
-                            color: Colors.blue,
+                            color: gc.corPadrao,
                             onPressed: () {
                               Navigator.of(context).pop();
                             },

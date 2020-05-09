@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
-import 'package:flutter/services.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'icomoon.dart';
+import 'globalConfiguracoes.dart' as gc;
 void main() {
-  initializeDateFormatting().then((_) => runApp(MyApp()));
+  initializeDateFormatting().then((_) => runApp(PressaoArterialApp()));
 
 }
 
-class MyApp extends StatelessWidget {
+class PressaoArterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Pressão arterial',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: gc.corPadrao,
       ),
-      home: SafeArea(child: loginPage())
+      home: SafeArea(child: LoginPage())
     );
   }
 }
