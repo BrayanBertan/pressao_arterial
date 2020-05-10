@@ -33,34 +33,35 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     GraficoConstrutor(eixoX: 6, eixoY: 60),
   ];
 
-  static final List<LinearSales> _pressaoSiastolicaAtividadeCorrerLista = [
-    LinearSales(eixoX: 0, eixoY: 120,r:8.0),
-    LinearSales(eixoX: 1, eixoY: 140,r:8.0),
-    LinearSales(eixoX: 2, eixoY: 140,r:8.0),
-    LinearSales(eixoX: 3, eixoY: 120,r:8.0),
-    LinearSales(eixoX: 4, eixoY: 140,r:8.0),
-    LinearSales(eixoX: 5, eixoY: 110,r:8.0),
-    LinearSales(eixoX: 6, eixoY: 110,r:8.0),
+  static final List<LinearSales1> _pressaoSiastolicaAtividadeCorrerLista = [
+    LinearSales1(eixoY: 'Segunda', eixoX: 140),
+    LinearSales1(eixoY: 'Terça', eixoX: 140),
+    LinearSales1(eixoY: 'Quarta', eixoX: 140),
+    LinearSales1(eixoY: 'Quinta', eixoX: 120),
+    LinearSales1(eixoY: 'Quinta', eixoX: 90),
+    LinearSales1(eixoY: 'Sexta', eixoX: 140),
+    LinearSales1(eixoY: 'Sabado', eixoX: 110),
+    LinearSales1(eixoY: 'Domingo', eixoX: 110),
   ];
 
-   static final List<LinearSales> _pressaoSiastolicaAtividadeCozinhandoLista = [
-     LinearSales(eixoX: 0, eixoY: 100,r:8.0),
-     LinearSales(eixoX: 1, eixoY: 90,r:8.0),
-     LinearSales(eixoX: 2, eixoY: 110,r:8.0),
-     LinearSales(eixoX: 3, eixoY: 100,r:8.0),
-     LinearSales(eixoX: 4, eixoY: 90,r:8.0),
-     LinearSales(eixoX: 5, eixoY: 110,r:8.0),
-     LinearSales(eixoX: 6, eixoY: 140,r:8.0),
+   static final List<LinearSales1> _pressaoSiastolicaAtividadeCozinhandoLista = [
+     LinearSales1(eixoY: 'Segunda', eixoX: 100),
+    LinearSales1(eixoY: 'Terça', eixoX: 90),
+    LinearSales1(eixoY: 'Quarta', eixoX: 110),
+    LinearSales1(eixoY: 'Quinta', eixoX: 100),
+    LinearSales1(eixoY: 'Sexta', eixoX: 90),
+    LinearSales1(eixoY: 'Sabado', eixoX: 110),
+    LinearSales1(eixoY: 'Domingo', eixoX: 140),
    ];
 
-   static final List<LinearSales> _pressaoSiastolicaAtividadeEstudandoLista = [
-     LinearSales(eixoX: 0, eixoY: null,r:8.0),
-     LinearSales(eixoX: 1, eixoY: 90,r:8.0),
-     LinearSales(eixoX: 2, eixoY: 100,r:8.0),
-     LinearSales(eixoX: 3, eixoY: 105,r:8.0),
-     LinearSales(eixoX: 4, eixoY: 110,r:8.0),
-     LinearSales(eixoX: 5, eixoY: 100,r:8.0),
-     LinearSales(eixoX: 6, eixoY: 100,r:8.0),
+   static final List<LinearSales1> _pressaoSiastolicaAtividadeEstudandoLista = [
+   LinearSales1(eixoY: 'Segunda',eixoX: null),
+   LinearSales1(eixoY: 'Terça', eixoX: 90),
+   LinearSales1(eixoY: 'Quarta', eixoX: 100),
+   LinearSales1(eixoY: 'Quinta', eixoX: 105),
+   LinearSales1(eixoY: 'Sexta', eixoX: 110),
+   LinearSales1(eixoY: 'Sabado',  eixoX: 100),
+   LinearSales1(eixoY: 'Domingo',eixoX: 100),
    ];
   static List<charts.Series<GraficoConstrutor, int>> seriesSiastolica = [
     charts.Series<GraficoConstrutor, int>(
@@ -81,29 +82,26 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
       data: _pressaoDiastolicaTempoLista,
     )
   ];
-  static List<charts.Series<LinearSales, int>> seriesAtividadeSiastolica = [
-    charts.Series<LinearSales, int>(
+  static List<charts.Series<LinearSales1, String>> seriesAtividadeSiastolica = [
+    charts.Series<LinearSales1, String>(
       id: 'Corrida',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      domainFn: (LinearSales series, _) => series.eixoX,
-      measureFn: (LinearSales series, _) => series.eixoY,
-      radiusPxFn: (LinearSales sales, _) => sales.r,
+      domainFn: (LinearSales1 series, _) => series.eixoY,
+      measureFn: (LinearSales1 series, _) => series.eixoX,
       data: _pressaoSiastolicaAtividadeCorrerLista,
     ),
-    charts.Series<LinearSales, int>(
+    charts.Series<LinearSales1, String>(
       id: 'Cozinhando',
       colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-      domainFn: (LinearSales series, _) => series.eixoX,
-      measureFn: (LinearSales series, _) => series.eixoY,
-      radiusPxFn: (LinearSales sales, _) => sales.r,
+      domainFn: (LinearSales1 series, _) => series.eixoY,
+      measureFn: (LinearSales1 series, _) => series.eixoX,
       data: _pressaoSiastolicaAtividadeCozinhandoLista,
     ),
-    charts.Series<LinearSales, int>(
+    charts.Series<LinearSales1, String>(
       id: 'Estudando',
       colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
-      domainFn: (LinearSales series, _) => series.eixoX,
-      measureFn: (LinearSales series, _) => series.eixoY,
-      radiusPxFn: (LinearSales sales, _) => sales.r,
+      domainFn: (LinearSales1 series, _) => series.eixoY,
+      measureFn: (LinearSales1 series, _) => series.eixoX,
       data: _pressaoSiastolicaAtividadeEstudandoLista,
     )
   ];
@@ -231,7 +229,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                 ),
               ),
               Container(
-                height: 300,
+                height: 500,
                 padding: EdgeInsets.all(20),
                 child: Card(
                   child: Padding(
@@ -243,57 +241,14 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                           style: Theme.of(context).textTheme.body2,
                         ),
                         Expanded(
-                          child: charts.ScatterPlotChart(
+                          child: charts.BarChart(
                             seriesAtividadeSiastolica,
                             animate: true,
-                            primaryMeasureAxis: new charts.NumericAxisSpec(
-                                tickProviderSpec:
-                                new charts.BasicNumericTickProviderSpec(
-                                    desiredTickCount: 3)),
-                            domainAxis: charts.NumericAxisSpec(
-                              tickProviderSpec:
-                              charts.BasicNumericTickProviderSpec(
-                                  desiredTickCount: 7),
-                              tickFormatterSpec: eixoXPersonalizado,
-                            ),
+                            barGroupingType: charts.BarGroupingType.grouped,
+                            vertical: false,
                             behaviors: [
                               new charts.SeriesLegend(position: charts.BehaviorPosition.end),
                             ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 400,
-                padding: EdgeInsets.all(20),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          "Diastolica",
-                          style: Theme.of(context).textTheme.body2,
-                        ),
-                        Expanded(
-                          child: charts.LineChart(
-                            seriesAtividadeSiastolica,
-                            defaultRenderer:
-                            new charts.LineRendererConfig(includeArea: true, stacked: true),
-                            animate: true,
-                            primaryMeasureAxis: new charts.NumericAxisSpec(
-                                tickProviderSpec:
-                                new charts.BasicNumericTickProviderSpec(
-                                    desiredTickCount: 5)),
-                            domainAxis: charts.NumericAxisSpec(
-                              tickProviderSpec:
-                              charts.BasicNumericTickProviderSpec(
-                                  desiredTickCount: 7),
-                              tickFormatterSpec: eixoXPersonalizado,
-                            ),
                           ),
                         ),
                       ],
@@ -325,9 +280,9 @@ class LinearSales {
 }
 
 /// Sample ordinal data type.
-class OrdinalSales {
-  final String eixoX;
-  final int eixoY;
+class LinearSales1 {
+  final int eixoX;
+  final String eixoY;
 
-  OrdinalSales({@required this.eixoX,@required  this.eixoY});
+  LinearSales1({@required  this.eixoY, this.eixoX});
 }
