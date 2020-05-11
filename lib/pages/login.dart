@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'listaMedicoes.dart';
-import 'globalConfiguracoes.dart' as gc;
+import 'lista_medicoes.dart';
+import 'configuracao_global.dart' as gc;
 
 class LoginPage extends StatefulWidget {
   @override

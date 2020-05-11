@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'medicamentos.dart';
-import 'relatorioGrafico.dart';
+import 'relatorio_grafico.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'globalConfiguracoes.dart' as gc;
+import 'configuracao_global.dart' as gc;
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ListaMedicoesPage extends StatefulWidget {
