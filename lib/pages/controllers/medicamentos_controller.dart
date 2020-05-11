@@ -13,7 +13,7 @@ abstract class _MedicamentoController with Store {
   final api = Modular.get<MedicamentoApiRepository>();
 
   @observable
-  Medicamento remedio = Medicamento(nome:"teste",dose:0,quantidade_diaria:0,id_unidade:1,id_tipo:1,anotacao:"aaa");
+  Medicamento remedio = Medicamento(nome:"AAAA",dose:1,quantidade_diaria:1,id_unidade:1,id_tipo:1,anotacao:"bbbb");
   @observable
   ObservableList<Unidade> unidades = [
     Unidade(id:1,nome:'Ml'),
@@ -35,9 +35,6 @@ abstract class _MedicamentoController with Store {
     Tipo(id:8,nome:'Ansiolitíco'),
     Tipo(id:9,nome: 'Anticonvulsionante')
   ].asObservable();
-
-  @observable
-  ObservableList<Medicamento> medicamentos = [].asObservable();
 
   //@action
   //getMedicamento(Medicamento valor) => remedio = valor;
