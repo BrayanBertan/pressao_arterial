@@ -5,6 +5,7 @@ import 'relatorioGrafico.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'globalConfiguracoes.dart' as gc;
+import 'package:flutter_modular/flutter_modular.dart';
 
 class ListaMedicoesPage extends StatefulWidget {
   @override
@@ -68,6 +69,9 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Registros'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+        ),
       ),
       body: new Container(
         child: Column(
@@ -105,11 +109,8 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
               backgroundColor: Colors.green,
               label: 'Medicamentos',
               labelBackgroundColor: Colors.white,
-              onTap: () {Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MedicamentosPage(),
-                  ));
+              onTap: () {
+                Modular.to.pushNamed('/medicamentos');
               }),
           SpeedDialChild(
               child: Container(
@@ -121,11 +122,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
               label: 'Relátorios',
               labelBackgroundColor: Colors.white,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RelatorioGraficoPage(),
-                    ));
+                Modular.to.pushNamed('/relatorios');
               }),
         ],
       ),
@@ -341,7 +338,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                           child: RaisedButton(
                             color: gc.corPadrao,
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Modular.to.pop();
                             },
                             child: Text(
                               'Voltar',

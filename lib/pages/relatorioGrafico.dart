@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'globalConfiguracoes.dart' as gc;
+import 'package:flutter_modular/flutter_modular.dart';
 
 class RelatorioGraficoPage extends StatefulWidget {
   @override
