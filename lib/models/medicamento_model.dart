@@ -23,4 +23,15 @@ class Medicamento {
         id_tipo: obj['id_tipo'],
         anotacao: obj['anotacao']);
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'nome': nome,
+      'dose': dose,
+      'quantidade_diaria': quantidade_diaria,
+      'id_unidade': id_unidade,
+      'id_tipo': id_tipo,
+      'anotacao': anotacao
+    };
+  }
 }

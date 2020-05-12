@@ -21,7 +21,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("${medicamento.remedio}"),
+          title: Text(""),
         ),
         body: new Container(
           padding: EdgeInsets.all(25),
@@ -189,7 +189,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                         child: new Text('Salvar'),
                         onPressed: () {
                           if (_formularioKey.currentState.validate()) {
-                           medicamento.setMedicamentos();
+                           medicamento.setMedicamentos(medicamento_nome.text,medicamento_dose.text,medicamento_quantidade_diaria.text,medicamento_anotacao.text);
                           }
                         }),
                   ),

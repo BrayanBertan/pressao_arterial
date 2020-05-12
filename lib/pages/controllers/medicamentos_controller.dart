@@ -12,8 +12,12 @@ class MedicamentoController = _MedicamentoController with _$MedicamentoControlle
 abstract class _MedicamentoController with Store {
   final api = Modular.get<MedicamentoApiRepository>();
 
+  _MedicamentoController() {
+    getAllMedicamentos();
+  }
+
   @observable
-  Medicamento remedio = Medicamento(nome:"AAAA",dose:1,quantidade_diaria:1,id_unidade:1,id_tipo:1,anotacao:"bbbb");
+  Medicamento remedio = Medicamento(nome:"bbbb",dose:1,quantidade_diaria:1,id_unidade:1,id_tipo:1,anotacao:"bbbb");
   @observable
   ObservableList<Unidade> unidades = [
     Unidade(id:1,nome:'Ml'),
@@ -36,8 +40,9 @@ abstract class _MedicamentoController with Store {
     Tipo(id:9,nome: 'Anticonvulsionante')
   ].asObservable();
 
-  //@action
-  //getMedicamento(Medicamento valor) => remedio = valor;
+  @observable
+  ObservableList<Medicamento> lista;
+
   @action
   setUnidadeSelecionada(int valor) {
     remedio.id_unidade = valor;
@@ -50,10 +55,20 @@ abstract class _MedicamentoController with Store {
     tipos.add( Tipo(id:100,nome: 'T'));
     tipos.removeLast();
   }
+  @action
+  setMedicamentos(String nomeTxt, String doseTxt,quantidade_diariaTxt,anotacaoTxt) async {
+    remedio.nome = nomeTxt;
+    remedio.dose = double.tryParse(doseTxt);
+    remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
+    remedio.anotacao = anotacaoTxt;
+
+    api.setMedicamento(remedio);
+  }
 
   @action
-  setMedicamentos() async {
-    api.setMedicamento();
+  getAllMedicamentos() async {
+    lista = await api.getAllMedicamentos();
+    print(lista);
   }
 
 }
