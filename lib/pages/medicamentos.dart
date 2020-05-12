@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'configuracao_global.dart' as gc;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pressaoarterialapp/pages/controllers/medicamentos_controller.dart';
@@ -152,7 +153,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                         child: Observer(
                             builder: (_) {
                               return DropdownButton<int>(
-                                items: medicamento.unidades
+                                items: medicamento.tipos
                                     .map(
                                   ((element) => DropdownMenuItem(
                                     value: element.id,
@@ -196,6 +197,28 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                   SizedBox(
                     height: 15.0,
                   ),
+                  Observer(
+                      builder: (_) {
+                        return Container(
+                          child: Column(
+                            children: medicamento.remedios
+                                .map((event) => Container(
+                              decoration: BoxDecoration(
+                                color: gc.corPadrao,
+                                border: Border.all(width: 0.8),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                              child: ListTile(
+                                title: Text(event.nome),
+                                leading: Icon(Icons.delete_forever),
+                              ),
+                            ))
+                                .toList(),
+                          ),
+                        );
+                      }
+                  )
                 ],
               )),
         ));

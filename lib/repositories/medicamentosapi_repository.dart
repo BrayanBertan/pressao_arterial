@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
 
 class MedicamentoApiRepository {
@@ -20,13 +21,11 @@ class MedicamentoApiRepository {
 
 
   Future<List<Medicamento>> getAllMedicamentos() async {
-    Response response = await _dio.get('$url/getAllMedicamentos.php/2');
-    if (response.statusCode != 200) {
-      print(response.data);
-      throw Exception();
-    } else {
-     return Medicamento.fromJson(response.data);
-    }
+    Response response = await _dio.get('$url/getAllMedicamentos.php');
+    var a = jsonDecode(response.data);
+    return ( a as List)
+        .map((data) => new Medicamento.fromJson(data))
+        .toList();
   }
 }
 

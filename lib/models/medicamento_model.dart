@@ -14,13 +14,13 @@ class Medicamento {
       this.id_tipo,
       this.anotacao});
 
-  factory Medicamento.fromJson(Map obj) {
+  factory Medicamento.fromJson(Map<String, dynamic> obj) {
     return Medicamento(
         nome: obj['nome'],
-        dose: obj['dose'],
-        quantidade_diaria: obj['quantidade_diaria'],
-        id_unidade: obj['id_unidade'],
-        id_tipo: obj['id_tipo'],
+        dose: double.parse(obj['dose']),
+        quantidade_diaria: int.parse(obj['quantidade_diaria']),
+        id_unidade: int.parse(obj['id_unidade']),
+        id_tipo: int.parse(obj['id_tipo']),
         anotacao: obj['anotacao']);
   }
 

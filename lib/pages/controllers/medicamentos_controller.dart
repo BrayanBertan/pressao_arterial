@@ -15,15 +15,14 @@ abstract class _MedicamentoController with Store {
   _MedicamentoController() {
     getAllMedicamentos();
   }
-
   @observable
-  Medicamento remedio = Medicamento(nome:"bbbb",dose:1,quantidade_diaria:1,id_unidade:1,id_tipo:1,anotacao:"bbbb");
+  Medicamento remedio = Medicamento(nome:"",dose:1,quantidade_diaria:1,id_unidade:1,id_tipo:1,anotacao:"bbbb");
   @observable
   ObservableList<Unidade> unidades = [
-    Unidade(id:1,nome:'Ml'),
+    Unidade(id:1,nome:'Comprimido'),
     Unidade(id:2,nome:'Mg'),
     Unidade(id:3,nome: 'G'),
-    Unidade(id:4,nome:'Comprimido'),
+    Unidade(id:4,nome:'Ml'),
     Unidade(id:5,nome: 'Gotas'),
     ].asObservable();
 
@@ -41,7 +40,7 @@ abstract class _MedicamentoController with Store {
   ].asObservable();
 
   @observable
-  ObservableList<Medicamento> lista;
+  ObservableList<Medicamento> remedios = [ Medicamento(nome:"teste",dose:1,quantidade_diaria:1,id_unidade:1,id_tipo:1,anotacao:"bbbb")].asObservable();
 
   @action
   setUnidadeSelecionada(int valor) {
@@ -63,12 +62,17 @@ abstract class _MedicamentoController with Store {
     remedio.anotacao = anotacaoTxt;
 
     api.setMedicamento(remedio);
+    remedios.add(remedio);
   }
 
   @action
   getAllMedicamentos() async {
-    lista = await api.getAllMedicamentos();
-    print(lista);
+     List l = new List();
+     l = await api.getAllMedicamentos();
+     remedios.removeAt(0);
+     l.forEach((element) => remedios.add(element));
   }
+
+
 
 }
