@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'listaMedicoes.dart';
-import 'globalConfiguracoes.dart' as gc;
+import 'lista_medicoes.dart';
+import 'configuracao_global.dart' as gc;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,6 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(10.0),
                           color: Colors.white,
                         ),
+                        width: 15,
                         height: 50,
                         child: Row(
                           children: <Widget>[
@@ -67,7 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                               maxRadius: 20,
                             ),
                             SizedBox(width: 30,),
-                            Text('Faça o login com o google')
+                      FittedBox(fit:BoxFit.fitWidth,child: Text('Faça o login com o google'),)
+
                           ],
                         ),
                       ),
