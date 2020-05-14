@@ -18,19 +18,19 @@ Future<Medicamento>saveMedicamento(Medicamento m) async{
     Database dbMedicamento = await bh.db;
     print(dbMedicamento);
     print(m.toMap());
-    m.id = await dbMedicamento.insert(bh.medicamentoTable, m.toMap());
+    m.id = await dbMedicamento.insert(bh.MedicamentoTable, m.toMap());
     print(m.id);
     return m;
 }
 
 Future<Medicamento> getMedicamento(int id) async{
   Database dbMedicamento = await bh.db;
-  List<Map> maps = await dbMedicamento.query(bh.medicamentoTable,
-      columns: [bh.idColumn,bh.nomeColumn,
-        bh.doseColumn,bh.quantidade_diariaColumn,
-        bh.id_unidadeColumn,bh.id_tipoColumn
+  List<Map> maps = await dbMedicamento.query(bh.MedicamentoTable,
+      columns: [bh.medicamento_idColumn,bh.medicamento_nomeColumn,
+        bh.medicamento_doseColumn,bh.medicamento_quantidade_diariaColumn,
+        bh.medicamento_id_unidadeColumn,bh.medicamento_id_tipoColumn
       ],
-    where: "$bh.idColumn = ?",
+    where: "$bh.medicamento_idColumn = ?",
     whereArgs: [id]
   );
   if (maps.length > 0) {
@@ -42,15 +42,15 @@ Future<Medicamento> getMedicamento(int id) async{
 }
 Future<int>deleteMedicamento(int id) async {
     Database dbMedicamento = await bh.db;
-    return await dbMedicamento.delete(bh.medicamentoTable,where: "${bh.idColumn} = ?",whereArgs: [id]);
+    return await dbMedicamento.delete(bh.MedicamentoTable,where: "${bh.medicamento_idColumn} = ?",whereArgs: [id]);
   }
 
   Future<int>updateMedicamento(Medicamento m) async {
     Database dbMedicamento = await bh.db;
     print(dbMedicamento);
-    print(bh.idColumn);
+    print(bh.medicamento_idColumn);
     print(m.toMap());
-    return await dbMedicamento.update(bh.medicamentoTable,m.toMap(),where: "${bh.idColumn} = ?",whereArgs: [m.id]);
+    return await dbMedicamento.update(bh.MedicamentoTable,m.toMap(),where: "${bh.medicamento_idColumn} = ?",whereArgs: [m.id]);
   }
 
   Future<List<Medicamento>> getAllMedicamento() async{

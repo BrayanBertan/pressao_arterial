@@ -99,7 +99,9 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
               backgroundColor: Colors.green,
               label: 'Anotar',
               labelBackgroundColor: Colors.white,
-              onTap: () {}),
+              onTap: () {
+                Modular.to.pushNamed('/medicoes');
+              }),
           SpeedDialChild(
               child: Container(
                 child: CircleAvatar(

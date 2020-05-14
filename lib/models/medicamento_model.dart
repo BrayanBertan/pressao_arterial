@@ -24,26 +24,26 @@ class Medicamento {
   });
 
   Medicamento.fromMap(Map map) {
-    id = map[bh.idColumn];
-    nome = map[bh.nomeColumn];
-    dose = map[bh.doseColumn];
-    quantidade_diaria = map[bh.quantidade_diariaColumn];
-    id_unidade = map[bh.id_unidadeColumn];
-    id_tipo = map[bh.id_tipoColumn];
-    anotacao = map[bh.anotacaoColumn];
+    id = map[bh.medicamento_idColumn];
+    nome = map[bh.medicamento_nomeColumn];
+    dose = map[bh.medicamento_doseColumn];
+    quantidade_diaria = map[bh.medicamento_quantidade_diariaColumn];
+    id_unidade = map[bh.medicamento_id_unidadeColumn];
+    id_tipo = map[bh.medicamento_id_tipoColumn];
+    anotacao = map[bh.medicamento_anotacaoColumn];
   }
 
   Map toMap() {
     Map<String, dynamic> map = {
-      bh.nomeColumn : nome,
-      bh.doseColumn  : dose,
-      bh.quantidade_diariaColumn : quantidade_diaria,
-      bh.id_unidadeColumn :   id_unidade,
-      bh.id_tipoColumn :    id_tipo,
-      bh.anotacaoColumn :  anotacao,
+      bh.medicamento_nomeColumn : nome,
+      bh.medicamento_doseColumn  : dose,
+      bh.medicamento_quantidade_diariaColumn : quantidade_diaria,
+      bh.medicamento_id_unidadeColumn :   id_unidade,
+      bh.medicamento_id_tipoColumn :    id_tipo,
+      bh.medicamento_anotacaoColumn :  anotacao,
     };
     if(id != null) {
-      map[bh.idColumn] = id;
+      map[bh.medicamento_idColumn] = id;
     }
     return map;
 

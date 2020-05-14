@@ -7,7 +7,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // set your initial route
-      initialRoute: "/login",
+      initialRoute: "/",
       navigatorKey: Modular.navigatorKey,
       // add Modular to manage the routing system
       onGenerateRoute: Modular.generateRoute,
