@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:pressaoarterialapp/models/unidade_model.dart';
 import 'package:pressaoarterialapp/models/tipo_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/repositories/medicamentosapi_repository.dart';
+import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
 import 'dart:async';
 part 'medicamentos_controller.g.dart';
 
@@ -12,15 +14,18 @@ class MedicamentoController = _MedicamentoController
 
 abstract class _MedicamentoController with Store {
   final api = Modular.get<MedicamentoApiRepository>();
+  final apiLite = Modular.get<MedicamentoHelper>();
+  MedicamentoHelper helper = MedicamentoHelper();
 
   @observable
   Medicamento remedio = Medicamento(
       nome: "",
-      dose: 1,
-      quantidade_diaria: 1,
+      dose: 0,
+      quantidade_diaria: 0,
       id_unidade: 1,
       id_tipo: 1,
-      anotacao: "");
+      anotacao: ""
+  );
   @observable
   ObservableList<Unidade> unidades = [
     Unidade(id: 1, nome: 'Comprimido'),
@@ -64,6 +69,21 @@ abstract class _MedicamentoController with Store {
   }
 
   @action
+  setMedicamentoTeste() async {
+    Medicamento m = Medicamento();
+    m.nome = "";
+    m.dose = 0;
+    m.quantidade_diaria = 0;
+    m.id_unidade = 1;
+    m.id_tipo = 1;
+    m.anotacao = "";
+    await helper.saveMedicamentoL(m);
+    helper.getAllMedicamento().then((list){
+      print(list);
+    });
+  }
+
+  @action
   setUnidadeSelecionada(int valor) {
     remedio.id_unidade = valor;
     unidades.add(Unidade(id: 100, nome: 'T'));
@@ -81,16 +101,41 @@ abstract class _MedicamentoController with Store {
   setMedicamentos(
       String nomeTxt, String doseTxt, quantidade_diariaTxt, anotacaoTxt) async {
     setCarregandoLista(true);
-    remedio.nome = nomeTxt;
-    remedio.dose = double.tryParse(doseTxt);
-    remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
-    remedio.anotacao = anotacaoTxt;
-    api.setMedicamento(remedio);
+    if(remedio.id != null) {
+      remedio.nome = nomeTxt;
+      remedio.dose = int.tryParse(doseTxt);
+      remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
+      remedio.anotacao = anotacaoTxt;
+      await helper.updateMedicamentoL(remedio);
+      remedio.id = null;
+      remedio = Medicamento(
+          nome: "",
+          dose: 0,
+          quantidade_diaria: 0,
+          id_unidade: 1,
+          id_tipo: 1,
+          anotacao: ""
+      );
+    }else{
+      remedio.nome = nomeTxt;
+      remedio.dose = int.tryParse(doseTxt);
+      remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
+      remedio.anotacao = anotacaoTxt;
+      //await api.setMedicamento(remedio);
+      await helper.saveMedicamentoL(remedio);
+      remedio.id = null;
+      remedio = Medicamento(
+          nome: "",
+          dose: 0,
+          quantidade_diaria: 0,
+          id_unidade: 1,
+          id_tipo: 1,
+          anotacao: ""
+      );
+    }
 
-    Timer(Duration(seconds: 5), () {
-      getAllMedicamentos();
-    });
-
+    getAllMedicamentos();
+    //await getAllMedicamentos();
   }
 
   @action
@@ -100,10 +145,15 @@ abstract class _MedicamentoController with Store {
     remedios.clear();
     List l = new List();
     l.clear();
-    l = await api.getAllMedicamentos();
+    l = await helper.getAllMedicamento();
     //remedios.removeAt(0);
     l.forEach((element) => remedios.add(element));
     setCarregandoLista(false);
-
   }
+
+  @action
+  setEditMedicamento(Medicamento m){
+    remedio = m;
+  }
+
 }

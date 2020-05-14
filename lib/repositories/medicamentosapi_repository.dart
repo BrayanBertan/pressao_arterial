@@ -21,13 +21,13 @@ class MedicamentoApiRepository {
   }
 
 
-  Future<List<Medicamento>> getAllMedicamentos() async {
+  /*Future<List<Medicamento>> getAllMedicamentos() async {
     Response response = await _dio.get('$urlCI/get_medicamentos');
     var a = jsonDecode(response.data);
     return ( a as List)
         .map((data) => new Medicamento.fromJson(data))
         .toList();
-  }
+  }*/
 }
 
 

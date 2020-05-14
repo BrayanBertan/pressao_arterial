@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
 import 'app_widget.dart';
 import 'package:pressaoarterialapp/pages/login.dart';
 import 'package:pressaoarterialapp/pages/lista_medicoes.dart';
@@ -15,6 +16,7 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
     Bind((i) => MedicamentoApiRepository()),
     Bind((i) => MedicamentoController()),
+    Bind((i) => MedicamentoHelper()),
   ];
 
   @override

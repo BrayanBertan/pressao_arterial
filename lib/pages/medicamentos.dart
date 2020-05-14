@@ -17,6 +17,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
   final TextEditingController medicamento_dose = TextEditingController();
   final TextEditingController medicamento_quantidade_diaria =
       TextEditingController();
+  final ScrollController controller = ScrollController();
   final TextEditingController medicamento_anotacao = TextEditingController();
 
   final _formularioKey = GlobalKey<FormState>();
@@ -24,6 +25,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
   @override
   void initState() {
     medicamento.getAllMedicamentos();
+    //medicamento.setMedicamentoTeste();
     super.initState();
   }
 
@@ -38,9 +40,10 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
           child: Form(
               key: _formularioKey,
               child: ListView(
+                controller:controller,
                 children: <Widget>[
                   Observer(builder: (_) {
-                    medicamento_nome.text = "${medicamento.remedio.nome}";
+                    medicamento_nome.text = medicamento.remedio.nome;
                     return TextFormField(
                       controller: medicamento_nome,
                       decoration: InputDecoration(
@@ -185,13 +188,11 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Observer(
-                      builder: (_){
-                        return Center(
-                          child:medicamento.carregandoLista == true?
-                              CircularProgressIndicator()
-                                :
-                            RaisedButton(
+                  Observer(builder: (_) {
+                    return Center(
+                      child: medicamento.carregandoLista == true
+                          ? CircularProgressIndicator()
+                          : RaisedButton(
                               child: new Text('Salvar'),
                               onPressed: () {
                                 if (_formularioKey.currentState.validate()) {
@@ -200,11 +201,12 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                                       medicamento_dose.text,
                                       medicamento_quantidade_diaria.text,
                                       medicamento_anotacao.text);
+                                  controller.jumpTo(controller.position.maxScrollExtent);
                                 }
+
                               }),
-                        );
-                      }
-                  ),
+                    );
+                  }),
                   SizedBox(
                     height: 15.0,
                   ),
@@ -217,22 +219,34 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                             : Container(
                                 child: Column(
                                   children: medicamento.remedios
-                                      .map((event) => Container(
-                                            decoration: BoxDecoration(
-                                              color: gc.corPadrao,
-                                              border: Border.all(width: 0.8),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
+                                      .map((event) => GestureDetector(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: gc.corPadrao,
+                                                border: Border.all(width: 0.8),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0,
+                                                      vertical: 4.0),
+                                              child: ListTile(
+                                                  title: Text(event.nome),
+                                                  leading:
+                                                      Icon(Icons.arrow_forward),
+                                                  trailing: GestureDetector(
+                                                    child: Icon(
+                                                        Icons.delete_forever),
+                                                    onTap: () => medicamento
+                                                        .setEditMedicamento(
+                                                            event),
+                                                  )),
                                             ),
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 8.0, vertical: 4.0),
-                                            child: ListTile(
-                                              title: Text(event.nome),
-                                              leading:
-                                                  Icon(Icons.arrow_forward),
-                                              trailing:
-                                                  Icon(Icons.delete_forever),
-                                            ),
+                                            onTap: (){
+                                              medicamento.setEditMedicamento(event);
+                                              controller.jumpTo(controller.position.minScrollExtent);
+                                            }
                                           ))
                                       .toList(),
                                 ),
