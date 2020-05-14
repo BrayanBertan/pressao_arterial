@@ -77,7 +77,7 @@ abstract class _MedicamentoController with Store {
     m.id_unidade = 1;
     m.id_tipo = 1;
     m.anotacao = "";
-    await helper.saveMedicamentoL(m);
+    await helper.saveMedicamento(m);
     helper.getAllMedicamento().then((list){
       print(list);
     });
@@ -100,13 +100,13 @@ abstract class _MedicamentoController with Store {
   @action
   setMedicamentos(
       String nomeTxt, String doseTxt, quantidade_diariaTxt, anotacaoTxt) async {
-    setCarregandoLista(true);
+    //setCarregandoLista(true);
     if(remedio.id != null) {
       remedio.nome = nomeTxt;
       remedio.dose = int.tryParse(doseTxt);
       remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
       remedio.anotacao = anotacaoTxt;
-      await helper.updateMedicamentoL(remedio);
+      await helper.updateMedicamento(remedio);
       remedio.id = null;
       remedio = Medicamento(
           nome: "",
@@ -122,7 +122,7 @@ abstract class _MedicamentoController with Store {
       remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
       remedio.anotacao = anotacaoTxt;
       //await api.setMedicamento(remedio);
-      await helper.saveMedicamentoL(remedio);
+      await helper.saveMedicamento(remedio);
       remedio.id = null;
       remedio = Medicamento(
           nome: "",
@@ -141,19 +141,25 @@ abstract class _MedicamentoController with Store {
   @action
   getAllMedicamentos() async {
     print("xd");
-    setCarregandoLista(true);
+    //setCarregandoLista(true);
     remedios.clear();
     List l = new List();
     l.clear();
     l = await helper.getAllMedicamento();
     //remedios.removeAt(0);
     l.forEach((element) => remedios.add(element));
-    setCarregandoLista(false);
+    //setCarregandoLista(false);
   }
 
   @action
   setEditMedicamento(Medicamento m){
     remedio = m;
+  }
+
+  @action
+  removeMedicamento(int id) async {
+    await helper.deleteMedicamento(id);
+    getAllMedicamentos();
   }
 
 }

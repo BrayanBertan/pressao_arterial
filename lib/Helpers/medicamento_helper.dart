@@ -14,7 +14,7 @@ class MedicamentoHelper{
 
 
 
-Future<Medicamento>saveMedicamentoL(Medicamento m) async{
+Future<Medicamento>saveMedicamento(Medicamento m) async{
     Database dbMedicamento = await bh.db;
     print(dbMedicamento);
     print(m.toMap());
@@ -45,7 +45,7 @@ Future<int>deleteMedicamento(int id) async {
     return await dbMedicamento.delete(bh.medicamentoTable,where: "${bh.idColumn} = ?",whereArgs: [id]);
   }
 
-  Future<int>updateMedicamentoL(Medicamento m) async {
+  Future<int>updateMedicamento(Medicamento m) async {
     Database dbMedicamento = await bh.db;
     print(dbMedicamento);
     print(bh.idColumn);

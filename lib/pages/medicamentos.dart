@@ -4,6 +4,7 @@ import 'configuracao_global.dart' as gc;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pressaoarterialapp/pages/controllers/medicamentos_controller.dart';
 import 'package:pressaoarterialapp/models/unidade_model.dart';
+import 'package:sweetalert/sweetalert.dart';
 
 final medicamento = MedicamentoController();
 
@@ -40,7 +41,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
           child: Form(
               key: _formularioKey,
               child: ListView(
-                controller:controller,
+                controller: controller,
                 children: <Widget>[
                   Observer(builder: (_) {
                     medicamento_nome.text = medicamento.remedio.nome;
@@ -201,9 +202,14 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                                       medicamento_dose.text,
                                       medicamento_quantidade_diaria.text,
                                       medicamento_anotacao.text);
-                                  controller.jumpTo(controller.position.maxScrollExtent);
+                                  FocusScope.of(context).unfocus();
+                                  SweetAlert.show(context,
+                                      title: "Salvo",
+                                      style: SweetAlertStyle.success,
+                                      onPress: (a) {
+                                    //controller.jumpTo(controller.position.maxScrollExtent);
+                                  });
                                 }
-
                               }),
                     );
                   }),
@@ -220,34 +226,58 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                                 child: Column(
                                   children: medicamento.remedios
                                       .map((event) => GestureDetector(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: gc.corPadrao,
-                                                border: Border.all(width: 0.8),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: gc.corPadrao,
+                                              border: Border.all(width: 0.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                            margin: const EdgeInsets.symmetric(
+                                                //horizontal: 1.0,
+                                                vertical: 4.0),
+                                            child: ListTile(
+                                              title: Text(
+                                                event.nome,
+                                                style: TextStyle(fontSize: 20),
                                               ),
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0,
-                                                      vertical: 4.0),
-                                              child: ListTile(
-                                                  title: Text(event.nome),
-                                                  leading:
-                                                      Icon(Icons.arrow_forward),
-                                                  trailing: GestureDetector(
-                                                    child: Icon(
-                                                        Icons.delete_forever),
-                                                    onTap: () => medicamento
-                                                        .setEditMedicamento(
-                                                            event),
+                                              trailing: FlatButton(
+                                                  onPressed: () {
+                                                    SweetAlert.show(context,
+                                                        title: "Deletar?",
+                                                        style: SweetAlertStyle
+                                                            .confirm,
+                                                        showCancelButton: true,
+                                                        cancelButtonText:
+                                                            "Cancelar",
+                                                        confirmButtonText:
+                                                            "Confirmar",
+                                                        onPress:
+                                                            (bool isConfirm) {
+                                                      if (isConfirm) {
+                                                        medicamento.removeMedicamento(event.id);
+                                                        SweetAlert.show(context,
+                                                            style:
+                                                                SweetAlertStyle
+                                                                    .success,
+                                                            title: "Deletado");
+                                                        // return false to keep dialog
+                                                        return false;
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Icon(
+                                                    Icons.delete_forever,
+                                                    size: 50,
                                                   )),
                                             ),
-                                            onTap: (){
-                                              medicamento.setEditMedicamento(event);
-                                              controller.jumpTo(controller.position.minScrollExtent);
-                                            }
-                                          ))
+                                          ),
+                                          onTap: () {
+                                            medicamento
+                                                .setEditMedicamento(event);
+                                            controller.jumpTo(controller
+                                                .position.minScrollExtent);
+                                          }))
                                       .toList(),
                                 ),
                               ));

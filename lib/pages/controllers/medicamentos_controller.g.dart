@@ -120,6 +120,14 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
         .run(() => super.getAllMedicamentos());
   }
 
+  final _$removeMedicamentoAsyncAction = AsyncAction('removeMedicamento');
+
+  @override
+  Future removeMedicamento(int id) {
+    return _$removeMedicamentoAsyncAction
+        .run(() => super.removeMedicamento(id));
+  }
+
   final _$_MedicamentoControllerActionController =
       ActionController(name: '_MedicamentoController');
 

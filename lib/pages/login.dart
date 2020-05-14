@@ -59,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(10.0),
                           color: Colors.white,
                         ),
+                        width: 15,
                         height: 50,
                         child: Row(
                           children: <Widget>[
@@ -68,7 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                               maxRadius: 20,
                             ),
                             SizedBox(width: 30,),
-                            Text('Faça o login com o google')
+                      FittedBox(fit:BoxFit.fitWidth,child: Text('Faça o login com o google'),)
+
                           ],
                         ),
                       ),
