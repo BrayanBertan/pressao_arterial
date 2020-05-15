@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
 import 'configuracao_global.dart' as gc;
@@ -27,7 +28,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('${registro_controller.pulso}'),
+          title: Text('Registro de pressão'),
         ),
         body: Container(
           padding: EdgeInsets.all(25),
@@ -182,6 +183,180 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                       );
                     }
                 ),
+                Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Divider(color: Colors.black)
+                      ),
+
+                      Text("Postura"),
+
+                      Expanded(
+                          child: Divider(color: Colors.black)
+                      ),
+                    ]
+                ),
+                SizedBox(height: 5,),
+                Observer(
+                    builder: (_) {
+                      return  Container(
+                        padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: Row(
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () => setState(() => registro_controller.postura = 1),
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  color: registro_controller.postura == 1 ? Colors.blue[700] : Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1.0, style: BorderStyle.none),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                                  ),
+                                ),
+                                height: 56,
+                                width: 56,
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                  ExactAssetImage('assets/images/pos1.png'),
+                                  minRadius: 90,
+                                  maxRadius: 120,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width:15,),
+                            GestureDetector(
+                              onTap: () => setState(() => registro_controller.postura = 2),
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  color: registro_controller.postura == 2 ? Colors.blue[700] : Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1.0, style: BorderStyle.none),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                                  ),
+                                ),
+                                height: 56,
+                                width: 56,
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                  ExactAssetImage('assets/images/pos2.png'),
+                                  minRadius: 90,
+                                  maxRadius: 120,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width:15,),
+                            GestureDetector(
+                              onTap: () => setState(() => registro_controller.postura = 3),
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  color: registro_controller.postura == 3 ? Colors.blue[700] : Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1.0, style: BorderStyle.none),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                                  ),
+                                ),
+                                height: 56,
+                                width: 56,
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                  ExactAssetImage('assets/images/pos3.png'),
+                                  minRadius: 90,
+                                  maxRadius: 120,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                ),
+                SizedBox(height:15,),
+                Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Divider(color: Colors.black)
+                      ),
+
+                      Text("Braço medido"),
+
+                      Expanded(
+                          child: Divider(color: Colors.black)
+                      ),
+                    ]
+                ),
+                SizedBox(height: 5,),
+                Observer(builder:(_){
+                  return   Container(
+                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(width: 50,),
+                        GestureDetector(
+                          onTap: () => setState(() => registro_controller.braco = 1),
+                          child: Container(
+                            decoration: ShapeDecoration(
+                              color: registro_controller.braco == 1 ? Colors.blue[700] : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1.0, style: BorderStyle.none),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                              ),
+                            ),
+                            height: 56,
+                            width: 56,
+                            child: CircleAvatar(
+                              backgroundImage:
+                              ExactAssetImage('assets/images/brad.png'),
+                              minRadius: 90,
+                              maxRadius: 120,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width:15,),
+                        GestureDetector(
+                          onTap: () => setState(() => registro_controller.braco = 2),
+                          child: Container(
+                            decoration: ShapeDecoration(
+                              color: registro_controller.braco == 2 ? Colors.blue[700] : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1.0, style: BorderStyle.none),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                              ),
+                            ),
+                            height: 56,
+                            width: 56,
+                            child: CircleAvatar(
+                              backgroundImage:
+                              ExactAssetImage('assets/images/brae.png'),
+                              minRadius: 90,
+                              maxRadius: 120,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Center(
+                  child: RaisedButton(
+                      child: new Text('Salvar'),
+                      onPressed: () {
+                        if (_formularioRegistroKey.currentState.validate()) {
+                        }
+                      }),
+                )
               ],
             ),
           ),

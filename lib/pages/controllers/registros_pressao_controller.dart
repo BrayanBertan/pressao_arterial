@@ -84,12 +84,14 @@ abstract class _RegistroPressaoController with Store {
   @action
   getAllAtividades() async{
     List<Atividade> atividades_banco = await atividade_helper.getAllAtividades();
+    atividades.clear();
     atividades_banco.forEach((element) => atividades.add(element.toJson()));
   }
 
   @action
   getAllMedicamentos() async{
     List<Medicamento> medicamentos_banco = await helper.getAllMedicamento();
+    medicamentos.clear();
     medicamentos_banco.forEach((element) => medicamentos.add(element.toJson()));
   }
 }
