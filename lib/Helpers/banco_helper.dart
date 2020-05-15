@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:pressaoarterialapp/models/atividade_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
@@ -47,6 +48,12 @@ class BancoHelper {
   final String medicamentosPressao_idMedicamentoColumn =
       "medicamentosPressao_idMedicamentoColumn";
 
+  //==============Atividades
+  final String AtividadesTable = "AtividadesTable";
+  final String atividades_idColumn = "atividades_idColumn";
+  final String atividades_nomeColumn =
+      "atividades_nomeColumn";
+
   //==============AtividadesPressao
   final String AtividadesPressaoTable = "AtividadesPressaoTable";
   final String atividadesPressao_idColumn = "atividadesPressao_idColumn";
@@ -75,7 +82,7 @@ class BancoHelper {
 
   Future<Database> initDb() async {
     final dataBasesPath = await getDatabasesPath();
-    final path = join(dataBasesPath, "pressao4.db");
+    final path = join(dataBasesPath, "pressao8.db");
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute("CREATE TABLE $MedicamentoTable("
@@ -109,6 +116,16 @@ class BancoHelper {
           "$atividadesPressao_idColumn INTEGER PRIMARY KEY,"
           "$atividadesPressao_idPressaoColumn INTEGER,"
           "$atividadesPressao_idAtividadeColumn INTEGER) ");
-    });
+      await db.execute("CREATE TABLE $AtividadesTable("
+          "$atividades_idColumn INTEGER PRIMARY KEY,"
+          "$atividades_nomeColumn nome) ");
+      await db.insert(AtividadesTable, Atividade(id: 1,nome: "Caminhada").toMap());
+      await db.insert(AtividadesTable, Atividade(id: 2,nome: "Corrida").toMap());
+      await db.insert(AtividadesTable, Atividade(id: 3,nome: "Cozinhar").toMap());
+      await db.insert(AtividadesTable, Atividade(id: 4,nome: "Estudo").toMap());
+      await db.insert(AtividadesTable, Atividade(id: 5,nome: "Trabalho").toMap());
+      await db.insert(AtividadesTable, Atividade(id: 6,nome: "Outro").toMap());
+
+        });
   }
 }

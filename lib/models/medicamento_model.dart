@@ -48,6 +48,12 @@ class Medicamento {
     return map;
 
   }
+
+  Map<String,dynamic> toJson() => {
+    'id': id,
+    'nome': nome,
+  };
+
   @override
   String toString() {
     // TODO: implement toString

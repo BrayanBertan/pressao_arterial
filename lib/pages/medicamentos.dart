@@ -34,7 +34,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Medicamentos"),
+          title: Text('Medicamentos'),
         ),
         body: new Container(
           padding: EdgeInsets.all(25),
