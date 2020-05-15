@@ -13,16 +13,17 @@ class _MedicoesPageState extends State<MedicoesPage> {
   List _myActivities;
   String _myActivitiesResult;
   int pos_valor = -1;
+  var selectedRange = RangeValues(70, 100);
+  double a=70;
 
   @override
   void initState() {
     super.initState();
     _myActivities = [];
+    //conferir se colocando medicamento no construtor do controller funciona
     _myActivitiesResult = '';
   }
-  final _formularioKey = GlobalKey<FormState>();
-  var selectedRange = RangeValues(70, 100);
-  double a=70;
+  final _formularioMedicaoKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _MedicoesPageState extends State<MedicoesPage> {
         body: new Container(
             padding: EdgeInsets.all(25),
             child: Form(
-              key: _formularioKey,
+              key: _formularioMedicaoKey,
               child: ListView(
                 children: <Widget>[
                   SizedBox(
@@ -167,15 +168,15 @@ class _MedicoesPageState extends State<MedicoesPage> {
                       dataSource: [
                         {
                           "display": "Paracetamol",
-                          "value": 1,
+                          "value": "1",
                         },
                         {
                           "display": "Eficentus",
-                          "value": 2,
+                          "value": "2",
                         },
                         {
                           "display": "Clauvulin",
-                          "value": 3,
+                          "value": "3",
                         },
                       ],
                       textField: 'display',
@@ -351,6 +352,13 @@ class _MedicoesPageState extends State<MedicoesPage> {
                       ],
                     ),
                   ),
+                  RaisedButton(onPressed: () {
+                    if(_formularioMedicaoKey.currentState.validate()) {
+                      _myActivitiesResult = _myActivities.join(',');
+                          print(_myActivitiesResult);
+                          print(_myActivitiesResult.split(','));
+                    }
+                  })
                 ],
               ),
             )));

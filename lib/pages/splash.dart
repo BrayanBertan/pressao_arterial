@@ -17,12 +17,16 @@ class _SplashPageState extends State<SplashPage> {
     Modular.to.pushReplacementNamed('/login');
   }
 
-  @override
-  void initState() async{
-    super.initState();
-    // SystemChrome.setEnabledSystemUIOverlays([]);
+  inicializaBanco() async {
     BancoHelper bh = BancoHelper();
     await bh.db;
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    // SystemChrome.setEnabledSystemUIOverlays([]);
+    inicializaBanco();
     startTimeout();
   }
 
