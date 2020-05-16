@@ -2,9 +2,9 @@ import 'dart:ffi';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
 import 'configuracao_global.dart' as gc;
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sweetalert/sweetalert.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 
@@ -17,6 +17,7 @@ class RegistroPressaoPage extends StatefulWidget {
 
 class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
   final _formularioRegistroKey = GlobalKey<FormState>();
+  final TextEditingController registro_anotacao = TextEditingController();
 
   @override
   void initState() {
@@ -24,6 +25,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
     registro_controller.getAllMedicamentos();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,250 +95,173 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                     ),
                   );
                 }),
-                Observer(
-                    builder: (_) {
-                      return  Center(
-                        child: Container(
-                          decoration: ShapeDecoration(
-                            color: gc.corPadrao,
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 1.0, style: BorderStyle.solid),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(5.0)),
-                            ),
-                          ),
-                          child: Text(
-                            ('Pulso: ${registro_controller.pulso.round()}'),
-                          ),
+                Observer(builder: (_) {
+                  return Center(
+                    child: Container(
+                      decoration: ShapeDecoration(
+                        color: gc.corPadrao,
+                        shape: RoundedRectangleBorder(
+                          side:
+                              BorderSide(width: 1.0, style: BorderStyle.solid),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
-                      );
-                    }
-                ),
-                Observer(
-                    builder: (_) {
-                      return  Slider(
-                          value: registro_controller.pulso,
-                          min: 0,
-                          max: 200,
-                          onChanged: (double value) {
-                            setState(() => registro_controller.pulso = value);
-                          }
-                      );
-                    }
-                ),
-                Observer(
-                    builder: (_) {
-                      return Container(
-                        padding: EdgeInsets.all(16),
-                        child: MultiSelectFormField(
-                          autovalidate: false,
-                          titleText: 'Atividades',
-                          validator: (value) {
-                            if (value == null || value.length == 0) {
-                              return 'Escolha uma atividade';
-                            }
-                            return null;
-                          },
-                          dataSource: registro_controller.atividades,
-                          textField: 'nome',
-                          valueField: 'id',
-                          okButtonLabel: 'OK',
-                          cancelButtonLabel: 'CANCELAR',
-                          // required: true,
-                          hintText: '',
-                          initialValue: registro_controller.atividades_selecionadas,
-                          onSaved: (value) {
-                            if (value == null) return;
-                            registro_controller.setAtividadesSelecionadas(value);
-                          },
-                        ),
-                      );
-                    }
-                ),
-                Observer(
-                    builder: (_) {
-                      return Container(
-                        padding: EdgeInsets.all(16),
-                        child: MultiSelectFormField(
-                          autovalidate: false,
-                          titleText: 'Medicamentos',
-                          validator: (value) {
-                            if (value == null || value.length == 0) {
-                              return 'Escolha um Medicamentos';
-                            }
-                            return null;
-                          },
-                          dataSource: registro_controller.medicamentos,
-                          textField: 'nome',
-                          valueField: 'id',
-                          okButtonLabel: 'OK',
-                          cancelButtonLabel: 'CANCELAR',
-                          // required: true,
-                          hintText: '',
-                          initialValue: registro_controller.medicamentos_selecionados,
-                          onSaved: (value) {
-                            if (value == null) return;
-                            registro_controller.setMedicamentosSelecionados(value);
-                          },
-                        ),
-                      );
-                    }
-                ),
-                Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Divider(color: Colors.black)
                       ),
-
-                      Text("Postura"),
-
-                      Expanded(
-                          child: Divider(color: Colors.black)
+                      child: Text(
+                        ('Pulso: ${registro_controller.pulso.round()}'),
                       ),
-                    ]
+                    ),
+                  );
+                }),
+                Observer(builder: (_) {
+                  return Slider(
+                      value: registro_controller.pulso,
+                      min: 0,
+                      max: 200,
+                      onChanged: (double value) {
+                        registro_controller.pulso = value;
+                      });
+                }),
+                Observer(builder: (_) {
+                  return Container(
+                    padding: EdgeInsets.all(16),
+                    child: MultiSelectFormField(
+                      autovalidate: false,
+                      titleText: 'Atividades',
+                      validator: (value) {
+                        if (value == null || value.length == 0) {
+                          return 'Escolha uma atividade';
+                        }
+                        return null;
+                      },
+                      dataSource: registro_controller.atividades,
+                      textField: 'nome',
+                      valueField: 'id',
+                      okButtonLabel: 'OK',
+                      cancelButtonLabel: 'CANCELAR',
+                      // required: true,
+                      hintText: '',
+                      initialValue: registro_controller.atividades_selecionadas,
+                      onSaved: (value) {
+                        if (value == null) return;
+                        registro_controller.setAtividadesSelecionadas(value);
+                      },
+                    ),
+                  );
+                }),
+                Observer(builder: (_) {
+                  return Container(
+                    padding: EdgeInsets.all(16),
+                    child: MultiSelectFormField(
+                      autovalidate: false,
+                      titleText: 'Medicamentos',
+                      validator: (value) {
+                        if (value == null || value.length == 0) {
+                          return 'Escolha um Medicamentos';
+                        }
+                        return null;
+                      },
+                      dataSource: registro_controller.medicamentos,
+                      textField: 'nome',
+                      valueField: 'id',
+                      okButtonLabel: 'OK',
+                      cancelButtonLabel: 'CANCELAR',
+                      // required: true,
+                      hintText: '',
+                      initialValue:
+                          registro_controller.medicamentos_selecionados,
+                      onSaved: (value) {
+                        if (value == null) return;
+                        registro_controller.setMedicamentosSelecionados(value);
+                      },
+                    ),
+                  );
+                }),
+                Row(children: <Widget>[
+                  Expanded(child: Divider(color: Colors.black)),
+                  Text("Postura"),
+                  Expanded(child: Divider(color: Colors.black)),
+                ]),
+                SizedBox(
+                  height: 5,
                 ),
-                SizedBox(height: 5,),
-                Observer(
-                    builder: (_) {
-                      return  Container(
-                        padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                        child: Row(
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () => setState(() => registro_controller.postura = 1),
-                              child: Container(
-                                decoration: ShapeDecoration(
-                                  color: registro_controller.postura == 1 ? Colors.blue[700] : Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                        width: 1.0, style: BorderStyle.none),
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                ),
-                                height: 56,
-                                width: 56,
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                  ExactAssetImage('assets/images/pos1.png'),
-                                  minRadius: 90,
-                                  maxRadius: 120,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width:15,),
-                            GestureDetector(
-                              onTap: () => setState(() => registro_controller.postura = 2),
-                              child: Container(
-                                decoration: ShapeDecoration(
-                                  color: registro_controller.postura == 2 ? Colors.blue[700] : Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                        width: 1.0, style: BorderStyle.none),
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                ),
-                                height: 56,
-                                width: 56,
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                  ExactAssetImage('assets/images/pos2.png'),
-                                  minRadius: 90,
-                                  maxRadius: 120,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width:15,),
-                            GestureDetector(
-                              onTap: () => setState(() => registro_controller.postura = 3),
-                              child: Container(
-                                decoration: ShapeDecoration(
-                                  color: registro_controller.postura == 3 ? Colors.blue[700] : Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                        width: 1.0, style: BorderStyle.none),
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                ),
-                                height: 56,
-                                width: 56,
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                  ExactAssetImage('assets/images/pos3.png'),
-                                  minRadius: 90,
-                                  maxRadius: 120,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                ),
-                SizedBox(height:15,),
-                Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Divider(color: Colors.black)
-                      ),
-
-                      Text("Braço medido"),
-
-                      Expanded(
-                          child: Divider(color: Colors.black)
-                      ),
-                    ]
-                ),
-                SizedBox(height: 5,),
-                Observer(builder:(_){
-                  return   Container(
+                Observer(builder: (_) {
+                  return Container(
                     padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                     child: Row(
                       children: <Widget>[
-                        SizedBox(width: 50,),
                         GestureDetector(
-                          onTap: () => setState(() => registro_controller.braco = 1),
+                          onTap: () => registro_controller.setPostura(1),
                           child: Container(
                             decoration: ShapeDecoration(
-                              color: registro_controller.braco == 1 ? Colors.blue[700] : Colors.transparent,
+                              color: registro_controller.postura == 1
+                                  ? Colors.blue[700]
+                                  : Colors.transparent,
                               shape: RoundedRectangleBorder(
                                 side: BorderSide(
                                     width: 1.0, style: BorderStyle.none),
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
+                                    BorderRadius.all(Radius.circular(5.0)),
                               ),
                             ),
                             height: 56,
                             width: 56,
                             child: CircleAvatar(
                               backgroundImage:
-                              ExactAssetImage('assets/images/brad.png'),
+                                  ExactAssetImage('assets/images/pos1.png'),
                               minRadius: 90,
                               maxRadius: 120,
                             ),
                           ),
                         ),
-                        SizedBox(width:15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         GestureDetector(
-                          onTap: () => setState(() => registro_controller.braco = 2),
+                          onTap: () => registro_controller.setPostura(2),
                           child: Container(
                             decoration: ShapeDecoration(
-                              color: registro_controller.braco == 2 ? Colors.blue[700] : Colors.transparent,
+                              color: registro_controller.postura == 2
+                                  ? Colors.blue[700]
+                                  : Colors.transparent,
                               shape: RoundedRectangleBorder(
                                 side: BorderSide(
                                     width: 1.0, style: BorderStyle.none),
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
+                                    BorderRadius.all(Radius.circular(5.0)),
                               ),
                             ),
                             height: 56,
                             width: 56,
                             child: CircleAvatar(
                               backgroundImage:
-                              ExactAssetImage('assets/images/brae.png'),
+                                  ExactAssetImage('assets/images/pos2.png'),
+                              minRadius: 90,
+                              maxRadius: 120,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        GestureDetector(
+                          onTap: () => registro_controller.setPostura(3),
+                          child: Container(
+                            decoration: ShapeDecoration(
+                              color: registro_controller.postura == 3
+                                  ? Colors.blue[700]
+                                  : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1.0, style: BorderStyle.none),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                              ),
+                            ),
+                            height: 56,
+                            width: 56,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  ExactAssetImage('assets/images/pos3.png'),
                               minRadius: 90,
                               maxRadius: 120,
                             ),
@@ -347,6 +272,84 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                   );
                 }),
                 SizedBox(
+                  height: 15,
+                ),
+                Row(children: <Widget>[
+                  Expanded(child: Divider(color: Colors.black)),
+                  Text("Braço medido"),
+                  Expanded(child: Divider(color: Colors.black)),
+                ]),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 50,
+                      ),
+                      Observer(builder: (_) {
+                        return GestureDetector(
+                          onTap: () => registro_controller.setBraco(1),
+                          child: Container(
+                            decoration: ShapeDecoration(
+                              color: registro_controller.braco == 1
+                                  ? Colors.blue[700]
+                                  : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1.0, style: BorderStyle.none),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                              ),
+                            ),
+                            height: 56,
+                            width: 56,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  ExactAssetImage('assets/images/brad.png'),
+                              minRadius: 90,
+                              maxRadius: 120,
+                            ),
+                          ),
+                        );
+                      }),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Observer(
+                          builder: (_) {
+                        return GestureDetector(
+                          onTap: () => registro_controller.setBraco(2),
+                          child: Container(
+                            decoration: ShapeDecoration(
+                              color: registro_controller.braco == 2
+                                  ? Colors.blue[700]
+                                  : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 1.0, style: BorderStyle.none),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                              ),
+                            ),
+                            height: 56,
+                            width: 56,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  ExactAssetImage('assets/images/brae.png'),
+                              minRadius: 90,
+                              maxRadius: 120,
+                            ),
+                          ),
+                        );
+                      }
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
                   height: 15.0,
                 ),
                 Center(
@@ -354,6 +357,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                       child: new Text('Salvar'),
                       onPressed: () {
                         if (_formularioRegistroKey.currentState.validate()) {
+                          registro_controller.setAnotacao(registro_anotacao.toString());
                         }
                       }),
                 )

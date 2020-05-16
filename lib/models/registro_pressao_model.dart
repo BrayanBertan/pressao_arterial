@@ -3,9 +3,9 @@ import 'package:pressaoarterialapp/Helpers/banco_helper.dart';
 class RegistroPressao {
   BancoHelper bh = BancoHelper();
   int id;
-  int sistolica;
-  int diastolica;
-  int pulso;
+  double sistolica;
+  double diastolica;
+  double pulso;
   int postura;
   int braco;
   String anotacao;
@@ -51,6 +51,6 @@ class RegistroPressao {
   @override
   String toString() {
     // TODO: implement toString
-    return "Sistolica: $sistolica";
+    return "Sistolica: $pulso";
   }
 }

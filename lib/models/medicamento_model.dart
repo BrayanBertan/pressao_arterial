@@ -12,6 +12,7 @@ class Medicamento {
   int id_unidade;
   int id_tipo;
   String anotacao;
+  String descricao;
 
   //Medicamento();
   Medicamento({
@@ -21,6 +22,7 @@ class Medicamento {
     this.id_unidade,
     this.id_tipo,
     this.anotacao,
+    this.descricao,
   });
 
   Medicamento.fromMap(Map map) {
@@ -31,6 +33,7 @@ class Medicamento {
     id_unidade = map[bh.medicamento_id_unidadeColumn];
     id_tipo = map[bh.medicamento_id_tipoColumn];
     anotacao = map[bh.medicamento_anotacaoColumn];
+    descricao = map[bh.medicamento_descricaoColumn];
   }
 
   Map toMap() {
@@ -41,6 +44,7 @@ class Medicamento {
       bh.medicamento_id_unidadeColumn :   id_unidade,
       bh.medicamento_id_tipoColumn :    id_tipo,
       bh.medicamento_anotacaoColumn :  anotacao,
+      bh.medicamento_descricaoColumn :  descricao,
     };
     if(id != null) {
       map[bh.medicamento_idColumn] = id;

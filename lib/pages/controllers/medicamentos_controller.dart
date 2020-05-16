@@ -23,7 +23,8 @@ abstract class _MedicamentoController with Store {
       quantidade_diaria: 0,
       id_unidade: 1,
       id_tipo: 1,
-      anotacao: ""
+      anotacao: "",
+      descricao: ""
   );
   @observable
   ObservableList<Unidade> unidades = [
@@ -105,6 +106,7 @@ abstract class _MedicamentoController with Store {
       remedio.dose = int.tryParse(doseTxt);
       remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
       remedio.anotacao = anotacaoTxt;
+      remedio.descricao = '(${tipos[remedio.id_tipo]}) ${remedio.dose}${unidades[remedio.id_unidade]} ${remedio.quantidade_diaria} vez(es) ao dia';
       await helper.updateMedicamento(remedio);
       remedio.id = null;
       remedio = Medicamento(
@@ -113,13 +115,15 @@ abstract class _MedicamentoController with Store {
           quantidade_diaria: 0,
           id_unidade: 1,
           id_tipo: 1,
-          anotacao: ""
+          anotacao: "",
+          descricao:""
       );
     }else{
       remedio.nome = nomeTxt;
       remedio.dose = int.tryParse(doseTxt);
       remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
       remedio.anotacao = anotacaoTxt;
+      remedio.descricao = '(${tipos[remedio.id_tipo]}) ${remedio.dose}${unidades[remedio.id_unidade]} ${remedio.quantidade_diaria} vez(es) ao dia';
       //await api.setMedicamento(remedio);
       await helper.saveMedicamento(remedio);
       remedio.id = null;

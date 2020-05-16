@@ -16,6 +16,7 @@ class BancoHelper {
   final String medicamento_id_unidadeColumn = "medicamento_id_unidadeColumn";
   final String medicamento_id_tipoColumn = "medicamento_id_tipoColumn";
   final String medicamento_anotacaoColumn = "medicamento_anotacaoColumn";
+  final String medicamento_descricaoColumn = "medicamento_descricaoColumn";
 
   //==============Usuarios
   final String UsuarioTable = "UsuarioTable";
@@ -82,7 +83,7 @@ class BancoHelper {
 
   Future<Database> initDb() async {
     final dataBasesPath = await getDatabasesPath();
-    final path = join(dataBasesPath, "pressao8.db");
+    final path = join(dataBasesPath, "pressao10.db");
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute("CREATE TABLE $MedicamentoTable("
@@ -92,7 +93,8 @@ class BancoHelper {
           "$medicamento_quantidade_diariaColumn INTEGER,"
           "$medicamento_id_unidadeColumn INTEGER,"
           "$medicamento_id_tipoColumn INTEGER,"
-          "$medicamento_anotacaoColumn TEXT) ");
+          "$medicamento_anotacaoColumn TEXT,"
+          "$medicamento_descricaoColumn TEXT) ");
       await db.execute("CREATE TABLE $UsuarioTable("
           "$usuario_idColumn INTEGER PRIMARY KEY,"
           "$usuario_nomeColumn TEXT,"
@@ -101,9 +103,9 @@ class BancoHelper {
           "$usuario_iconeColumn TEXT) ");
       await db.execute("CREATE TABLE $RegistroPressaoTable("
           "$registroPressao_idColumn INTEGER PRIMARY KEY,"
-          "$registroPressao_sistolicaColumn INTEGER,"
-          "$registroPressao_diastolicaColumn INTEGER,"
-          "$registroPressao_pulsoColumn INTEGER,"
+          "$registroPressao_sistolicaColumn REAL,"
+          "$registroPressao_diastolicaColumn REAL,"
+          "$registroPressao_pulsoColumn REAL,"
           "$registroPressao_posturaColumn INTEGER,"
           "$registroPressao_bracoColumn INTEGER,"
           "$registroPressao_anotacaoColumn TEXT,"

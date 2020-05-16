@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:pressaoarterialapp/Helpers/registro_pressao_helper.dart';
+import 'package:pressaoarterialapp/models/atividade_pressao_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
+import 'package:pressaoarterialapp/models/medicamento_pressao_model.dart';
 import 'package:pressaoarterialapp/models/registro_pressao_model.dart';
 import 'package:pressaoarterialapp/models/atividade_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -17,10 +20,10 @@ class RegistroPressaoController = _RegistroPressaoController
 abstract class _RegistroPressaoController with Store {
   final apiLite = Modular.get<AtividadeHelper>();
   MedicamentoHelper helper = MedicamentoHelper();
+  RegistroPressaoHelper registro_helper = RegistroPressaoHelper();
   AtividadeHelper atividade_helper = AtividadeHelper();
   _RegistroPressaoController() {
     pressao = RangeValues(70, 100);
-    pulso = 70;
    atividades_selecionadas = [0
     ].asObservable();
    atividades_selecionadas.clear();
@@ -31,28 +34,15 @@ abstract class _RegistroPressaoController with Store {
     medicamentos_selecionados.clear();
     medicamentos=[{'id':1,'nome':'a'}].asObservable();
     medicamentos.clear();
+    registroObj = RegistroPressao(sistolica: 0,diastolica: 0,pulso: 0,postura: 0,braco: 0,anotacao: '',dataHora: DateTime.now());
   }
   @observable
-  RegistroPressao anotacao = RegistroPressao(
-      sistolica: 110,
-      diastolica: 70,
-      pulso: 60,
-      postura: 0,
-      braco: 0,
-      anotacao: "",
-      dataHora: DateTime.now());
+  RegistroPressao registroObj;
 
-  @observable
-  int postura = 0;
-
-  @observable
-  int braco = 0;
+  ObservableMap<String, dynamic> currentCustomData = ObservableMap.of({});
 
   @observable
   var pressao;
-
-  @observable
-  double pulso;
 
   @observable
   ObservableList atividades;
@@ -63,8 +53,18 @@ abstract class _RegistroPressaoController with Store {
   @observable
   ObservableList medicamentos;
 
+
   @observable
   ObservableList<dynamic> medicamentos_selecionados;
+
+  @observable
+  int braco=0;
+
+  @observable
+  double pulso=60;
+
+  @observable
+  int postura=0;
 
   @action
   setPressao(RangeValues novo) {
@@ -72,13 +72,15 @@ abstract class _RegistroPressaoController with Store {
   }
 
   @action
-  setAtividadesSelecionadas(List<dynamic> lista) {
-    print(lista);
+  setAtividadesSelecionadas(List lista) {
+    lista.forEach((element) => atividades_selecionadas.add(element));
+    print(atividades_selecionadas);
   }
 
   @action
-  setMedicamentosSelecionados(List<dynamic> lista) {
-    print(lista);
+  setMedicamentosSelecionados(List lista) {
+    lista.forEach((element) => medicamentos_selecionados.add(element));
+    print(medicamentos_selecionados);
   }
 
   @action
@@ -93,5 +95,49 @@ abstract class _RegistroPressaoController with Store {
     List<Medicamento> medicamentos_banco = await helper.getAllMedicamento();
     medicamentos.clear();
     medicamentos_banco.forEach((element) => medicamentos.add(element.toJson()));
+  }
+
+  @action
+  setPostura(int valor){
+    postura = valor;
+  }
+
+  @action
+  setBraco(int valor){
+    braco = valor;
+  }
+
+  @action
+  setPulso(double  valor){
+    pulso = valor;
+  }
+
+  @action
+  setAnotacao(String anotacao) async{
+  registroObj.sistolica = pressao.start;
+  registroObj.diastolica = pressao.end;
+  registroObj.pulso = pulso;
+  registroObj.postura = postura;
+  registroObj.braco = braco;
+  registroObj.anotacao = anotacao;
+  registroObj.dataHora = DateTime.now();
+  var registrado = await registro_helper.saveRegistro(registroObj);
+  if(atividades_selecionadas.length>0) {
+    for(var atividade in atividades_selecionadas) {
+      await registro_helper.saveAtividadePressao(AtividadePressao(idAtividade: atividade,idPressao: registrado.id));
+    }
+
+    for(var medicamento in medicamentos_selecionados) {
+      await registro_helper.saveMedicamentoPressao(MedicamentoPressao(idMedicamento: medicamento,idPressao: registrado.id));
+    }
+  }
+  registroObj.sistolica = 0;
+  registroObj.diastolica = 0;
+  registroObj.pulso = 0;
+  registroObj.postura = 0;
+  registroObj.braco = 0;
+  registroObj.anotacao = '';
+  registroObj.dataHora = DateTime.now();
+  print(registrado);
   }
 }
