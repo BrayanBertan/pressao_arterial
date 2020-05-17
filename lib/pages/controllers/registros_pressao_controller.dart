@@ -34,7 +34,9 @@ abstract class _RegistroPressaoController with Store {
     medicamentos_selecionados.clear();
     medicamentos=[{'id':1,'nome':'a'}].asObservable();
     medicamentos.clear();
-    registroObj = RegistroPressao(sistolica: 0,diastolica: 0,pulso: 0,postura: 0,braco: 0,anotacao: '',dataHora: DateTime.now());
+    registroObj = RegistroPressao(sistolica: 0,diastolica: 0,pulso: 0,postura: 0,braco: 0,anotacao: '',dataHora: DateTime.now(),id_usuario: 1);
+    DateTime isso = DateTime.now();
+    DateTime hj = DateTime(isso.year,isso.month,isso.day);
   }
   @observable
   RegistroPressao registroObj;
@@ -65,6 +67,17 @@ abstract class _RegistroPressaoController with Store {
 
   @observable
   int postura=0;
+
+  @observable
+  ObservableList<RegistroPressao> registros = [
+    RegistroPressao(sistolica: 0,diastolica: 0,pulso: 0,postura: 0,braco: 0,anotacao: '',dataHora: DateTime.now(),id_usuario: 1),
+  ].asObservable();
+
+  @observable
+  Map<DateTime, List> listaEventos = {};
+
+  @observable
+  List eventosSelecionados = new List().asObservable();
 
   @action
   setPressao(RangeValues novo) {
@@ -114,13 +127,14 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setAnotacao(String anotacao) async{
-  registroObj.sistolica = pressao.start;
-  registroObj.diastolica = pressao.end;
+  registroObj.sistolica = pressao.end;
+  registroObj.diastolica = pressao.start;
   registroObj.pulso = pulso;
   registroObj.postura = postura;
   registroObj.braco = braco;
   registroObj.anotacao = anotacao;
   registroObj.dataHora = DateTime.now();
+  registroObj.id_usuario = 1;
   var registrado = await registro_helper.saveRegistro(registroObj);
   if(atividades_selecionadas.length>0) {
     for(var atividade in atividades_selecionadas) {
@@ -139,5 +153,24 @@ abstract class _RegistroPressaoController with Store {
   registroObj.anotacao = '';
   registroObj.dataHora = DateTime.now();
   print(registrado);
+  }
+
+
+  @action
+  getAllRegistros() async{
+    List<RegistroPressao> event = await registro_helper.getAllRegistroPressoes();
+    for (int i = 0; i < event.length; i++) {
+      var createTime = DateTime(event[i].dataHora.year,event[i].dataHora.month,event[i].dataHora.day);
+      var original = listaEventos[createTime];
+      if (original == null) {
+        listaEventos[createTime] = ["Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}"];
+      } else {
+        listaEventos[createTime] = List.from(original)
+          ..addAll(["Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}"]);
+      }
+    }
+    DateTime isso = DateTime.now();
+    DateTime hj = DateTime(isso.year,isso.month,isso.day);
+    eventosSelecionados = listaEventos[hj];
   }
 }

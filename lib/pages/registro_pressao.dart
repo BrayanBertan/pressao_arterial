@@ -129,7 +129,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                       titleText: 'Atividades',
                       validator: (value) {
                         if (value == null || value.length == 0) {
-                          return 'Escolha uma atividade';
+                         // return 'Escolha uma atividade';
                         }
                         return null;
                       },
@@ -156,7 +156,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                       titleText: 'Medicamentos',
                       validator: (value) {
                         if (value == null || value.length == 0) {
-                          return 'Escolha um Medicamentos';
+                          //return 'Escolha um Medicamentos';
                         }
                         return null;
                       },

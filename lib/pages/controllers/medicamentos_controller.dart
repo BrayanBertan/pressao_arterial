@@ -24,7 +24,8 @@ abstract class _MedicamentoController with Store {
       id_unidade: 1,
       id_tipo: 1,
       anotacao: "",
-      descricao: ""
+      descricao: "",
+      id_usuario: 1
   );
   @observable
   ObservableList<Unidade> unidades = [
@@ -101,6 +102,7 @@ abstract class _MedicamentoController with Store {
   setMedicamentos(
       String nomeTxt, String doseTxt, quantidade_diariaTxt, anotacaoTxt) async {
     //setCarregandoLista(true);
+    remedio.id_usuario = 1;
     if(remedio.id != null) {
       remedio.nome = nomeTxt;
       remedio.dose = int.tryParse(doseTxt);
@@ -123,7 +125,7 @@ abstract class _MedicamentoController with Store {
       remedio.dose = int.tryParse(doseTxt);
       remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
       remedio.anotacao = anotacaoTxt;
-      remedio.descricao = '(${tipos[remedio.id_tipo]}) ${remedio.dose}${unidades[remedio.id_unidade]} ${remedio.quantidade_diaria} vez(es) ao dia';
+      remedio.descricao = '(${tipos[remedio.id_tipo].toString()}) ${remedio.dose}${unidades[remedio.id_unidade].toString()} ${remedio.quantidade_diaria} vez(es) ao dia';
       //await api.setMedicamento(remedio);
       await helper.saveMedicamento(remedio);
       remedio.id = null;

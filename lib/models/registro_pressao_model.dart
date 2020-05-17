@@ -10,6 +10,7 @@ class RegistroPressao {
   int braco;
   String anotacao;
   DateTime dataHora;
+  int id_usuario;
 
   RegistroPressao({
     this.sistolica,
@@ -19,6 +20,7 @@ class RegistroPressao {
     this.braco,
     this.anotacao,
     this.dataHora,
+    this.id_usuario
   });
 
   RegistroPressao.fromMap(Map map) {
@@ -30,6 +32,7 @@ class RegistroPressao {
     braco = map[bh.registroPressao_bracoColumn];
     anotacao = map[bh.registroPressao_anotacaoColumn];
     dataHora = new DateTime.fromMillisecondsSinceEpoch(map[bh.registroPressao_dateTimeColumn] * 1000);
+    id_usuario = map[bh.registroPressao_idUsuarioColumn];
   }
 
   Map toMap() {
@@ -41,6 +44,7 @@ class RegistroPressao {
       bh.registroPressao_bracoColumn :    braco,
       bh.registroPressao_anotacaoColumn :  anotacao,
       bh.registroPressao_dateTimeColumn : ((dataHora).millisecondsSinceEpoch/1000).round(),
+      bh.registroPressao_idUsuarioColumn :  id_usuario,
     };
     if(id != null) {
       map[bh.registroPressao_sistolicaColumn] = id;
@@ -48,9 +52,14 @@ class RegistroPressao {
     return map;
 
   }
+
+  Map<String,dynamic> toJson() => {
+    'id': id,
+    'sistolica': sistolica,
+  };
   @override
   String toString() {
     // TODO: implement toString
-    return "Sistolica: $pulso";
+    return "Sistolica: $sistolica";
   }
 }

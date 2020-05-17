@@ -17,6 +17,7 @@ class BancoHelper {
   final String medicamento_id_tipoColumn = "medicamento_id_tipoColumn";
   final String medicamento_anotacaoColumn = "medicamento_anotacaoColumn";
   final String medicamento_descricaoColumn = "medicamento_descricaoColumn";
+  final String medicamento_idUsuarioColumn = "medicamento_idUsuarioColumn";
 
   //==============Usuarios
   final String UsuarioTable = "UsuarioTable";
@@ -40,6 +41,7 @@ class BancoHelper {
       "registroPressao_anotacaoColumn";
   final String registroPressao_dateTimeColumn =
       "registroPressao_dateTimeColumn";
+  final String registroPressao_idUsuarioColumn = "registroPressao_idUsuarioColumn";
 
   //==============MedicamentosPressao
   final String MedicamentosPressaoTable = "MedicamentosPressaoTable";
@@ -83,7 +85,7 @@ class BancoHelper {
 
   Future<Database> initDb() async {
     final dataBasesPath = await getDatabasesPath();
-    final path = join(dataBasesPath, "pressao10.db");
+    final path = join(dataBasesPath, "pressao11.db");
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute("CREATE TABLE $MedicamentoTable("
@@ -94,7 +96,8 @@ class BancoHelper {
           "$medicamento_id_unidadeColumn INTEGER,"
           "$medicamento_id_tipoColumn INTEGER,"
           "$medicamento_anotacaoColumn TEXT,"
-          "$medicamento_descricaoColumn TEXT) ");
+          "$medicamento_descricaoColumn TEXT,"
+          "$medicamento_idUsuarioColumn INTEGER) ");
       await db.execute("CREATE TABLE $UsuarioTable("
           "$usuario_idColumn INTEGER PRIMARY KEY,"
           "$usuario_nomeColumn TEXT,"
@@ -109,7 +112,8 @@ class BancoHelper {
           "$registroPressao_posturaColumn INTEGER,"
           "$registroPressao_bracoColumn INTEGER,"
           "$registroPressao_anotacaoColumn TEXT,"
-          "$registroPressao_dateTimeColumn INTEGER) ");
+          "$registroPressao_dateTimeColumn INTEGER,"
+          "$registroPressao_idUsuarioColumn INTEGER) ");
       await db.execute("CREATE TABLE $MedicamentosPressaoTable("
           "$medicamentosPressao_idColumn INTEGER PRIMARY KEY,"
           "$medicamentosPressao_idPressaoColumn INTEGER,"

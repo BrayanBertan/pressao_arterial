@@ -13,6 +13,7 @@ class Medicamento {
   int id_tipo;
   String anotacao;
   String descricao;
+  int id_usuario;
 
   //Medicamento();
   Medicamento({
@@ -23,6 +24,7 @@ class Medicamento {
     this.id_tipo,
     this.anotacao,
     this.descricao,
+    this.id_usuario
   });
 
   Medicamento.fromMap(Map map) {
@@ -34,6 +36,7 @@ class Medicamento {
     id_tipo = map[bh.medicamento_id_tipoColumn];
     anotacao = map[bh.medicamento_anotacaoColumn];
     descricao = map[bh.medicamento_descricaoColumn];
+    id_usuario = map[bh.medicamento_idUsuarioColumn];
   }
 
   Map toMap() {
@@ -45,6 +48,7 @@ class Medicamento {
       bh.medicamento_id_tipoColumn :    id_tipo,
       bh.medicamento_anotacaoColumn :  anotacao,
       bh.medicamento_descricaoColumn :  descricao,
+      bh.medicamento_idUsuarioColumn :  id_usuario,
     };
     if(id != null) {
       map[bh.medicamento_idColumn] = id;
@@ -61,7 +65,7 @@ class Medicamento {
   @override
   String toString() {
     // TODO: implement toString
-    return "Nome: $nome";
+    return "Descrição: $descricao";
   }
 
   /*factory Medicamento.fromJson(Map<String, dynamic> obj) {

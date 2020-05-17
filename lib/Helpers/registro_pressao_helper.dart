@@ -17,6 +17,7 @@ class RegistroPressaoHelper{
   Future<RegistroPressao>saveRegistro(RegistroPressao r) async{
     Database dbRegistroPressao = await bh.db;
     r.id = await dbRegistroPressao.insert(bh.RegistroPressaoTable, r.toMap());
+    print(r);
     return r;
   }
 
@@ -35,13 +36,13 @@ class RegistroPressaoHelper{
 
   Future<AtividadePressao>saveAtividadePressao(AtividadePressao ap) async{
     Database dbRegistroPressao = await bh.db;
-    ap.id = await dbRegistroPressao.insert(bh.MedicamentosPressaoTable, ap.toMap());
+    ap.id = await dbRegistroPressao.insert(bh.AtividadesPressaoTable, ap.toMap());
     return ap;
   }
 
   Future<MedicamentoPressao>saveMedicamentoPressao(MedicamentoPressao am) async{
     Database dbRegistroPressao = await bh.db;
-    am.id = await dbRegistroPressao.insert(bh.AtividadesPressaoTable, am.toMap());
+    am.id = await dbRegistroPressao.insert(bh.MedicamentosPressaoTable, am.toMap());
     return am;
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'medicamentos.dart';
 import 'relatorio_grafico.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'configuracao_global.dart' as gc;
 import 'package:flutter_modular/flutter_modular.dart';
+
+final registro_controller = RegistroPressaoController();
 
 class ListaMedicoesPage extends StatefulWidget {
   @override
@@ -29,28 +32,12 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
   List _eventosSelecionados = new List();
   @override
   void initState() {
+    final hoje = DateTime.now();
+    final _diaSelecionado = DateTime(hoje.year,hoje.month,hoje.day);
+    registro_controller.getAllRegistros();
+    registro_controller.eventosSelecionados = registro_controller.listaEventos[_diaSelecionado] ?? [];
     super.initState();
-    final _diaSelecionado = DateTime.now();
-
-    _listaEventos = {
-      _diaSelecionado.subtract(Duration(days: 2)): [
-        {'sis': '120', 'dia': '80', 'pulso': '50', 'Horario': '10:00'},
-        {'sis': '100', 'dia': '65', 'pulso': '90', 'Horario': '15:00'}
-      ],
-      _diaSelecionado: [
-        {'sis': '110', 'dia': '70', 'pulso': '70', 'Horario': '20:00'}
-      ],
-      _diaSelecionado.add(Duration(days: 1)): [
-        {'sis': '90', 'dia': '50', 'pulso': '70', 'Horario': '21:00'},
-        {'sis': '150', 'dia': '90', 'pulso': '70', 'Horario': '22:00'},
-        {'sis': '105', 'dia': '75', 'pulso': '70', 'Horario': '05:00'}
-      ],
-    };
-
-    _eventosSelecionados = _listaEventos[_diaSelecionado] ?? [];
-    _calendarioController = new CalendarController();
   }
-
   @override
   void dispose() {
     _calendarioController.dispose();
@@ -59,16 +46,16 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
 
   void _onDaySelected(DateTime day, List events) {
     print('CALLBACK: _onDaySelected');
-    setState(() {
-      _eventosSelecionados = events;
-    });
+   setState(() {
+     registro_controller.eventosSelecionados = events;
+   });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registros'),
+        title: Text('${registro_controller.eventosSelecionados}'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
@@ -137,7 +124,28 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
     return TableCalendar(
       calendarController: _calendarioController,
       locale: 'pt_BR',
-      events: _listaEventos,
+      builders: CalendarBuilders(
+          markersBuilder: (context, date, events, holidays) {
+            final children = <Widget>[];
+
+            if (events.isNotEmpty) {
+              children.add(
+                Positioned(
+                  right: 1,
+                  bottom: 1,
+                  child: _buildEventsMarker(date, events),
+                ),
+              );
+            }
+            return children;
+          }
+      ),
+      availableCalendarFormats: const {
+        CalendarFormat.month: '2 semanas',
+        CalendarFormat.week: 'Mês',
+        CalendarFormat.twoWeeks:'Semana',
+      },
+      events: registro_controller.listaEventos,
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
         selectedColor: gc.corPadrao,
@@ -149,7 +157,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
         formatButtonTextStyle:
             TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
         formatButtonDecoration: BoxDecoration(
-          color: Colors.transparent,
+          color: gc.corPadrao,
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
@@ -157,10 +165,31 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
     );
   }
 
+  Widget _buildEventsMarker(DateTime date, List events) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        color: gc.corPadrao,
+      ),
+      width: 16.0,
+      height: 16.0,
+      child: Center(
+        child: Text(
+          '${events.length}',
+          style: TextStyle().copyWith(
+            color: Colors.white,
+            fontSize: 12.0,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _listaEventosConstrutor() {
     return ListView(
       scrollDirection: Axis.vertical,
-      children: _eventosSelecionados
+      children: registro_controller.eventosSelecionados
           .map((event) => GestureDetector(
                 onTap: () {
                   _descricaoMedicaoDialog(context, event);
@@ -173,58 +202,8 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                     ),
                     margin: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 4.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 50,
-                            ),
-                            Text('Sistólica '),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text('diastólica '),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text('Pulso'),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text('Horário'),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 70,
-                            ),
-                            Text(event['sis']),
-                            SizedBox(
-                              width: 40,
-                            ),
-                            Text(event['dia']),
-                            SizedBox(
-                              width: 50,
-                            ),
-                            Text(event['pulso']),
-                            SizedBox(
-                              width: 25,
-                            ),
-                            Text(event['Horario']),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                      ],
+                    child: Center(
+                      child: Text(event.toString()),
                     )),
               ))
           .toList(),
