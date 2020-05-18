@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'medicamentos.dart';
@@ -26,18 +29,18 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
     'Atividade 2 Cozinhando',
     'Atividade 3 Estudando'
   ];
-  CalendarController _calendarioController = new CalendarController();
-
-  Map<DateTime, List> _listaEventos;
-  List _eventosSelecionados = new List();
+  CalendarController _calendarioController;
   @override
   void initState() {
-    final hoje = DateTime.now();
-    final _diaSelecionado = DateTime(hoje.year,hoje.month,hoje.day);
-    registro_controller.getAllRegistros();
-    registro_controller.eventosSelecionados = registro_controller.listaEventos[_diaSelecionado] ?? [];
     super.initState();
+    registro_controller.getAllRegistros();
+    _calendarioController = CalendarController();
+
+    Timer(Duration(seconds: 2), () {
+      registro_controller.setShowCalendario(true);
+    });
   }
+
   @override
   void dispose() {
     _calendarioController.dispose();
@@ -46,31 +49,34 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
 
   void _onDaySelected(DateTime day, List events) {
     print('CALLBACK: _onDaySelected');
-   setState(() {
-     registro_controller.eventosSelecionados = events;
-   });
+    setState(() {
+      registro_controller.eventosSelecionados = events;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${registro_controller.eventosSelecionados}'),
+        title: Text('Registros'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
       ),
-      body: new Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            //-----------------------
-            _calendarioConstrutor(),
-            const SizedBox(height: 8.0),
-            Expanded(child: _listaEventosConstrutor()),
-          ],
-        ),
-      ),
+      body: new Container(child: Observer(builder: (_) {
+        return (!registro_controller.showCalendario)
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  _calendarioConstrutor(),
+                  SizedBox(height: 8.0),
+                  Expanded(child: _listaEventosConstrutor())
+                ],
+              );
+      })),
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         overlayColor: Colors.black87,
@@ -121,48 +127,49 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
   //=============FUCKING CALENDARIO DO SATANAS
 
   Widget _calendarioConstrutor() {
-    return TableCalendar(
-      calendarController: _calendarioController,
-      locale: 'pt_BR',
-      builders: CalendarBuilders(
-          markersBuilder: (context, date, events, holidays) {
-            final children = <Widget>[];
+    return Observer(builder: (_) {
+      return TableCalendar(
+        calendarController: _calendarioController,
+        locale: 'pt_BR',
+        builders:
+            CalendarBuilders(markersBuilder: (context, date, events, holidays) {
+          final children = <Widget>[];
 
-            if (events.isNotEmpty) {
-              children.add(
-                Positioned(
-                  right: 1,
-                  bottom: 1,
-                  child: _buildEventsMarker(date, events),
-                ),
-              );
-            }
-            return children;
+          if (events.isNotEmpty) {
+            children.add(
+              Positioned(
+                right: 1,
+                bottom: 1,
+                child: _buildEventsMarker(date, events),
+              ),
+            );
           }
-      ),
-      availableCalendarFormats: const {
-        CalendarFormat.month: '2 semanas',
-        CalendarFormat.week: 'Mês',
-        CalendarFormat.twoWeeks:'Semana',
-      },
-      events: registro_controller.listaEventos,
-      startingDayOfWeek: StartingDayOfWeek.monday,
-      calendarStyle: CalendarStyle(
-        selectedColor: gc.corPadrao,
-        todayColor: gc.corPadrao[100],
-        markersColor: Colors.black,
-        outsideDaysVisible: false,
-      ),
-      headerStyle: HeaderStyle(
-        formatButtonTextStyle:
-            TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
-        formatButtonDecoration: BoxDecoration(
-          color: gc.corPadrao,
-          borderRadius: BorderRadius.circular(16.0),
+          return children;
+        }),
+        availableCalendarFormats: const {
+          CalendarFormat.month: '2 semanas',
+          CalendarFormat.week: 'Mês',
+          CalendarFormat.twoWeeks: 'Semana',
+        },
+        events: registro_controller.listaEventos,
+        startingDayOfWeek: StartingDayOfWeek.monday,
+        calendarStyle: CalendarStyle(
+          selectedColor: gc.corPadrao,
+          todayColor: gc.corPadrao[100],
+          markersColor: Colors.black,
+          outsideDaysVisible: false,
         ),
-      ),
-      onDaySelected: _onDaySelected,
-    );
+        headerStyle: HeaderStyle(
+          formatButtonTextStyle:
+              TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+          formatButtonDecoration: BoxDecoration(
+            color: gc.corPadrao,
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+        ),
+        onDaySelected: _onDaySelected,
+      );
+    });
   }
 
   Widget _buildEventsMarker(DateTime date, List events) {
@@ -187,33 +194,41 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
   }
 
   Widget _listaEventosConstrutor() {
-    return ListView(
-      scrollDirection: Axis.vertical,
-      children: registro_controller.eventosSelecionados
-          .map((event) => GestureDetector(
-                onTap: () {
-                  _descricaoMedicaoDialog(context, event);
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: gc.corPadrao,
-                      border: Border.all(width: 0.8),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
-                    child: Center(
-                      child: Text(event.toString()),
-                    )),
-              ))
-          .toList(),
-    );
+    return Observer(builder: (_) {
+      return Container(
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: registro_controller.eventosSelecionados
+              .map((event) => GestureDetector(
+            onTap: () {
+              registro_controller.getAtividadesRelacionadas(event["id"]);
+              registro_controller
+                  .getMedicamentosRelacionadas(event["id"]);
+              _descricaoMedicaoDialog(context, event);
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                  color: gc.corPadrao,
+                  border: Border.all(width: 0.8),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: 8.0, vertical: 4.0),
+                child: Center(
+                  child: Text("${event['descricao']}"),
+                )),
+          ))
+              .toList(),
+        ),
+      );
+    });
   }
 
   void _descricaoMedicaoDialog(BuildContext context, Map event) {
-    showDialog(context: context, builder: (BuildContext context) {
-      return StatefulBuilder(
-          builder: (context, setState) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (context, setState) {
             return Dialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
@@ -229,7 +244,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                       child: Container(
                         height: 120,
                         color: gc.corPadrao,
-                        child: Center(child: Text("AQUI VAI ALGUMA COISA")),
+                        child: Center(child: Text("${event['anotacao']}")),
                       ),
                     ),
                     Padding(
@@ -242,7 +257,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _telaDescricaoMedicao=1;
+                                _telaDescricaoMedicao = 1;
                                 print(_telaDescricaoMedicao);
                               });
                             },
@@ -253,8 +268,8 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                                   ? Colors.grey
                                   : Colors.transparent,
                               child: CircleAvatar(
-                                backgroundImage:
-                                ExactAssetImage('assets/images/remedio.png'),
+                                backgroundImage: ExactAssetImage(
+                                    'assets/images/remedio.png'),
                                 minRadius: 90,
                                 maxRadius: 120,
                               ),
@@ -266,7 +281,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                _telaDescricaoMedicao=2;
+                                _telaDescricaoMedicao = 2;
                                 print(_telaDescricaoMedicao);
                               });
                             },
@@ -278,7 +293,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                                   : Colors.transparent,
                               child: CircleAvatar(
                                 backgroundImage:
-                                ExactAssetImage('assets/images/at.png'),
+                                    ExactAssetImage('assets/images/at.png'),
                                 minRadius: 90,
                                 maxRadius: 120,
                               ),
@@ -295,26 +310,32 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return Container(
-                                padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                                decoration: BoxDecoration(
-                                  color: gc.corPadrao,
-                                  border: Border.all(width: 0.8),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 4.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text( (_telaDescricaoMedicao==1)?_listaRemedios[index]:_atividades[index]),
-                                  ],
-                                ),
-                              );
+                                  //padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                                  decoration: BoxDecoration(
+                                    color: gc.corPadrao,
+                                    border: Border.all(width: 0.8),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 8.0, vertical: 1.0),
+                                  child: Center(
+                                    child: Text(
+                                      (_telaDescricaoMedicao == 1)
+                                          ? "${registro_controller.medicamentosRelacionadas[index]['nome']}"
+                                          : "${registro_controller.atividadesRelacionadas[index]['nome']}",
+                                    ),
+                                  ));
                             },
-                            itemCount: (_telaDescricaoMedicao==1)?2:3,
+                            itemCount: (_telaDescricaoMedicao == 1)
+                                ? registro_controller
+                                    .medicamentosRelacionadas.length
+                                : registro_controller
+                                    .atividadesRelacionadas.length,
                           ),
                         )),
                     Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10, top: 1),
+                        padding:
+                            const EdgeInsets.only(left: 10, right: 10, top: 1),
                         child: Center(
                           child: RaisedButton(
                             color: gc.corPadrao,
@@ -323,7 +344,8 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                             },
                             child: Text(
                               'Voltar',
-                              style: TextStyle(fontSize: 18.0, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 18.0, color: Colors.white),
                             ),
                           ),
                         )),
@@ -331,8 +353,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                 ),
               ),
             );
-          }
-      );
-    });
+          });
+        });
   }
 }

@@ -60,6 +60,8 @@ class Medicamento {
   Map<String,dynamic> toJson() => {
     'id': id,
     'nome': nome,
+    'descricao':descricao,
+
   };
 
   @override

@@ -349,6 +349,11 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                     ],
                   ),
                 ),
+                TextFormField(
+                  controller: registro_anotacao,
+                  decoration: InputDecoration(
+                      labelText: 'Anotação', hintText: 'Ex: De manhã'),
+                ),
                 SizedBox(
                   height: 15.0,
                 ),
@@ -357,7 +362,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                       child: new Text('Salvar'),
                       onPressed: () {
                         if (_formularioRegistroKey.currentState.validate()) {
-                          registro_controller.setAnotacao(registro_anotacao.toString());
+                          registro_controller.setAnotacao(registro_anotacao.text);
                         }
                       }),
                 )

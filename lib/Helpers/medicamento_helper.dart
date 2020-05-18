@@ -16,10 +16,8 @@ class MedicamentoHelper{
 
 Future<Medicamento>saveMedicamento(Medicamento m) async{
     Database dbMedicamento = await bh.db;
-    print(dbMedicamento);
-    print(m.toMap());
     m.id = await dbMedicamento.insert(bh.MedicamentoTable, m.toMap());
-    print(m.id);
+    print(m);
     return m;
 }
 
@@ -64,6 +62,19 @@ Future<int>deleteMedicamento(int id) async {
     }
     print(listaMedicamento);
     return listaMedicamento;
+  }
+
+  Future<List<Medicamento>> getAllMedicamentosRelacionados(int pressao) async{
+    Database dbMedicamento = await bh.db;
+    List<Map> listMaps = await dbMedicamento.rawQuery("SELECT b.medicamento_idColumn,b.medicamento_nomeColumn ,b.medicamento_descricaoColumn FROM ${bh.MedicamentosPressaoTable} AS a INNER JOIN ${bh.MedicamentoTable} AS b ON b.medicamento_idColumn = a.medicamentosPressao_idColumn WHERE a.medicamentosPressao_idPressaoColumn = ${pressao}");
+
+
+    List<Medicamento> listaAtividade =  List();
+    for(Map m in listMaps) {
+      listaAtividade.add(Medicamento.fromMap(m));
+    }
+    print(listMaps);
+    return listaAtividade;
   }
 
  Future close() async{

@@ -30,13 +30,14 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(RegistroPressao.fromMap(m));
     }
-    print(listaRegistroPressao);
+    print("=================${listaRegistroPressao}");
     return listaRegistroPressao;
   }
 
   Future<AtividadePressao>saveAtividadePressao(AtividadePressao ap) async{
     Database dbRegistroPressao = await bh.db;
     ap.id = await dbRegistroPressao.insert(bh.AtividadesPressaoTable, ap.toMap());
+    print("id: ${ap.id}");
     return ap;
   }
 

@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                               maxRadius: 20,
                             ),
                             SizedBox(width: 30,),
-                      FittedBox(fit:BoxFit.fitWidth,child: Text('Faça o login com o google'),)
+                      FittedBox(fit:BoxFit.fitWidth,child: Text('Google'),)
 
                           ],
                         ),
@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                               maxRadius: 20,
                             ),
                             SizedBox(width: 30,),
-                            Text('Faça o login com o facebook')
+                            Text('Facebook')
                           ],
                         ),
                       ),

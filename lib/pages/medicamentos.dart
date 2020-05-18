@@ -183,6 +183,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                     height: 15.0,
                   ),
                   TextFormField(
+                    controller: medicamento_anotacao,
                     decoration: InputDecoration(
                         labelText: 'Anotação', hintText: 'Ex: De manhã'),
                   ),

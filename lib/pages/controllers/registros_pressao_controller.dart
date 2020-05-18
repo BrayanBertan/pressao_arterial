@@ -35,8 +35,6 @@ abstract class _RegistroPressaoController with Store {
     medicamentos=[{'id':1,'nome':'a'}].asObservable();
     medicamentos.clear();
     registroObj = RegistroPressao(sistolica: 0,diastolica: 0,pulso: 0,postura: 0,braco: 0,anotacao: '',dataHora: DateTime.now(),id_usuario: 1);
-    DateTime isso = DateTime.now();
-    DateTime hj = DateTime(isso.year,isso.month,isso.day);
   }
   @observable
   RegistroPressao registroObj;
@@ -73,11 +71,28 @@ abstract class _RegistroPressaoController with Store {
     RegistroPressao(sistolica: 0,diastolica: 0,pulso: 0,postura: 0,braco: 0,anotacao: '',dataHora: DateTime.now(),id_usuario: 1),
   ].asObservable();
 
-  @observable
-  Map<DateTime, List> listaEventos = {};
 
   @observable
-  List eventosSelecionados = new List().asObservable();
+  ObservableMap<DateTime, List> listaEventos = ObservableMap.of({DateTime.now():[]});
+
+  @observable
+  List eventosSelecionados = [
+    {'id':0,'anotacao':'','descricao':''}
+  ].asObservable();
+
+  @observable
+  bool showCalendario = false;
+
+  @observable
+  List  atividadesRelacionadas = new List().asObservable();
+
+  @observable
+  List  medicamentosRelacionadas = new List().asObservable();
+
+  @action
+  setShowCalendario(bool valor) {
+    showCalendario = valor;
+  }
 
   @action
   setPressao(RangeValues novo) {
@@ -111,6 +126,22 @@ abstract class _RegistroPressaoController with Store {
   }
 
   @action
+  getAtividadesRelacionadas(int pressao) async{
+    List<Atividade> atividades_banco = await atividade_helper.getAllAtividadesRelacionadas(pressao);
+    print(atividades_banco);
+    atividadesRelacionadas.clear();
+   atividades_banco.forEach((element) => atividadesRelacionadas.add(element.toJson()));
+  }
+
+  @action
+ getMedicamentosRelacionadas(int pressao) async{
+    List<Medicamento> medicamentos_banco = await helper.getAllMedicamentosRelacionados(pressao);
+    print(medicamentos_banco);
+    medicamentosRelacionadas.clear();
+    medicamentos_banco.forEach((element) => medicamentosRelacionadas.add(element.toJson()));
+  }
+
+  @action
   setPostura(int valor){
     postura = valor;
   }
@@ -127,6 +158,7 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setAnotacao(String anotacao) async{
+    print(anotacao);
   registroObj.sistolica = pressao.end;
   registroObj.diastolica = pressao.start;
   registroObj.pulso = pulso;
@@ -158,19 +190,28 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   getAllRegistros() async{
-    List<RegistroPressao> event = await registro_helper.getAllRegistroPressoes();
-    for (int i = 0; i < event.length; i++) {
-      var createTime = DateTime(event[i].dataHora.year,event[i].dataHora.month,event[i].dataHora.day);
-      var original = listaEventos[createTime];
-      if (original == null) {
-        listaEventos[createTime] = ["Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}"];
-      } else {
-        listaEventos[createTime] = List.from(original)
-          ..addAll(["Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}"]);
+    //listaEventos.clear();
+    //eventosSelecionados.clear();
+   print("length: ${eventosSelecionados.length}");
+    List<RegistroPressao> event;
+    registro_helper.getAllRegistroPressoes().then((lista) {
+      event = lista;
+      for (int i = 0; i < event.length; i++) {
+        var createTime = DateTime(event[i].dataHora.year,event[i].dataHora.month,event[i].dataHora.day);
+        var original = listaEventos[createTime];
+        if (original == null) {
+          listaEventos[createTime] = [{'id':event[i].id,'anotacao':'${event[i].anotacao}','descricao':'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}'}];
+        } else {
+          listaEventos[createTime] = List.from(original)
+      ..addAll([{'id':event[i].id,'anotacao':'${event[i].anotacao}','descricao':'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}'}]);
+        }
       }
-    }
-    DateTime isso = DateTime.now();
-    DateTime hj = DateTime(isso.year,isso.month,isso.day);
-    eventosSelecionados = listaEventos[hj];
+      DateTime isso = DateTime.now();
+      DateTime hj = DateTime(isso.year,isso.month,isso.day);
+      eventosSelecionados = listaEventos[hj];
+      print("${eventosSelecionados}=====================");
+    });
+
+
   }
 }
