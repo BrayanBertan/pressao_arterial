@@ -65,23 +65,7 @@ abstract class _MedicamentoController with Store {
 
   @action
   setCarregandoLista(bool valor) {
-    print(valor);
     carregandoLista = valor;
-  }
-
-  @action
-  setMedicamentoTeste() async {
-    Medicamento m = Medicamento();
-    m.nome = "";
-    m.dose = 0;
-    m.quantidade_diaria = 0;
-    m.id_unidade = 1;
-    m.id_tipo = 1;
-    m.anotacao = "";
-    await helper.saveMedicamento(m);
-    helper.getAllMedicamento().then((list){
-      print(list);
-    });
   }
 
   @action
@@ -101,59 +85,39 @@ abstract class _MedicamentoController with Store {
   @action
   setMedicamentos(
       String nomeTxt, String doseTxt, quantidade_diariaTxt, anotacaoTxt) async {
-    //setCarregandoLista(true);
     remedio.id_usuario = 1;
+
+    remedio.nome = nomeTxt;
+    remedio.dose = int.tryParse(doseTxt);
+    remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
+    remedio.anotacao = anotacaoTxt;
+    remedio.descricao = '(${tipos[remedio.id_tipo-1].toString()}) ${remedio.dose}${unidades[remedio.id_unidade-1].toString()} ${remedio.quantidade_diaria} vez(es) ao dia';
     if(remedio.id != null) {
-      remedio.nome = nomeTxt;
-      remedio.dose = int.tryParse(doseTxt);
-      remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
-      remedio.anotacao = anotacaoTxt;
-      remedio.descricao = '(${tipos[remedio.id_tipo]}) ${remedio.dose}${unidades[remedio.id_unidade]} ${remedio.quantidade_diaria} vez(es) ao dia';
       await helper.updateMedicamento(remedio);
-      remedio.id = null;
-      remedio = Medicamento(
-          nome: "",
-          dose: 0,
-          quantidade_diaria: 0,
-          id_unidade: 1,
-          id_tipo: 1,
-          anotacao: "",
-          descricao:""
-      );
     }else{
-      remedio.nome = nomeTxt;
-      remedio.dose = int.tryParse(doseTxt);
-      remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
-      remedio.anotacao = anotacaoTxt;
-      remedio.descricao = '(${tipos[remedio.id_tipo].toString()}) ${remedio.dose}${unidades[remedio.id_unidade].toString()} ${remedio.quantidade_diaria} vez(es) ao dia';
-      //await api.setMedicamento(remedio);
       await helper.saveMedicamento(remedio);
-      remedio.id = null;
-      remedio = Medicamento(
-          nome: "",
-          dose: 0,
-          quantidade_diaria: 0,
-          id_unidade: 1,
-          id_tipo: 1,
-          anotacao: ""
-      );
     }
 
+    remedio.id = null;
+    remedio = Medicamento(
+        nome: "",
+        dose: 0,
+        quantidade_diaria: 0,
+        id_unidade: 1,
+        id_tipo: 1,
+        anotacao: "",
+        descricao:""
+    );
     getAllMedicamentos();
-    //await getAllMedicamentos();
   }
 
   @action
   getAllMedicamentos() async {
-    print("xd");
-    //setCarregandoLista(true);
     remedios.clear();
-    List l = new List();
-    l.clear();
-    l = await helper.getAllMedicamento();
-    //remedios.removeAt(0);
-    l.forEach((element) => remedios.add(element));
-    //setCarregandoLista(false);
+    List lista = new List();
+    lista.clear();
+    lista = await helper.getAllMedicamento();
+    lista.forEach((element) => remedios.add(element));
   }
 
   @action
@@ -164,6 +128,15 @@ abstract class _MedicamentoController with Store {
   @action
   removeMedicamento(int id) async {
     await helper.deleteMedicamento(id);
+    remedio = Medicamento(
+        nome: "",
+        dose: 0,
+        quantidade_diaria: 0,
+        id_unidade: 1,
+        id_tipo: 1,
+        anotacao: "",
+        descricao:""
+    );
     getAllMedicamentos();
   }
 

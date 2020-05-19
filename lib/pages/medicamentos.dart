@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:pressaoarterialapp/pages/lista_medicoes.dart';
 import 'configuracao_global.dart' as gc;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pressaoarterialapp/pages/controllers/medicamentos_controller.dart';
@@ -182,11 +183,14 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                   SizedBox(
                     height: 15.0,
                   ),
-                  TextFormField(
-                    controller: medicamento_anotacao,
-                    decoration: InputDecoration(
-                        labelText: 'Anotação', hintText: 'Ex: De manhã'),
-                  ),
+                  Observer(builder: (_) {
+                    medicamento_anotacao.text = (medicamento.remedio == "")? "":medicamento.remedio.anotacao;
+                    return TextFormField(
+                      controller: medicamento_anotacao,
+                      decoration: InputDecoration(
+                          labelText: 'Anotação', hintText: 'Ex: De manhã'),
+                    );
+                  }),
                   SizedBox(
                     height: 15.0,
                   ),

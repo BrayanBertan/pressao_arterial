@@ -42,13 +42,13 @@ class _SplashPageState extends State<SplashPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
-                width: 150,
-                height: 100,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.8,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(
                   top: 15.0,
                 ),
-                child: Text("xd"),
+                child: CircularProgressIndicator(),
               ),
             ],
           ),

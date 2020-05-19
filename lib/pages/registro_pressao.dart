@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
 import 'configuracao_global.dart' as gc;
 import 'package:sweetalert/sweetalert.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 
 final registro_controller = RegistroPressaoController();
@@ -31,6 +32,13 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Registro de pressão'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              registro_controller.setShowCalendario(false);
+              Modular.to.pop(context);
+            },
+          ),
         ),
         body: Container(
           padding: EdgeInsets.all(25),
@@ -363,6 +371,13 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                       onPressed: () {
                         if (_formularioRegistroKey.currentState.validate()) {
                           registro_controller.setAnotacao(registro_anotacao.text);
+                          FocusScope.of(context).unfocus();
+                          SweetAlert.show(context,
+                              title: "Salvo",
+                              style: SweetAlertStyle.success,
+                              onPress: (a) {
+                                //controller.jumpTo(controller.position.maxScrollExtent);
+                              });
                         }
                       }),
                 )

@@ -95,14 +95,6 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
     }, _$carregandoListaAtom, name: '${_$carregandoListaAtom.name}_set');
   }
 
-  final _$setMedicamentoTesteAsyncAction = AsyncAction('setMedicamentoTeste');
-
-  @override
-  Future setMedicamentoTeste() {
-    return _$setMedicamentoTesteAsyncAction
-        .run(() => super.setMedicamentoTeste());
-  }
-
   final _$setMedicamentosAsyncAction = AsyncAction('setMedicamentos');
 
   @override

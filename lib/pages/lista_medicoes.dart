@@ -35,7 +35,6 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
     super.initState();
     registro_controller.getAllRegistros();
     _calendarioController = CalendarController();
-
     Timer(Duration(seconds: 2), () {
       registro_controller.setShowCalendario(true);
     });
@@ -49,9 +48,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
 
   void _onDaySelected(DateTime day, List events) {
     print('CALLBACK: _onDaySelected');
-    setState(() {
       registro_controller.eventosSelecionados = events;
-    });
   }
 
   @override
@@ -73,7 +70,12 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                 children: <Widget>[
                   _calendarioConstrutor(),
                   SizedBox(height: 8.0),
+                  (registro_controller.eventosSelecionados.length>0)?
                   Expanded(child: _listaEventosConstrutor())
+                      :
+                  Center(
+                    child: Text("Sem registros neste dia"),
+                  )
                 ],
               );
       })),
@@ -93,7 +95,13 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
               label: 'Anotar',
               labelBackgroundColor: Colors.white,
               onTap: () {
-                Modular.to.pushNamed('/registroPressao');
+                Modular.to.pushNamed('/registroPressao').then((onValue){
+                 registro_controller.setShowCalendario(false);
+                 registro_controller.getAllRegistros();
+                 Timer(Duration(seconds: 2), () {
+                   registro_controller.setShowCalendario(true);
+                 });
+                });
               }),
           SpeedDialChild(
               child: Container(
@@ -321,7 +329,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                                   child: Center(
                                     child: Text(
                                       (_telaDescricaoMedicao == 1)
-                                          ? "${registro_controller.medicamentosRelacionadas[index]['nome']}"
+                                          ? "${registro_controller.medicamentosRelacionadas[index]['nome']}\n${registro_controller.medicamentosRelacionadas[index]['descricao']} "
                                           : "${registro_controller.atividadesRelacionadas[index]['nome']}",
                                     ),
                                   ));

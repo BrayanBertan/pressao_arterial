@@ -190,8 +190,8 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   getAllRegistros() async{
-    //listaEventos.clear();
-    //eventosSelecionados.clear();
+    listaEventos.clear();
+    eventosSelecionados.clear();
    print("length: ${eventosSelecionados.length}");
     List<RegistroPressao> event;
     registro_helper.getAllRegistroPressoes().then((lista) {
@@ -209,7 +209,9 @@ abstract class _RegistroPressaoController with Store {
       DateTime isso = DateTime.now();
       DateTime hj = DateTime(isso.year,isso.month,isso.day);
       eventosSelecionados = listaEventos[hj];
-      print("${eventosSelecionados}=====================");
+      if(eventosSelecionados == null) {
+        eventosSelecionados = [];
+      }
     });
 
 
