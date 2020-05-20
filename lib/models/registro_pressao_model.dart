@@ -47,7 +47,7 @@ class RegistroPressao {
       bh.registroPressao_idUsuarioColumn :  id_usuario,
     };
     if(id != null) {
-      map[bh.registroPressao_sistolicaColumn] = id;
+      map[bh.registroPressao_idColumn] = id;
     }
     return map;
 
@@ -60,6 +60,6 @@ class RegistroPressao {
   @override
   String toString() {
     // TODO: implement toString
-    return "postura: $postura";
+    return "sistolica: $sistolica";
   }
 }

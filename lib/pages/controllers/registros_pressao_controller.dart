@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -6,6 +7,7 @@ import 'package:pressaoarterialapp/Helpers/registro_pressao_helper.dart';
 import 'package:pressaoarterialapp/models/atividade_pressao_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_pressao_model.dart';
+import 'package:pressaoarterialapp/models/pressao_grafico_linha_model.dart';
 import 'package:pressaoarterialapp/models/registro_pressao_model.dart';
 import 'package:pressaoarterialapp/models/atividade_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -92,6 +94,12 @@ abstract class _RegistroPressaoController with Store {
   @observable
   List  medicamentosRelacionadas = new List().asObservable();
 
+  @observable
+  List<PressaoGraficoLinha>  sistolicaGrafico = [];
+
+  @observable
+  List<PressaoGraficoLinha>  diastolicaGrafico = [];
+
   @action
   setShowCalendario(bool valor) {
     showCalendario = valor;
@@ -166,15 +174,18 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setAnotacao(String anotacao) async{
+    final _random = new Random();
   registroObj.sistolica = pressao.end;
   registroObj.diastolica = pressao.start;
   registroObj.pulso = pulso;
   registroObj.postura = postura;
   registroObj.braco = braco;
   registroObj.anotacao = anotacao;
-  registroObj.dataHora = DateTime.now();
+  registroObj.dataHora = DateTime(2020, 09, 10 , 10, 15);
   registroObj.id_usuario = 1;
-  var registrado = await registro_helper.saveRegistro(registroObj);
+  registroObj.id = null;
+
+    var registrado = await registro_helper.saveRegistro(registroObj);
   if(atividades_selecionadas.length>0) {
     for(var atividade in atividades_selecionadas) {
       await registro_helper.saveAtividadePressao(AtividadePressao(idAtividade: atividade,idPressao: registrado.id));
@@ -230,4 +241,14 @@ abstract class _RegistroPressaoController with Store {
 
 
   }
+
+  @action
+  getAllTimeGraficos() async{
+    sistolicaGrafico.clear();
+    List<PressaoGraficoLinha> sistolica_banco = await registro_helper.getAllGraficos(1);
+    sistolica_banco.forEach((element) => sistolicaGrafico.add(element));
+    print(sistolicaGrafico);
+  }
 }
+
+
