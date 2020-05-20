@@ -84,6 +84,9 @@ abstract class _RegistroPressaoController with Store {
   bool showCalendario = false;
 
   @observable
+  int telaDescricaoMedicao = 1;
+
+  @observable
   List  atividadesRelacionadas = new List().asObservable();
 
   @observable
@@ -92,6 +95,11 @@ abstract class _RegistroPressaoController with Store {
   @action
   setShowCalendario(bool valor) {
     showCalendario = valor;
+  }
+
+  @action
+  setTelaDescricaoMedicao(int valor) {
+    telaDescricaoMedicao = valor;
   }
 
   @action
@@ -158,7 +166,6 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setAnotacao(String anotacao) async{
-    print(anotacao);
   registroObj.sistolica = pressao.end;
   registroObj.diastolica = pressao.start;
   registroObj.pulso = pulso;
@@ -184,7 +191,14 @@ abstract class _RegistroPressaoController with Store {
   registroObj.braco = 0;
   registroObj.anotacao = '';
   registroObj.dataHora = DateTime.now();
-  print(registrado);
+  pressao =  RangeValues(70, 100);
+  pulso = 60;
+  postura = 0;
+  braco = 0;
+  anotacao = '';
+  atividades_selecionadas.add(0);
+  atividades_selecionadas.clear();
+  medicamentos_selecionados.clear();
   }
 
 
@@ -200,10 +214,10 @@ abstract class _RegistroPressaoController with Store {
         var createTime = DateTime(event[i].dataHora.year,event[i].dataHora.month,event[i].dataHora.day);
         var original = listaEventos[createTime];
         if (original == null) {
-          listaEventos[createTime] = [{'id':event[i].id,'anotacao':'${event[i].anotacao}','descricao':'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}'}];
+          listaEventos[createTime] = [{'id':event[i].id,'postura':event[i].postura,'braco':event[i].braco,'anotacao':'${event[i].anotacao}','descricao':'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}','hora':'${event[i].dataHora.hour}:${event[i].dataHora.minute}'}];
         } else {
           listaEventos[createTime] = List.from(original)
-      ..addAll([{'id':event[i].id,'anotacao':'${event[i].anotacao}','descricao':'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}'}]);
+      ..addAll([{'id':event[i].id,'postura':event[i].postura,'braco':event[i].braco,'anotacao':'${event[i].anotacao}','descricao':'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}','hora':'${event[i].dataHora.hour}:${event[i].dataHora.minute}'}]);
         }
       }
       DateTime isso = DateTime.now();

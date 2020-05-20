@@ -30,7 +30,7 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(RegistroPressao.fromMap(m));
     }
-    print("=================${listaRegistroPressao}");
+    print("======REGISTROS===========${listaRegistroPressao}");
     return listaRegistroPressao;
   }
 
