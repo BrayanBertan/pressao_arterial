@@ -35,15 +35,46 @@ class RegistroPressaoHelper{
     return listaRegistroPressao;
   }
 
-  Future<List<PressaoGraficoLinha>> getAllGraficos(int tipo) async{
+  Future<List<PressaoGraficoLinha>> getAllGraficos(int tipo, int periodo) async{
     Database dbRegistroPressao = await bh.db;
     String tipo_column;
+    String periodo_filtro;
     if(tipo == 1){
       tipo_column = bh.registroPressao_sistolicaColumn;
     }else{
       tipo_column = bh.registroPressao_diastolicaColumn;
     }
-    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT ${tipo_column} AS pressao, ${bh.registroPressao_dateTimeColumn} FROM RegistroPressaoTable");
+
+    switch(periodo) {
+      case 1:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-1 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+        }
+        break;
+
+      case 2:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-3 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+        }
+        break;
+
+      case 3:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-6 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+        }
+        break;
+
+      default:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-12 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+        }
+        break;
+    }
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT ${tipo_column} AS pressao, ${bh.registroPressao_dateTimeColumn} FROM RegistroPressaoTable ${periodo_filtro}");
 
 
     List<PressaoGraficoLinha> listaRegistroPressao =  List();

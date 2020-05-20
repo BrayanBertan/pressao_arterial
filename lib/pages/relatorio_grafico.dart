@@ -93,13 +93,24 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
   ];
 
   static List<charts.Series<PressaoGraficoLinha, DateTime>>
-      seriesSistolicaTime = [
+  seriesSistolicaTime = [
     charts.Series<PressaoGraficoLinha, DateTime>(
       id: 'graficoSistolicaTime',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
       domainFn: (PressaoGraficoLinha series, _) => series.eixoX,
       measureFn: (PressaoGraficoLinha series, _) => series.eixoY,
       data: registro_controller.sistolicaGrafico,
+    ),
+  ];
+
+  static List<charts.Series<PressaoGraficoLinha, DateTime>>
+  seriesDiastolicaTime = [
+    charts.Series<PressaoGraficoLinha, DateTime>(
+      id: 'graficoDiastolicaTime',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (PressaoGraficoLinha series, _) => series.eixoX,
+      measureFn: (PressaoGraficoLinha series, _) => series.eixoY,
+      data: registro_controller.diastolicaGrafico,
     ),
   ];
 
@@ -175,28 +186,73 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
         appBar: AppBar(
           title: Text('Pressão Arterial'),
         ),
-        body: PageView(children: <Widget>[
-         Observer(builder:(_){
-           return  (!registro_controller.showCalendario)?
-           Center(
-             child: CircularProgressIndicator(),
-           )
-               :
+        body: Observer(builder:(_){
+          return  (!registro_controller.showCalendario)?
+          Center(
+            child: CircularProgressIndicator(),
+          )
+              :
+          PageView(children: <Widget>[
            ListView(
              children: <Widget>[
-               RaisedButton(onPressed: () {
-                 setState(() {
-                   teste.add(PressaoGraficoLinha(eixoX: DateTime(2020, 11, 10, 10, 15), eixoY:74.90 ));
-                 });
+               Observer(builder: (_) {
+                 return DropdownButton<int>(
+                   items: [
+                     DropdownMenuItem(
+                       value: 1,
+                       child: Center(
+                         child: Text(
+                           'Ultimo mês',
+                         ),
+                       ),
+                     ),
+                     DropdownMenuItem(
+                       value: 2,
+                       child: Center(
+                         child: Text(
+                           'Ultimos 3 mêses',
+                         ),
+                       ),
+                     ),
+                     DropdownMenuItem(
+                       value: 3,
+                       child: Center(
+                         child: Text(
+                           'Ultimos 6 mêses',
+                         ),
+                       ),
+                     ),
+                     DropdownMenuItem(
+                       value: 4,
+                       child: Center(
+                         child: Text(
+                           'Ultimo ano',
+                         ),
+                       ),
+                     ),
+                   ],
+                   onChanged: (valor) {
+                       registro_controller.setShowCalendario(false);
+                       registro_controller.setFiltroGraficoTempo(valor);
+                       registro_controller.setFormatoData();
+                       registro_controller.getAllTimeGraficos();
+                       Timer(Duration(seconds: 1), () {
+                         registro_controller.setShowCalendario(true);
+                       });
+
+                   },
+                     value:  registro_controller.filtroGraficoTempo,
+                   isExpanded: true,
+                 );
                }),
                SizedBox(
                  height: 20.0,
                ),
                Center(
                  child: Text(
-                   'Semanal',
+                   (registro_controller.filtroGraficoTempo == 1)?'Ultimo mês':(registro_controller.filtroGraficoTempo == 2)?'Ultimos 3 mêses':(registro_controller.filtroGraficoTempo == 3)?'Ultimos 6 mêses':'Ultimo ano',
                    style: TextStyle(
-                     fontSize: 50,
+                     fontSize: 30,
                    ),
                  ),
                ),
@@ -225,9 +281,9 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                                    tickFormatterSpec:
                                    new charts.AutoDateTimeTickFormatterSpec(
                                        day: new charts.TimeFormatterSpec(
-                                           format: 'MM/yyyy',
+                                           format: registro_controller.formatoDataX,
                                            transitionFormat:
-                                           'MM/yyyy')))),
+                                           registro_controller.formatoDataX)))),
                          ),
                        ],
                      ),
@@ -247,22 +303,21 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                            style: Theme.of(context).textTheme.body2,
                          ),
                          Expanded(
-                           child: charts.LineChart(
-                             seriesDiastolica,
-                             defaultRenderer: new charts.LineRendererConfig(
-                                 includeArea: true, stacked: true),
-                             animate: true,
-                             primaryMeasureAxis: new charts.NumericAxisSpec(
-                                 tickProviderSpec:
-                                 new charts.BasicNumericTickProviderSpec(
-                                     desiredTickCount: 5)),
-                             domainAxis: charts.NumericAxisSpec(
-                               tickProviderSpec:
-                               charts.BasicNumericTickProviderSpec(
-                                   desiredTickCount: 7),
-                               tickFormatterSpec: eixoXPersonalizado,
-                             ),
-                           ),
+                           child: charts.TimeSeriesChart(seriesDiastolicaTime,
+                               animate: true,
+                               dateTimeFactory:
+                               charts.LocalDateTimeFactory(),
+                               primaryMeasureAxis: new charts.NumericAxisSpec(
+                                   tickProviderSpec:
+                                   new charts.BasicNumericTickProviderSpec(
+                                       desiredTickCount: 10)),
+                               domainAxis: new charts.DateTimeAxisSpec(
+                                   tickFormatterSpec:
+                                   new charts.AutoDateTimeTickFormatterSpec(
+                                       day: new charts.TimeFormatterSpec(
+                                           format: registro_controller.formatoDataX,
+                                           transitionFormat:
+                                           registro_controller.formatoDataX)))),
                          ),
                        ],
                      ),
@@ -270,8 +325,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                  ),
                ),
              ],
-           );
-         }),
+           ),
           ListView(
             children: <Widget>[
               SizedBox(
@@ -316,7 +370,9 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
               ),
             ],
           ),
-        ]));
+        ]);
+  }),
+    );
   }
 }
 

@@ -37,6 +37,12 @@ abstract class _RegistroPressaoController with Store {
     medicamentos=[{'id':1,'nome':'a'}].asObservable();
     medicamentos.clear();
     registroObj = RegistroPressao(sistolica: 0,diastolica: 0,pulso: 0,postura: 0,braco: 0,anotacao: '',dataHora: DateTime.now(),id_usuario: 1);
+    periodosGrafico = [
+      {'id':1,'nome':'Ultimo mês'},
+      {'id':1,'nome':'Ultimos 3 mêses'},
+      {'id':1,'nome':'Ultimo 6 mêses'},
+      {'id':1,'nome':'Ultimo 1 ano'},
+    ].asObservable();
   }
   @observable
   RegistroPressao registroObj;
@@ -99,6 +105,29 @@ abstract class _RegistroPressaoController with Store {
 
   @observable
   List<PressaoGraficoLinha>  diastolicaGrafico = [];
+
+  @observable
+  ObservableList periodosGrafico = new List().asObservable();
+
+  @observable
+  int filtroGraficoTempo = 1;
+
+  @observable
+  String formatoDataX = 'dd/MM';
+
+  @action
+  setFiltroGraficoTempo(int valor) {
+    filtroGraficoTempo = valor;
+  }
+
+  @action
+  setFormatoData() {
+    if(filtroGraficoTempo == 1){
+      formatoDataX = 'dd/MM';
+    }else{
+      formatoDataX = 'MM/yyyy';
+    }
+  }
 
   @action
   setShowCalendario(bool valor) {
@@ -181,7 +210,7 @@ abstract class _RegistroPressaoController with Store {
   registroObj.postura = postura;
   registroObj.braco = braco;
   registroObj.anotacao = anotacao;
-  registroObj.dataHora = DateTime(2020, 09, 10 , 10, 15);
+  registroObj.dataHora = DateTime(2019, 10, 10 , 10, 15);
   registroObj.id_usuario = 1;
   registroObj.id = null;
 
@@ -245,8 +274,11 @@ abstract class _RegistroPressaoController with Store {
   @action
   getAllTimeGraficos() async{
     sistolicaGrafico.clear();
-    List<PressaoGraficoLinha> sistolica_banco = await registro_helper.getAllGraficos(1);
+    diastolicaGrafico.clear();
+    List<PressaoGraficoLinha> sistolica_banco = await registro_helper.getAllGraficos(1,filtroGraficoTempo);
     sistolica_banco.forEach((element) => sistolicaGrafico.add(element));
+    List<PressaoGraficoLinha> diastolica_banco = await registro_helper.getAllGraficos(2,filtroGraficoTempo);
+    diastolica_banco.forEach((element) => diastolicaGrafico.add(element));
     print(sistolicaGrafico);
   }
 }

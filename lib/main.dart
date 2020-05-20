@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'app/app_module.dart';
 //testando
 void main() {
-  initializeDateFormatting().then((_) => runApp(ModularApp(module: AppModule())));
+  runApp(ModularApp(module: AppModule()));
 
 }
 
