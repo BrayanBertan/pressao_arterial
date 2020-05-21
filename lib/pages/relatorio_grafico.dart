@@ -47,6 +47,26 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     )
   ];
 
+  static List<charts.Series<PressaoGraficoBarra, String>> seriesSistolicaMedicamento = [
+    charts.Series<PressaoGraficoBarra, String>(
+      id: 'seriesSistolicaMedicamento',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (PressaoGraficoBarra series, _) => series.eixoX,
+      measureFn: (PressaoGraficoBarra series, _) => series.eixoY,
+      data: registro_controller.sistolicaGraficoMedicamento,
+    )
+  ];
+
+  static List<charts.Series<PressaoGraficoBarra, String>> seriesDiastolicaMedicamento = [
+    charts.Series<PressaoGraficoBarra, String>(
+      id: 'seriesDiastolicaMedicamento',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (PressaoGraficoBarra series, _) => series.eixoX,
+      measureFn: (PressaoGraficoBarra series, _) => series.eixoY,
+      data: registro_controller.diastolicaGraficoMedicamento,
+    )
+  ];
+
   static List<charts.Series<PressaoGraficoLinha, DateTime>>
   seriesSistolicaTime = [
     charts.Series<PressaoGraficoLinha, DateTime>(
@@ -72,6 +92,8 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
   void initState() {
     registro_controller.getAllTimeGraficos();
     registro_controller.getAllAtividadesFiltro();
+    registro_controller.getAllMedicamentosFiltro();
+    registro_controller.setShowCalendario(false);
     Timer(Duration(seconds: 2), () {
       registro_controller.setShowCalendario(true);
     });
@@ -164,7 +186,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                 ),
                 Center(
                   child: Text(
-                    (registro_controller.filtroGraficoTempo == 1)?'Ultimo mês':(registro_controller.filtroGraficoTempo == 2)?'Ultimos 3 mêses':(registro_controller.filtroGraficoTempo == 3)?'Ultimos 6 mêses':'Ultimo ano',
+                    (registro_controller.filtroGraficoTempo == 1)?'Ultimo mês':(registro_controller.filtroGraficoTempo == 2)?'Ultimos 3 mêses':(registro_controller.filtroGraficoTempo == 3)?'Ultimos 6 mêses':(registro_controller.filtroGraficoTempo == 5)?'Ultimas 24 horas':(registro_controller.filtroGraficoTempo == 6)?"Ultima semana":"Ultimo Ano",
                     style: TextStyle(
                       fontSize: 30,
                     ),
@@ -271,11 +293,11 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                       cancelButtonLabel: 'CANCELAR',
                       // required: true,
                       hintText: '',
-                      initialValue: registro_controller.atividades_selecionadas,
+                      initialValue: registro_controller.atividades_selecionadas_filtro,
                       onSaved: (value) {
                         if (value == null) return;
                         registro_controller.setShowCalendario(false);
-                        registro_controller.setAtividadesSelecionadas(value);
+                        registro_controller.setAtividadesSelecionadasFiltro(value);
                         registro_controller.getAllBarraGraficos();
                         Timer(Duration(seconds: 2), () {
                           registro_controller.setShowCalendario(true);
@@ -286,7 +308,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                 }),
                 Center(
                   child: Text(
-                    'Semanal',
+                    'Atividades',
                     style: TextStyle(
                       fontSize: 50,
                     ),
@@ -350,26 +372,26 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                     padding: EdgeInsets.all(16),
                     child: MultiSelectFormField(
                       autovalidate: false,
-                      titleText: 'Atividades',
+                      titleText: 'Medicamentos',
                       validator: (value) {
                         if (value.length > 5) {
                           return 'Limite de 5';
                         }
                         return null;
                       },
-                      dataSource: registro_controller.atividadesRelacionadasFiltro,
+                      dataSource: registro_controller.medicamentosRelacionadasFiltro,
                       textField: 'nome',
                       valueField: 'id',
                       okButtonLabel: 'OK',
                       cancelButtonLabel: 'CANCELAR',
                       // required: true,
                       hintText: '',
-                      initialValue: registro_controller.atividades_selecionadas,
+                      initialValue: registro_controller.medicamentos_selecionados_filtro,
                       onSaved: (value) {
                         if (value == null) return;
                         registro_controller.setShowCalendario(false);
-                        registro_controller.setAtividadesSelecionadas(value);
-                        registro_controller.getAllBarraGraficos();
+                        registro_controller.setMedicamentosSelecionadosFiltro(value);
+                        registro_controller.getAllBarraGraficosMedicamentos();
                         Timer(Duration(seconds: 2), () {
                           registro_controller.setShowCalendario(true);
                         });
@@ -379,9 +401,9 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                 }),
                 Center(
                   child: Text(
-                    'Semanal',
+                    'Medicamentos',
                     style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 40,
                     ),
                   ),
                 ),
@@ -398,7 +420,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             style: Theme.of(context).textTheme.body2,
                           ),
                           Expanded(
-                            child:  new charts.BarChart( seriesSistolicaAtividade, animate: true, ),
+                            child:  new charts.BarChart( seriesSistolicaMedicamento, animate: true, ),
                           ),
                         ],
                       ),
@@ -418,7 +440,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             style: Theme.of(context).textTheme.body2,
                           ),
                           Expanded(
-                            child:  new charts.BarChart( seriesDiastolicaAtividade, animate: true, ),
+                            child:  new charts.BarChart( seriesDiastolicaMedicamento, animate: true, ),
                           ),
                         ],
                       ),

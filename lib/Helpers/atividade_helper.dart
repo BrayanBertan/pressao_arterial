@@ -46,7 +46,7 @@ class AtividadeHelper {
         "ON b.atividadesPressao_idPressaoColumn = a.registroPressao_idColumn "
         "INNER JOIN ${bh.AtividadesTable} AS c "
         "ON c.atividades_idColumn = b.atividadesPressao_idAtividadeColumn "
-        "WHERE a.registroPressao_idUsuarioColumn = ${usuario}");
+        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} GROUP BY c.atividades_idColumn,c.atividades_nomeColumn ");
 
     List<Atividade> listaAtividade = List();
     for (Map m in listMaps) {

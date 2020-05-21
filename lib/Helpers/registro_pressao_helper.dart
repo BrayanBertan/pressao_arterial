@@ -110,13 +110,13 @@ class RegistroPressaoHelper{
     }else{
       tipo_column = bh.registroPressao_diastolicaColumn;
     }
-    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT a.${tipo_column} AS pressao, "
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT AVG(a.${tipo_column}) AS pressao, "
         "c.${bh.atividades_nomeColumn} AS nome FROM RegistroPressaoTable AS a "
         "INNER JOIN ${bh.AtividadesPressaoTable} AS b "
         "ON b.atividadesPressao_idPressaoColumn = a.registroPressao_idColumn "
         "INNER JOIN ${bh.AtividadesTable} AS c "
         "ON c.atividades_idColumn = b.atividadesPressao_idAtividadeColumn "
-        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} AND c.atividades_idColumn IN ${atividades}");
+        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} AND c.atividades_idColumn IN ${atividades} GROUP BY c.atividades_idColumn");
 
 
     List<PressaoGraficoBarra> listaRegistroPressao =  List();
@@ -124,6 +124,36 @@ class RegistroPressaoHelper{
       listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
     }
     print("======REGISTROS Atividades===========${listaRegistroPressao}");
+    return listaRegistroPressao;
+  }
+
+  Future<List<PressaoGraficoBarra>> getAllGraficosBarraMedicamento(int tipo,int usuario,String medicamentos) async{
+    Database dbRegistroPressao = await bh.db;
+    print(medicamentos);
+    medicamentos = medicamentos.replaceAll("[","(");
+    medicamentos = medicamentos.replaceAll("]",")");
+
+    String tipo_column;
+    String periodo_filtro;
+    if(tipo == 1){
+      tipo_column = bh.registroPressao_sistolicaColumn;
+    }else{
+      tipo_column = bh.registroPressao_diastolicaColumn;
+    }
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT AVG(a.${tipo_column}) AS pressao, "
+        "c.${bh.medicamento_nomeColumn} AS nome FROM RegistroPressaoTable AS a "
+        "INNER JOIN ${bh.MedicamentosPressaoTable} AS b "
+        "ON b.medicamentosPressao_idPressaoColumn = a.registroPressao_idColumn "
+        "INNER JOIN ${bh.MedicamentoTable} AS c "
+        "ON c.medicamento_idColumn = b.medicamentosPressao_idMedicamentoColumn "
+        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} AND c.medicamento_idColumn IN  ${medicamentos}  GROUP BY c.medicamento_idColumn");
+
+
+    List<PressaoGraficoBarra> listaRegistroPressao =  List();
+    for(Map m in listMaps) {
+      listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
+    }
+    print("======REGISTROS Medicamentos===========${listMaps}");
     return listaRegistroPressao;
   }
 
@@ -135,6 +165,7 @@ class RegistroPressaoHelper{
   }
 
   Future<MedicamentoPressao>saveMedicamentoPressao(MedicamentoPressao am) async{
+    print("testandooooooooo ${am}");
     Database dbRegistroPressao = await bh.db;
     am.id = await dbRegistroPressao.insert(bh.MedicamentosPressaoTable, am.toMap());
     return am;
