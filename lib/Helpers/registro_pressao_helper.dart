@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:pressaoarterialapp/models/atividade_pressao_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_pressao_model.dart';
+import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_linha_model.dart';
 import 'package:pressaoarterialapp/models/registro_pressao_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -95,6 +96,34 @@ class RegistroPressaoHelper{
       listaRegistroPressao.add(PressaoGraficoLinha.fromMap(m));
     }
     print("======REGISTROS===========${listaRegistroPressao}");
+    return listaRegistroPressao;
+  }
+
+  Future<List<PressaoGraficoBarra>> getAllGraficosBarraAtividade(int tipo,int usuario,String atividades) async{
+    Database dbRegistroPressao = await bh.db;
+    atividades = atividades.replaceAll("[","(");
+    atividades = atividades.replaceAll("]",")");
+    String tipo_column;
+    String periodo_filtro;
+    if(tipo == 1){
+      tipo_column = bh.registroPressao_sistolicaColumn;
+    }else{
+      tipo_column = bh.registroPressao_diastolicaColumn;
+    }
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT a.${tipo_column} AS pressao, "
+        "c.${bh.atividades_nomeColumn} AS nome FROM RegistroPressaoTable AS a "
+        "INNER JOIN ${bh.AtividadesPressaoTable} AS b "
+        "ON b.atividadesPressao_idPressaoColumn = a.registroPressao_idColumn "
+        "INNER JOIN ${bh.AtividadesTable} AS c "
+        "ON c.atividades_idColumn = b.atividadesPressao_idAtividadeColumn "
+        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} AND c.atividades_idColumn IN ${atividades}");
+
+
+    List<PressaoGraficoBarra> listaRegistroPressao =  List();
+    for(Map m in listMaps) {
+      listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
+    }
+    print("======REGISTROS Atividades===========${listaRegistroPressao}");
     return listaRegistroPressao;
   }
 

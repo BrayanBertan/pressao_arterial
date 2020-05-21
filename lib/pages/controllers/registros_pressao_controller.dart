@@ -7,6 +7,7 @@ import 'package:pressaoarterialapp/Helpers/registro_pressao_helper.dart';
 import 'package:pressaoarterialapp/models/atividade_pressao_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_pressao_model.dart';
+import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_linha_model.dart';
 import 'package:pressaoarterialapp/models/registro_pressao_model.dart';
 import 'package:pressaoarterialapp/models/atividade_model.dart';
@@ -98,6 +99,12 @@ abstract class _RegistroPressaoController with Store {
   List  atividadesRelacionadas = new List().asObservable();
 
   @observable
+  List  medicamentosRelacionadasFiltro = new List().asObservable();
+
+  @observable
+  List  atividadesRelacionadasFiltro = new List().asObservable();
+
+  @observable
   List  medicamentosRelacionadas = new List().asObservable();
 
   @observable
@@ -105,6 +112,12 @@ abstract class _RegistroPressaoController with Store {
 
   @observable
   List<PressaoGraficoLinha>  diastolicaGrafico = [];
+
+  @observable
+  List<PressaoGraficoBarra>  sistolicaGraficoAtividade = [];
+
+  @observable
+  List<PressaoGraficoBarra>  diastolicaGraficoAtividade = [];
 
   @observable
   ObservableList periodosGrafico = new List().asObservable();
@@ -203,6 +216,20 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   getAllAtividades() async{
+    List<Atividade> atividades_banco = await atividade_helper.getAllAtividades();
+    atividades.clear();
+    atividades_banco.forEach((element) => atividades.add(element.toJson()));
+  }
+
+  @action
+  getAllAtividadesFiltro() async{
+    List<Atividade> atividades_banco = await atividade_helper.getAllAtividadesFiltro(1);
+    atividadesRelacionadasFiltro.clear();
+    atividades_banco.forEach((element) => atividadesRelacionadasFiltro.add(element.toJson()));
+  }
+
+  @action
+  getAllMedicamentosFiltro() async{
     List<Atividade> atividades_banco = await atividade_helper.getAllAtividades();
     atividades.clear();
     atividades_banco.forEach((element) => atividades.add(element.toJson()));
@@ -326,6 +353,18 @@ abstract class _RegistroPressaoController with Store {
     diastolica_banco.forEach((element) => diastolicaGrafico.add(element));
     print(sistolicaGrafico);
   }
+
+  @action
+  getAllBarraGraficos() async{
+    sistolicaGraficoAtividade.clear();
+    diastolicaGraficoAtividade.clear();
+    List<PressaoGraficoBarra> sistolica_banco = await registro_helper.getAllGraficosBarraAtividade(1,1, atividades_selecionadas.toString());
+    sistolica_banco.forEach((element) => sistolicaGraficoAtividade.add(element));
+    List<PressaoGraficoBarra> diastolica_banco = await registro_helper.getAllGraficosBarraAtividade(2,1, atividades_selecionadas.toString());
+    diastolica_banco.forEach((element) => diastolicaGraficoAtividade.add(element));
+    atividades_selecionadas.clear();
+  }
+
 }
 
 
