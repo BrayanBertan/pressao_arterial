@@ -199,6 +199,22 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                  return DropdownButton<int>(
                    items: [
                      DropdownMenuItem(
+                       value: 5,
+                       child: Center(
+                         child: Text(
+                           'Ultimas 24 horas',
+                         ),
+                       ),
+                     ),
+                     DropdownMenuItem(
+                       value: 6,
+                       child: Center(
+                         child: Text(
+                           'Ultima semana',
+                         ),
+                       ),
+                     ),
+                     DropdownMenuItem(
                        value: 1,
                        child: Center(
                          child: Text(

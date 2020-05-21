@@ -49,32 +49,45 @@ class RegistroPressaoHelper{
       case 1:
         {
           periodo_filtro = "WHERE datetime(${bh
-              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-1 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-1 month') AND DATETIME('now')";
         }
         break;
 
       case 2:
         {
           periodo_filtro = "WHERE datetime(${bh
-              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-3 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-3 month') AND DATETIME('now')";
         }
         break;
 
       case 3:
         {
           periodo_filtro = "WHERE datetime(${bh
-              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-6 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-6 month') AND DATETIME('now')";
+        }
+        break;
+      case 6:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-7 day') AND DATETIME('now')";
+        }
+        break;
+      case 5:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-1 day') AND DATETIME('now')";
         }
         break;
 
       default:
         {
           periodo_filtro = "WHERE datetime(${bh
-              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-12 month', 'start of month') AND DATETIME('now','start of month','+1 month','-1 day')";
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-12 month') AND DATETIME('now')";
         }
         break;
     }
-    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT ${tipo_column} AS pressao, ${bh.registroPressao_dateTimeColumn} FROM RegistroPressaoTable ${periodo_filtro}");
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT ${tipo_column} AS pressao, ${bh.registroPressao_dateTimeColumn} FROM RegistroPressaoTable ${periodo_filtro} ORDER BY datetime(${bh
+        .registroPressao_dateTimeColumn}, 'unixepoch') ASC");
 
 
     List<PressaoGraficoLinha> listaRegistroPressao =  List();

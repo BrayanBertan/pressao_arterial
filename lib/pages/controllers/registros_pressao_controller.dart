@@ -127,6 +127,51 @@ abstract class _RegistroPressaoController with Store {
     }else{
       formatoDataX = 'MM/yyyy';
     }
+
+    switch(filtroGraficoTempo) {
+      case 1:
+      {
+        formatoDataX = 'dd/MM';
+      }
+      break;
+      case 2:
+        {
+          formatoDataX = 'MM/yyyy';
+        }
+        break;
+      case 1:
+        {
+          formatoDataX = 'dd/MM';
+        }
+        break;
+      case 3:
+        {
+          formatoDataX = 'MM/yyyy';
+        }
+        break;
+      case 4:
+        {
+          formatoDataX = 'MM/yyyy';
+        }
+        break;
+      case 5:
+        {
+          formatoDataX = 'Hm';
+        }
+        break;
+      case 6:
+        {
+          formatoDataX = 'EEEE';
+        }
+        break;
+
+
+      default:
+        {
+          formatoDataX = 'MM/yyyy';
+        }
+        break;
+    }
   }
 
   @action
@@ -210,7 +255,7 @@ abstract class _RegistroPressaoController with Store {
   registroObj.postura = postura;
   registroObj.braco = braco;
   registroObj.anotacao = anotacao;
-  registroObj.dataHora = DateTime(2019, 10, 10 , 10, 15);
+  registroObj.dataHora = DateTime(2020, 05, 21 , 8, 25);
   registroObj.id_usuario = 1;
   registroObj.id = null;
 
