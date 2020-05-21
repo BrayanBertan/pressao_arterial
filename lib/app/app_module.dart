@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/Helpers/atividade_helper.dart';
 import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
+import 'package:pressaoarterialapp/pages/perfis.dart';
 
 import 'app_widget.dart';
 import 'package:pressaoarterialapp/pages/splash.dart';
@@ -29,7 +30,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
     Router("/", child: (_, args) => SplashPage()),
-    Router("/login", child: (_, args) => LoginPage()),
+    Router("/login", child: (_, args) => PerfilPage()),
     Router("/registros", child: (_, args) => ListaMedicoesPage()),
     Router("/medicamentos", child: (_, args) => MedicamentosPage()),
     Router("/relatorios", child: (_, args) => RelatorioGraficoPage()),
