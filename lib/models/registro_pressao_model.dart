@@ -60,6 +60,6 @@ class RegistroPressao {
   @override
   String toString() {
     // TODO: implement toString
-    return "sistolica: $sistolica";
+    return "pulso: $pulso";
   }
 }

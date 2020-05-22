@@ -20,7 +20,7 @@ class RegistroPressaoHelper{
   Future<RegistroPressao>saveRegistro(RegistroPressao r) async{
     Database dbRegistroPressao = await bh.db;
     r.id = await dbRegistroPressao.insert(bh.RegistroPressaoTable, r.toMap());
-    print("===== anotacao cadastrada${r.sistolica}");
+    print("===== anotacao cadastrada${r.pulso}");
     return r;
   }
 

@@ -7,6 +7,7 @@ import 'package:pressaoarterialapp/Helpers/registro_pressao_helper.dart';
 import 'package:pressaoarterialapp/models/atividade_pressao_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_pressao_model.dart';
+import 'package:intl/intl.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_linha_model.dart';
 import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
@@ -59,6 +60,8 @@ abstract class _RegistroPressaoController with Store {
       {'id': 1, 'nome': 'Ultimo 6 mêses'},
       {'id': 1, 'nome': 'Ultimo 1 ano'},
     ].asObservable();
+    var format = DateFormat.yMd('pt');
+    diaSelecionado = format.format(DateTime.now());
   }
   @observable
   RegistroPressao registroObj;
@@ -161,6 +164,15 @@ abstract class _RegistroPressaoController with Store {
 
   @observable
   String formatoDataX = 'dd/MM';
+
+  @observable
+  String diaSelecionado;
+
+  @action
+  setDiaSelecionado(DateTime valor) {
+    var format = DateFormat.yMd('pt');
+    diaSelecionado = format.format(valor);
+  }
 
   @action
   setFiltroGraficoTempo(int valor) {
@@ -329,7 +341,6 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setAnotacao(String anotacao) async {
-    final _random = new Random();
     registroObj.sistolica = pressao.end;
     registroObj.diastolica = pressao.start;
     registroObj.pulso = pulso;
@@ -390,8 +401,9 @@ abstract class _RegistroPressaoController with Store {
               'postura': event[i].postura,
               'braco': event[i].braco,
               'anotacao': '${event[i].anotacao}',
-              'descricao':
-                  'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}',
+              'sistolica': '${event[i].sistolica.round()}',
+              'diastolica': '${event[i].diastolica.round()}',
+              'pulso': '${event[i].pulso.round()}',
               'hora': '${event[i].dataHora.hour}:${event[i].dataHora.minute}'
             }
           ];
@@ -403,8 +415,9 @@ abstract class _RegistroPressaoController with Store {
                 'postura': event[i].postura,
                 'braco': event[i].braco,
                 'anotacao': '${event[i].anotacao}',
-                'descricao':
-                    'Sistolica:${event[i].sistolica.round()}  Diastolica: ${event[i].diastolica.round()}\n Pulso: ${event[i].pulso.round()}  Hora: ${event[i].dataHora.hour}:${event[i].dataHora.minute}',
+                'sistolica': '${event[i].sistolica.round()}',
+                'diastolica': '${event[i].diastolica.round()}',
+                'pulso': '${event[i].pulso.round()}',
                 'hora': '${event[i].dataHora.hour}:${event[i].dataHora.minute}'
               }
             ]);
