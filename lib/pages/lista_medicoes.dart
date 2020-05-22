@@ -45,10 +45,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registros'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-        ),
+        title: Text('${gc.perfilSelecionado.nome}'),
       ),
       body: new Container(child: Observer(builder: (_) {
         return (!registro_controller.showCalendario)

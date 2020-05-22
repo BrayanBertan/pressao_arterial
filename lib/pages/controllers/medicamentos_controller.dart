@@ -3,6 +3,7 @@ import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:pressaoarterialapp/models/unidade_model.dart';
 import 'package:pressaoarterialapp/models/tipo_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
 import 'package:pressaoarterialapp/repositories/medicamentosapi_repository.dart';
 import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
 import 'dart:async';
@@ -85,7 +86,7 @@ abstract class _MedicamentoController with Store {
   @action
   setMedicamentos(
       String nomeTxt, String doseTxt, quantidade_diariaTxt, anotacaoTxt) async {
-    remedio.id_usuario = 1;
+    remedio.id_usuario = gc.perfilSelecionado.id;
 
     remedio.nome = nomeTxt;
     remedio.dose = int.tryParse(doseTxt);

@@ -9,6 +9,7 @@ import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:pressaoarterialapp/models/medicamento_pressao_model.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_linha_model.dart';
+import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
 import 'package:pressaoarterialapp/models/registro_pressao_model.dart';
 import 'package:pressaoarterialapp/models/atividade_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -336,7 +337,7 @@ abstract class _RegistroPressaoController with Store {
     registroObj.braco = braco;
     registroObj.anotacao = anotacao;
     registroObj.dataHora = DateTime.now();
-    registroObj.id_usuario = 1;
+    registroObj.id_usuario = gc.perfilSelecionado.id;
     registroObj.id = null;
     var registrado = await registro_helper.saveRegistro(registroObj);
     print(registrado.id);

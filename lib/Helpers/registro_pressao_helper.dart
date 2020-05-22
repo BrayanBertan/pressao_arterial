@@ -6,6 +6,7 @@ import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_linha_model.dart';
 import 'package:pressaoarterialapp/models/registro_pressao_model.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
 import 'package:pressaoarterialapp/Helpers/banco_helper.dart';
 
 
@@ -25,7 +26,7 @@ class RegistroPressaoHelper{
 
   Future<List<RegistroPressao>> getAllRegistroPressoes() async{
     Database dbRegistroPressao = await bh.db;
-    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT * FROM RegistroPressaoTable");
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT * FROM RegistroPressaoTable WHERE ${bh.registroPressao_idUsuarioColumn} = ${gc.perfilSelecionado.id}");
 
 
     List<RegistroPressao> listaRegistroPressao =  List();
@@ -87,7 +88,7 @@ class RegistroPressaoHelper{
         }
         break;
     }
-    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT ${tipo_column} AS pressao, ${bh.registroPressao_dateTimeColumn} FROM RegistroPressaoTable ${periodo_filtro} ORDER BY datetime(${bh
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT ${tipo_column} AS pressao, ${bh.registroPressao_dateTimeColumn} FROM RegistroPressaoTable ${periodo_filtro} AND ${bh.registroPressao_idUsuarioColumn} = ${gc.perfilSelecionado.id} ORDER BY datetime(${bh
         .registroPressao_dateTimeColumn}, 'unixepoch') ASC");
 
 
@@ -116,7 +117,7 @@ class RegistroPressaoHelper{
         "ON b.atividadesPressao_idPressaoColumn = a.registroPressao_idColumn "
         "INNER JOIN ${bh.AtividadesTable} AS c "
         "ON c.atividades_idColumn = b.atividadesPressao_idAtividadeColumn "
-        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} AND c.atividades_idColumn IN ${atividades} GROUP BY c.atividades_idColumn");
+        "WHERE a.registroPressao_idUsuarioColumn = ${gc.perfilSelecionado.id} AND c.atividades_idColumn IN ${atividades} GROUP BY c.atividades_idColumn");
 
 
     List<PressaoGraficoBarra> listaRegistroPressao =  List();
@@ -146,7 +147,7 @@ class RegistroPressaoHelper{
         "ON b.medicamentosPressao_idPressaoColumn = a.registroPressao_idColumn "
         "INNER JOIN ${bh.MedicamentoTable} AS c "
         "ON c.medicamento_idColumn = b.medicamentosPressao_idMedicamentoColumn "
-        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} AND c.medicamento_idColumn IN  ${medicamentos}  GROUP BY c.medicamento_idColumn");
+        "WHERE a.registroPressao_idUsuarioColumn = ${gc.perfilSelecionado.id} AND c.medicamento_idColumn IN  ${medicamentos}  GROUP BY c.medicamento_idColumn");
 
 
     List<PressaoGraficoBarra> listaRegistroPressao =  List();

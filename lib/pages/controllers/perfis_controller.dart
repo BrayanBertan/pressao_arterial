@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pressaoarterialapp/Helpers/perfil_helper.dart';
+import 'dart:async';
+
+import 'package:pressaoarterialapp/models/perfil_model.dart';
+part 'perfis_controller.g.dart';
+
+class PerfilController = _PerfilController
+    with _$PerfilController;
+
+abstract class _PerfilController with Store {
+  PerfilHelper perfil_helper = PerfilHelper();
+
+  _PerfilController() {
+    perfilNome.text = '';
+  }
+
+  final TextEditingController perfilNome = TextEditingController();
+
+  @observable
+  int avatarSelecionado=-1;
+
+  @observable
+  bool showLista = false;
+
+  @observable
+  String avatarLinkSelecionado = 'avatarPadrao';
+
+  @observable
+  String avatarNome = '';
+
+  @observable
+  ObservableList listaPerfis = [].asObservable();
+
+  @observable
+  Perfil objPerfil = Perfil(nome: '',icone: '');
+
+  @action
+  setAvatarSelecionado(int index) {
+    avatarSelecionado = index;
+    avatarLinkSelecionado = 'avatar${index}.png';
+  }
+
+  @action
+  setShowLista(bool valor) {
+    showLista = valor;
+  }
+
+  @action
+  setEdicao(Perfil p) {
+    objPerfil.id = p.id;
+    perfilNome.text = p.nome;
+    avatarSelecionado = int.parse(p.icone.split('avatar').toString()[3]);
+    avatarLinkSelecionado = p.icone;
+  }
+
+  @action
+  setAvatar() async{
+    objPerfil.nome = perfilNome.text;
+    objPerfil.icone = '${avatarLinkSelecionado}';
+
+    if (objPerfil.id == null) {
+      var objRetorno = await perfil_helper.savePerfil(objPerfil);
+    }else{
+      var objRetorno = await perfil_helper.updatePerfil(objPerfil);
+    }
+    objPerfil.id = null;
+    objPerfil.nome = '';
+    objPerfil.icone = 'avatarPadrao.png';
+    avatarSelecionado = -1;
+    avatarLinkSelecionado = 'avatarPadrao';
+    perfilNome.text = '';
+    getAllPerfis();
+  }
+
+  @action
+  getAllPerfis() async{
+    List<Perfil> perfis_banco = await perfil_helper.getAllPerfis();
+    listaPerfis.clear();
+    perfis_banco.forEach((element)=>listaPerfis.add(element));
+  }
+
+
+}

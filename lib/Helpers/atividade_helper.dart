@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:pressaoarterialapp/models/atividade_model.dart';
 import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
+import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
 import 'package:sqflite/sqflite.dart';
 import 'package:pressaoarterialapp/Helpers/banco_helper.dart';
 
@@ -46,7 +47,7 @@ class AtividadeHelper {
         "ON b.atividadesPressao_idPressaoColumn = a.registroPressao_idColumn "
         "INNER JOIN ${bh.AtividadesTable} AS c "
         "ON c.atividades_idColumn = b.atividadesPressao_idAtividadeColumn "
-        "WHERE a.registroPressao_idUsuarioColumn = ${usuario} GROUP BY c.atividades_idColumn,c.atividades_nomeColumn ");
+        "WHERE a.registroPressao_idUsuarioColumn = ${gc.perfilSelecionado.id} GROUP BY c.atividades_idColumn,c.atividades_nomeColumn ");
 
     List<Atividade> listaAtividade = List();
     for (Map m in listMaps) {

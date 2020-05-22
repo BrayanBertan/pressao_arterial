@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:pressaoarterialapp/Helpers/banco_helper.dart';
-
+import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
 
 
 class MedicamentoHelper{
@@ -53,7 +53,7 @@ Future<int>deleteMedicamento(int id) async {
 
   Future<List<Medicamento>> getAllMedicamento() async{
     Database dbMedicamento = await bh.db;
-    List<Map> listMaps = await dbMedicamento.rawQuery("SELECT * FROM MedicamentoTable");
+    List<Map> listMaps = await dbMedicamento.rawQuery("SELECT * FROM MedicamentoTable WHERE medicamento_idUsuarioColumn = ${gc.perfilSelecionado.id}");
 
 
     List<Medicamento> listaMedicamento =  List();
@@ -67,9 +67,13 @@ Future<int>deleteMedicamento(int id) async {
   Future<List<Medicamento>> getAllMedicamentosFiltro(int usuario) async {
     Database dbAtividade = await bh.db;
     List<Map> listMaps = await dbAtividade.rawQuery(
-        "SELECT medicamento_idColumn,medicamento_nomeColumn "
-            "FROM ${bh.MedicamentoTable}"
-            " WHERE medicamento_idUsuarioColumn = ${usuario} GROUP BY medicamento_idColumn,medicamento_nomeColumn ");
+        "SELECT b.medicamento_idColumn, b.medicamento_nomeColumn FROM ${bh.MedicamentosPressaoTable} AS a "
+            "INNER JOIN ${bh.MedicamentoTable} AS b "
+            "ON b.medicamento_idColumn = a.medicamentosPressao_idMedicamentoColumn "
+            "WHERE b.medicamento_idUsuarioColumn = ${gc.perfilSelecionado.id}  "
+            "GROUP BY b.medicamento_idColumn,b.medicamento_nomeColumn ");
+
+
 
     List<Medicamento> listaAtividade = List();
     for (Map m in listMaps) {
