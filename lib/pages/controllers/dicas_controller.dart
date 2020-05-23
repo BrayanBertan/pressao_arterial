@@ -15,6 +15,30 @@ abstract class _DicaController with Store {
   @observable
   List<Map<String,String>> listaDicas = [
     {
+      'tituloprincipal':'Mantenha uma alimentação saudável',
+      'titulo':'Há uma gama de alimentos que podem desencadear ou agravar a doença. "O excesso de sal e de gorduras saturadas, assim como a ingestão de gorduras trans são amigos da hipertensão. Evitá-los é fundamental para manter a doença longe e ou para controlá-la", ressalta o médico.',
+      'subtitulo':'',
+      'foto':'apple.png'
+    },
+    {
+      'tituloprincipal':'Evite o excesso de peso',
+      'titulo':'A grande quantidade de gordura corporal também afeta o aumento da pressão arterial. Acabar com o excesso de peso é uma ótima sugestão para quem não deseja encarar riscos. "É como se o coração fosse obrigado a aumentar a força para bombear o sangue em direção aos outros órgãos. Quando o peso diminui, muitas vezes, também reduzimos a dose dos medicamentos", afirma o cardiologista.',
+      'subtitulo':'',
+      'foto':'obeso.png'
+    },
+    {
+      'tituloprincipal':'Acalme os nervos',
+      'titulo':'De forma isolada, o estresse não é capaz de causar a hipertensão, mas quando combinado com outros fatores de risco pode agravar o quadro. "Buscando alternativas para viver de maneira mais tranquila, o coração tende a trabalhar melhor e as doses dos medicamentos podem até diminuir", diz o cardiologista.',
+      'subtitulo':'',
+      'foto':'relief.png'
+    },
+    {
+      'tituloprincipal':'Reduza o consumo de bebidas alcoólicas',
+      'titulo':'De acordo com o especialista, consumir bebidas alcoólicas de forma moderada não é prejudicial para a pressão arterial, mas exagerar na dose pode causar estragos. "O consumo excessivo de álcool compromete todo o organismo, inclusive a pressão arterial", diz.',
+      'subtitulo':'',
+      'foto':'no-alcohol.png'
+    },
+    {
       'tituloprincipal':'Verifique a pressão arterial mensalmente',
       'titulo':'De acordo com o especialista, mesmo quem não sofre com a doença precisa ficar atento e medir a pressão ao menos uma vez por ano. "Cerca de 25% da população adulta é composta por hipertensos. Mas a maioria deles nem desconfia disso e ignora os cuidados, podendo sofrer com problemas mais sérios no futuro", diz o médico. Mas não vale medir a pressão de qualquer jeito:',
       'subtitulo':'- Repouse 15 minutos antes, em um lugar tranquilo\n'
@@ -26,30 +50,6 @@ abstract class _DicaController with Store {
           '- Após exercícios físicos, aguarde 30 minutos\n'
           '- E não tome café 20 minutos antes da medição\n',
       'foto':'pa1.png'
-    },
-    {
-      'tituloprincipal':'Evite o excesso de peso',
-      'titulo':'A grande quantidade de gordura corporal também afeta o aumento da pressão arterial. Acabar com o excesso de peso é uma ótima sugestão para quem não deseja encarar riscos. "É como se o coração fosse obrigado a aumentar a força para bombear o sangue em direção aos outros órgãos. Quando o peso diminui, muitas vezes, também reduzimos a dose dos medicamentos", afirma o cardiologista.',
-      'subtitulo':'',
-      'foto':'obeso.png'
-    },
-    {
-      'tituloprincipal':'Mantenha uma alimentação saudável',
-      'titulo':'Há uma gama de alimentos que podem desencadear ou agravar a doença. "O excesso de sal e de gorduras saturadas, assim como a ingestão de gorduras trans são amigos da hipertensão. Evitá-los é fundamental para manter a doença longe e ou para controlá-la", ressalta o médico.',
-      'subtitulo':'',
-      'foto':'apple.png'
-    },
-    {
-      'tituloprincipal':'Reduza o consumo de bebidas alcoólicas',
-      'titulo':'De acordo com o especialista, consumir bebidas alcoólicas de forma moderada não é prejudicial para a pressão arterial, mas exagerar na dose pode causar estragos. "O consumo excessivo de álcool compromete todo o organismo, inclusive a pressão arterial", diz.',
-      'subtitulo':'',
-      'foto':'no-alcohol.png'
-    },
-    {
-      'tituloprincipal':'Acalme os nervos',
-      'titulo':'De forma isolada, o estresse não é capaz de causar a hipertensão, mas quando combinado com outros fatores de risco pode agravar o quadro. "Buscando alternativas para viver de maneira mais tranquila, o coração tende a trabalhar melhor e as doses dos medicamentos podem até diminuir", diz o cardiologista.',
-      'subtitulo':'',
-      'foto':'relief.png'
     },
     {
       'tituloprincipal':'Abaixo a fumaça',

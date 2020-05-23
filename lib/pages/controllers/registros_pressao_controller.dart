@@ -391,6 +391,8 @@ abstract class _RegistroPressaoController with Store {
         var createTime = DateTime(event[i].dataHora.year,
             event[i].dataHora.month, event[i].dataHora.day);
         var original = listaEventos[createTime];
+        var format = DateFormat.jm('pt');
+       String hora = format.format(DateTime(event[i].dataHora.year,event[i].dataHora.month,event[i].dataHora.day,event[i].dataHora.hour,event[i].dataHora.minute));
         if (original == null) {
           listaEventos[createTime] = [
             {
@@ -401,7 +403,7 @@ abstract class _RegistroPressaoController with Store {
               'sistolica': '${event[i].sistolica.round()}',
               'diastolica': '${event[i].diastolica.round()}',
               'pulso': '${event[i].pulso.round()}',
-              'hora': '${event[i].dataHora.hour}:${event[i].dataHora.minute}'
+              'hora': '${hora}'
             }
           ];
         } else {
@@ -415,7 +417,7 @@ abstract class _RegistroPressaoController with Store {
                 'sistolica': '${event[i].sistolica.round()}',
                 'diastolica': '${event[i].diastolica.round()}',
                 'pulso': '${event[i].pulso.round()}',
-                'hora': '${event[i].dataHora.hour}:${event[i].dataHora.minute}'
+                'hora': '${hora}'
               }
             ]);
         }
