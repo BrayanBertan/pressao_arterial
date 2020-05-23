@@ -166,10 +166,12 @@ class RegistroPressaoHelper{
   }
 
   Future<MedicamentoPressao>saveMedicamentoPressao(MedicamentoPressao am) async{
-    print("testandooooooooo ${am}");
     Database dbRegistroPressao = await bh.db;
     am.id = await dbRegistroPressao.insert(bh.MedicamentosPressaoTable, am.toMap());
-    return am;
+    MedicamentoPressao retorno = am;
+    print("testandooooooooo ${am}");
+    am = null;
+    return retorno;
   }
 
 /*Future close() async{

@@ -46,63 +46,70 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${gc.perfilSelecionado.nome}'),
+        title: Text('${gc.perfilSelecionado.id}'),
       ),
       body: new Container(child: Observer(builder: (_) {
         return (!registro_controller.showCalendario)
             ? Center(
-          child: CircularProgressIndicator(),
-        )
+                child: CircularProgressIndicator(),
+              )
             : Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            SizedBox(height: 5.0),
-            Row(
-              children: <Widget>[
-                Expanded(child: Divider(color: Colors.black)),
-                Text(
-                  'Calendario:',
-                  style: TextStyle(fontSize: 15),
-                ),
-                Expanded(child: Divider(color: Colors.black)),
-              ],
-            ),
-            SizedBox(height: 5.0),
-            _calendarioConstrutor(),
-            SizedBox(height: 5.0),
-            Row(
-              children: <Widget>[
-                Expanded(child: Divider(color: Colors.black)),
-                Observer(
-                  builder: (_) {
-                    return Text(
-                      '${registro_controller.diaSelecionado}',
-                      style: TextStyle(fontSize: 15),
-                    );
-                  },
-                ),
-                Expanded(child: Divider(color: Colors.black)),
-              ],
-            ),
-            SizedBox(height: 5.0),
-            (registro_controller.eventosSelecionados.length > 0)
-                ? Expanded(child: _listaEventosConstrutor())
-                : Center(
-              child: Text("Sem registros neste dia"),
-            )
-          ],
-        );
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  SizedBox(height: 5.0),
+                  Row(
+                    children: <Widget>[
+                      Expanded(child: Divider(color: Colors.black)),
+                      Text(
+                        'Calendario:',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Expanded(child: Divider(color: Colors.black)),
+                    ],
+                  ),
+                  SizedBox(height: 5.0),
+                  _calendarioConstrutor(),
+                  SizedBox(height: 5.0),
+                  Row(
+                    children: <Widget>[
+                      Expanded(child: Divider(color: Colors.black)),
+                      Observer(
+                        builder: (_) {
+                          return Text(
+                            '${registro_controller.diaSelecionado}',
+                            style: TextStyle(fontSize: 15),
+                          );
+                        },
+                      ),
+                      Expanded(child: Divider(color: Colors.black)),
+                    ],
+                  ),
+                  SizedBox(height: 5.0),
+                  (registro_controller.eventosSelecionados.length > 0)
+                      ? Expanded(child: _listaEventosConstrutor())
+                      : Center(
+                          child: Text("Sem registros neste dia"),
+                        )
+                ],
+              );
       })),
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         overlayColor: Colors.black87,
-        animatedIconTheme: IconThemeData(size: 22.0),
+        animatedIconTheme: IconThemeData(size: 30.0),
         shape: CircleBorder(),
         children: [
           SpeedDialChild(
-              child: Container(
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/pressao1.png'),
+              child: Tab(
+                icon: Container(
+                  child: Image(
+                    image: AssetImage(
+                      'assets/images/pressao1.png',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  height: 46,
+                  width: 46,
                 ),
               ),
               backgroundColor: Colors.green,
@@ -118,9 +125,16 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                 });
               }),
           SpeedDialChild(
-              child: Container(
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/remedio.png'),
+              child: Tab(
+                icon: Container(
+                  child: Image(
+                    image: AssetImage(
+                      'assets/images/remedio.png',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  height: 46,
+                  width: 46,
                 ),
               ),
               backgroundColor: Colors.green,
@@ -130,9 +144,16 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                 Modular.to.pushNamed('/medicamentos');
               }),
           SpeedDialChild(
-              child: Container(
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/rela.png'),
+              child: Tab(
+                icon: Container(
+                  child: Image(
+                    image: AssetImage(
+                      'assets/images/rela.png',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  height: 46,
+                  width: 46,
                 ),
               ),
               backgroundColor: Colors.green,
@@ -140,6 +161,31 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
               labelBackgroundColor: Colors.white,
               onTap: () {
                 Modular.to.pushNamed('/relatorios');
+              }),
+          SpeedDialChild(
+              child: Tab(
+                icon: Container(
+                  child: Image(
+                    image: AssetImage(
+                      'assets/images/dica.png',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  height: 46,
+                  width: 46,
+                ),
+              ),
+              backgroundColor: Colors.green,
+              label: 'Dicas',
+              labelBackgroundColor: Colors.white,
+              onTap: () {
+                Modular.to.pushNamed('/dicas').then((onValue) {
+                  registro_controller.setShowCalendario(false);
+                  registro_controller.getAllRegistros();
+                  Timer(Duration(seconds: 2), () {
+                    registro_controller.setShowCalendario(true);
+                  });
+                });
               }),
         ],
       ),
@@ -154,7 +200,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
         calendarController: _calendarioController,
         locale: 'pt_BR',
         builders:
-        CalendarBuilders(markersBuilder: (context, date, events, holidays) {
+            CalendarBuilders(markersBuilder: (context, date, events, holidays) {
           final children = <Widget>[];
 
           if (events.isNotEmpty) {
@@ -184,7 +230,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
         ),
         headerStyle: HeaderStyle(
           formatButtonTextStyle:
-          TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+              TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
           formatButtonDecoration: BoxDecoration(
             color: gc.corPadrao,
             borderRadius: BorderRadius.circular(16.0),
@@ -219,24 +265,58 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
   Widget _listaEventosConstrutor() {
     return Observer(builder: (_) {
       return Container(
+        width: MediaQuery.of(context).size.width * 0.97,
         child: ListView(
           scrollDirection: Axis.vertical,
           children: registro_controller.eventosSelecionados
               .map((event) => GestureDetector(
-            onTap: () {
-              registro_controller
-                  .getAtividadesRelacionadas(event["id"]);
-              registro_controller
-                  .getMedicamentosRelacionadas(event["id"]);
-              _descricaoMedicaoDialog(context, event);
-            },
-            child: Card(
-              child: ListTile(
-                title: Text("Sistolica: ${event['sistolica']} Diastolica: ${event['diastolica']}"),
-                subtitle: Text("Pulso: ${event['pulso']} Hora: ${event['hora']}\n Anotação: ${event['anotacao']}"),
-              ),
-            ),
-          ))
+                  onTap: () {
+                    registro_controller.getAtividadesRelacionadas(event["id"]);
+                    registro_controller
+                        .getMedicamentosRelacionadas(event["id"]);
+                    _descricaoMedicaoDialog(context, event);
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 1,
+                        margin: const EdgeInsets.only(left: 25.0),
+                        padding: EdgeInsets.fromLTRB(5, 15, 0, 0),
+                        decoration: BoxDecoration(
+                            border: Border(
+                              left: BorderSide(color:gc.corPadrao),
+                            ),
+                        ),
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                                "Sistolica: ${event['sistolica']} Diastolica: ${event['diastolica']}",
+                                style: TextStyle(fontSize: 15)),
+                            subtitle: Text(
+                                "Pulso: ${event['pulso']} Anotação: ${event['anotacao']}"),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: new BoxDecoration(
+                            color: gc.corPadrao,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30))),
+                        alignment: new FractionalOffset(0.0, 0.5),
+                        margin: const EdgeInsets.only(left: 0),
+                          child: Tab(
+                            icon: Container(
+                              margin: const EdgeInsets.only(top: 12.0,left: 2.5),
+                              child: Text('${event['hora']}'),
+                              height: 42,
+                              width: 42,
+                            ),
+                          ),
+                      )
+                    ],
+                  )))
               .toList(),
         ),
       );
@@ -303,7 +383,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                               width: 65,
                               child: CircleAvatar(
                                 backgroundImage:
-                                ExactAssetImage('assets/images/at.png'),
+                                    ExactAssetImage('assets/images/at.png'),
                                 minRadius: 90,
                                 maxRadius: 120,
                               ),
@@ -314,86 +394,91 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                     ),
                     Observer(builder: (_) {
                       return Padding(
-                          padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                           child: Container(
+                            width: MediaQuery.of(context).size.width * 1,
+                            height: MediaQuery.of(context).size.height * 0.4,
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  //padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                                    decoration: BoxDecoration(
-                                      color: gc.corPadrao,
-                                      border: Border.all(width: 0.8),
-                                      borderRadius: BorderRadius.circular(12.0),
+                                    //padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      left: BorderSide(color:gc.corPadrao,width: 5.5),
                                     ),
+                                  ),
                                     margin: const EdgeInsets.symmetric(
-                                        horizontal: 8.0, vertical: 1.0),
-                                    child: Center(
-                                      child: Text(
-                                        (registro_controller
-                                            .telaDescricaoMedicao ==
-                                            1)
-                                            ? "${registro_controller.medicamentosRelacionadas[index]['nome']}\n${registro_controller.medicamentosRelacionadas[index]['descricao']} "
-                                            : "${registro_controller.atividadesRelacionadas[index]['nome']}",
+                                        horizontal: 1.0, vertical: 1.0),
+                                      child: Card(
+                                        child: ListTile(
+                                          title:Text(
+                                            (registro_controller
+                                                .telaDescricaoMedicao ==
+                                                1)
+                                                ? "${registro_controller.medicamentosRelacionadas[index]['nome']} ${registro_controller.medicamentosRelacionadas[index]['descricao']} "
+                                                : "${registro_controller.atividadesRelacionadas[index]['nome']}",
+                                          style: TextStyle(fontSize: 11)),
+                                        ),
                                       ),
-                                    ));
+                                    );
                               },
                               itemCount:
-                              (registro_controller.telaDescricaoMedicao ==
-                                  1)
-                                  ? registro_controller
-                                  .medicamentosRelacionadas.length
-                                  : registro_controller
-                                  .atividadesRelacionadas.length,
+                                  (registro_controller.telaDescricaoMedicao ==
+                                          1)
+                                      ? registro_controller
+                                          .medicamentosRelacionadas.length
+                                      : registro_controller
+                                          .atividadesRelacionadas.length,
                             ),
                           ));
                     }),
                     Padding(
                       padding:
-                      const EdgeInsets.only(left: 60, right: 10, top: 1),
+                          const EdgeInsets.only(left: 53, right: 10, top: 1),
                       child: Row(
                         children: <Widget>[
                           Observer(builder: (_) {
                             return (event['braco'] == 1)
                                 ? Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.none),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0)),
-                                ),
-                              ),
-                              height: 65,
-                              width: 65,
-                              child: CircleAvatar(
-                                backgroundImage: ExactAssetImage(
-                                    'assets/images/rx.png'),
-                                minRadius: 90,
-                                maxRadius: 120,
-                              ),
-                            )
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 1.0,
+                                            style: BorderStyle.none),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                      ),
+                                    ),
+                                    height: 65,
+                                    width: 65,
+                                    child: CircleAvatar(
+                                      backgroundImage: ExactAssetImage(
+                                          'assets/images/brad.png'),
+                                      minRadius: 90,
+                                      maxRadius: 120,
+                                    ),
+                                  )
                                 : Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.none),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0)),
-                                ),
-                              ),
-                              height: 65,
-                              width: 65,
-                              child: CircleAvatar(
-                                backgroundImage: ExactAssetImage(
-                                    'assets/images/rx1.png'),
-                                minRadius: 90,
-                                maxRadius: 120,
-                              ),
-                            );
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 1.0,
+                                            style: BorderStyle.none),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                      ),
+                                    ),
+                                    height: 65,
+                                    width: 65,
+                                    child: CircleAvatar(
+                                      backgroundImage: ExactAssetImage(
+                                          'assets/images/brae.png'),
+                                      minRadius: 90,
+                                      maxRadius: 120,
+                                    ),
+                                  );
                           }),
                           SizedBox(
                             width: 15,
@@ -401,70 +486,70 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                           Observer(builder: (_) {
                             return (event['postura'] == 1)
                                 ? Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.none),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0)),
-                                ),
-                              ),
-                              height: 65,
-                              width: 65,
-                              child: CircleAvatar(
-                                backgroundImage: ExactAssetImage(
-                                    'assets/images/pos1.png'),
-                                minRadius: 90,
-                                maxRadius: 120,
-                              ),
-                            )
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 1.0,
+                                            style: BorderStyle.none),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                      ),
+                                    ),
+                                    height: 65,
+                                    width: 65,
+                                    child: CircleAvatar(
+                                      backgroundImage: ExactAssetImage(
+                                          'assets/images/pos1.png'),
+                                      minRadius: 90,
+                                      maxRadius: 120,
+                                    ),
+                                  )
                                 : (event['postura'] == 2)
-                                ? Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.none),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0)),
-                                ),
-                              ),
-                              height: 65,
-                              width: 65,
-                              child: CircleAvatar(
-                                backgroundImage: ExactAssetImage(
-                                    'assets/images/pos2.png'),
-                                minRadius: 90,
-                                maxRadius: 120,
-                              ),
-                            )
-                                : Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.none),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0)),
-                                ),
-                              ),
-                              height: 65,
-                              width: 65,
-                              child: CircleAvatar(
-                                backgroundImage: ExactAssetImage(
-                                    'assets/images/pos3.png'),
-                                minRadius: 90,
-                                maxRadius: 120,
-                              ),
-                            );
+                                    ? Container(
+                                        decoration: ShapeDecoration(
+                                          shape: RoundedRectangleBorder(
+                                            side: BorderSide(
+                                                width: 1.0,
+                                                style: BorderStyle.none),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5.0)),
+                                          ),
+                                        ),
+                                        height: 65,
+                                        width: 65,
+                                        child: CircleAvatar(
+                                          backgroundImage: ExactAssetImage(
+                                              'assets/images/pos2.png'),
+                                          minRadius: 90,
+                                          maxRadius: 120,
+                                        ),
+                                      )
+                                    : Container(
+                                        decoration: ShapeDecoration(
+                                          shape: RoundedRectangleBorder(
+                                            side: BorderSide(
+                                                width: 1.0,
+                                                style: BorderStyle.none),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5.0)),
+                                          ),
+                                        ),
+                                        height: 65,
+                                        width: 65,
+                                        child: CircleAvatar(
+                                          backgroundImage: ExactAssetImage(
+                                              'assets/images/pos3.png'),
+                                          minRadius: 90,
+                                          maxRadius: 120,
+                                        ),
+                                      );
                           }),
                         ],
                       ),
                     ),
                     Padding(
                         padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 1),
+                            const EdgeInsets.only(left: 10, right: 10, top: 1),
                         child: Center(
                           child: RaisedButton(
                             color: gc.corPadrao,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/Helpers/atividade_helper.dart';
 import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
+import 'package:pressaoarterialapp/pages/dicas.dart';
 import 'package:pressaoarterialapp/pages/perfis.dart';
 
 import 'app_widget.dart';
@@ -35,6 +36,7 @@ class AppModule extends MainModule {
     Router("/medicamentos", child: (_, args) => MedicamentosPage()),
     Router("/relatorios", child: (_, args) => RelatorioGraficoPage()),
     Router("/registroPressao", child: (_, args) => RegistroPressaoPage()),
+    Router("/dicas", child: (_, args) => DicaPage()),
 
   ];
 

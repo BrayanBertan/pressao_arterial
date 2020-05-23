@@ -85,7 +85,7 @@ class BancoHelper {
 
   Future<Database> initDb() async {
     final dataBasesPath = await getDatabasesPath();
-    final path = join(dataBasesPath, "pressao20.db");
+    final path = join(dataBasesPath, "pressao21.db");
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute("CREATE TABLE $MedicamentoTable("

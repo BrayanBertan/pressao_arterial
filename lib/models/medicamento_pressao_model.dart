@@ -31,6 +31,6 @@ class MedicamentoPressao {
   @override
   String toString() {
     // TODO: implement toString
-    return "ID: $id";
+    return "ID: ${this.id} ${idMedicamento} ${idPressao}";
   }
 }

@@ -85,7 +85,7 @@ Future<int>deleteMedicamento(int id) async {
 
   Future<List<Medicamento>> getAllMedicamentosRelacionados(int pressao) async{
     Database dbMedicamento = await bh.db;
-    List<Map> listMaps = await dbMedicamento.rawQuery("SELECT b.medicamento_idColumn,b.medicamento_nomeColumn ,b.medicamento_descricaoColumn FROM ${bh.MedicamentosPressaoTable} AS a INNER JOIN ${bh.MedicamentoTable} AS b ON b.medicamento_idColumn = a.medicamentosPressao_idColumn WHERE a.medicamentosPressao_idPressaoColumn = ${pressao}");
+    List<Map> listMaps = await dbMedicamento.rawQuery("SELECT * FROM ${bh.MedicamentosPressaoTable} AS a INNER JOIN ${bh.MedicamentoTable} AS b ON b.medicamento_idColumn = a.medicamentosPressao_idMedicamentoColumn WHERE a.medicamentosPressao_idPressaoColumn = ${pressao}");
 
 
     List<Medicamento> listaAtividade =  List();

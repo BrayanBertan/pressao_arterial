@@ -28,7 +28,7 @@ class AtividadeHelper {
   Future<List<Atividade>> getAllAtividadesRelacionadas(int pressao) async {
     Database dbAtividade = await bh.db;
     List<Map> listMaps = await dbAtividade.rawQuery(
-        "SELECT b.atividades_idColumn,b.atividades_nomeColumn FROM ${bh.AtividadesPressaoTable} AS a INNER JOIN ${bh.AtividadesTable} AS b ON b.atividades_idColumn = a.atividadesPressao_idColumn WHERE a.atividadesPressao_idPressaoColumn = ${pressao}");
+        "SELECT b.atividades_idColumn,b.atividades_nomeColumn FROM ${bh.AtividadesPressaoTable} AS a INNER JOIN ${bh.AtividadesTable} AS b ON b.atividades_idColumn = a.atividadesPressao_idAtividadeColumn WHERE a.atividadesPressao_idPressaoColumn = ${pressao}");
 
     List<Atividade> listaAtividade = List();
     for (Map m in listMaps) {

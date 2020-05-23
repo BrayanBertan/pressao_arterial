@@ -200,26 +200,33 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         GestureDetector(
                           onTap: () => registro_controller.setPostura(1),
                           child: Container(
-                            decoration: ShapeDecoration(
-                              color: registro_controller.postura == 1
-                                  ? Colors.blue[700]
-                                  : Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1.0, style: BorderStyle.none),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                              ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: ShapeDecoration(
+                                    color: registro_controller.postura == 1
+                                        ? Colors.blue[700]
+                                        : Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          width: 1.0, style: BorderStyle.none),
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                    ),
+                                  ),
+                                  height: 56,
+                                  width: 56,
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                    ExactAssetImage('assets/images/pos1.png'),
+                                    minRadius: 90,
+                                    maxRadius: 120,
+                                  ),
+                                ),
+                                Text("Em pé")
+                              ],
                             ),
-                            height: 56,
-                            width: 56,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  ExactAssetImage('assets/images/pos1.png'),
-                              minRadius: 90,
-                              maxRadius: 120,
-                            ),
-                          ),
+                          )
                         ),
                         SizedBox(
                           width: 15,
@@ -227,26 +234,33 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         GestureDetector(
                           onTap: () => registro_controller.setPostura(2),
                           child: Container(
-                            decoration: ShapeDecoration(
-                              color: registro_controller.postura == 2
-                                  ? Colors.blue[700]
-                                  : Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1.0, style: BorderStyle.none),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                              ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: ShapeDecoration(
+                                    color: registro_controller.postura == 2
+                                        ? Colors.blue[700]
+                                        : Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          width: 1.0, style: BorderStyle.none),
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                    ),
+                                  ),
+                                  height: 56,
+                                  width: 56,
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                    ExactAssetImage('assets/images/pos2.png'),
+                                    minRadius: 90,
+                                    maxRadius: 120,
+                                  ),
+                                ),
+                                Text("Sentado")
+                              ],
                             ),
-                            height: 56,
-                            width: 56,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  ExactAssetImage('assets/images/pos2.png'),
-                              minRadius: 90,
-                              maxRadius: 120,
-                            ),
-                          ),
+                          )
                         ),
                         SizedBox(
                           width: 15,
@@ -254,26 +268,33 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         GestureDetector(
                           onTap: () => registro_controller.setPostura(3),
                           child: Container(
-                            decoration: ShapeDecoration(
-                              color: registro_controller.postura == 3
-                                  ? Colors.blue[700]
-                                  : Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1.0, style: BorderStyle.none),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                              ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: ShapeDecoration(
+                                    color: registro_controller.postura == 3
+                                        ? Colors.blue[700]
+                                        : Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          width: 1.0, style: BorderStyle.none),
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                    ),
+                                  ),
+                                  height: 56,
+                                  width: 56,
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                    ExactAssetImage('assets/images/pos3.png'),
+                                    minRadius: 90,
+                                    maxRadius: 120,
+                                  ),
+                                ),
+                                Text("Deitado"),
+                              ],
                             ),
-                            height: 56,
-                            width: 56,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  ExactAssetImage('assets/images/pos3.png'),
-                              minRadius: 90,
-                              maxRadius: 120,
-                            ),
-                          ),
+                          )
                         ),
                       ],
                     ),
@@ -301,26 +322,33 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         return GestureDetector(
                           onTap: () => registro_controller.setBraco(1),
                           child: Container(
-                            decoration: ShapeDecoration(
-                              color: registro_controller.braco == 1
-                                  ? Colors.blue[700]
-                                  : Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1.0, style: BorderStyle.none),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                              ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: ShapeDecoration(
+                                    color: registro_controller.braco == 1
+                                        ? Colors.blue[700]
+                                        : Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          width: 1.0, style: BorderStyle.none),
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                    ),
+                                  ),
+                                  height: 56,
+                                  width: 56,
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                    ExactAssetImage('assets/images/brad.png'),
+                                    minRadius: 90,
+                                    maxRadius: 120,
+                                  ),
+                                ),
+                                Text("Direito")
+                              ],
                             ),
-                            height: 56,
-                            width: 56,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  ExactAssetImage('assets/images/brad.png'),
-                              minRadius: 90,
-                              maxRadius: 120,
-                            ),
-                          ),
+                          )
                         );
                       }),
                       SizedBox(
@@ -331,26 +359,33 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         return GestureDetector(
                           onTap: () => registro_controller.setBraco(2),
                           child: Container(
-                            decoration: ShapeDecoration(
-                              color: registro_controller.braco == 2
-                                  ? Colors.blue[700]
-                                  : Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1.0, style: BorderStyle.none),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                              ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: ShapeDecoration(
+                                    color: registro_controller.braco == 2
+                                        ? Colors.blue[700]
+                                        : Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          width: 1.0, style: BorderStyle.none),
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                    ),
+                                  ),
+                                  height: 56,
+                                  width: 56,
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                    ExactAssetImage('assets/images/brae.png'),
+                                    minRadius: 90,
+                                    maxRadius: 120,
+                                  ),
+                                ),
+                                Text("Esquerdo")
+                              ],
                             ),
-                            height: 56,
-                            width: 56,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  ExactAssetImage('assets/images/brae.png'),
-                              minRadius: 90,
-                              maxRadius: 120,
-                            ),
-                          ),
+                          )
                         );
                       }
                       ),

@@ -90,13 +90,13 @@ abstract class _RegistroPressaoController with Store {
   ObservableList<dynamic> medicamentos_selecionados;
 
   @observable
-  int braco = 0;
+  int braco = 1;
 
   @observable
   double pulso = 60;
 
   @observable
-  int postura = 0;
+  int postura = 2;
 
   @observable
   ObservableList<RegistroPressao> registros = [
@@ -256,7 +256,6 @@ abstract class _RegistroPressaoController with Store {
   @action
   setMedicamentosSelecionados(List lista) {
     lista.forEach((element) => medicamentos_selecionados.add(element));
-    print(medicamentos_selecionados);
   }
 
   @action
@@ -268,7 +267,6 @@ abstract class _RegistroPressaoController with Store {
   @action
   setMedicamentosSelecionadosFiltro(List lista) {
     lista.forEach((element) => medicamentos_selecionados_filtro.add(element));
-    print(medicamentos_selecionados_filtro);
   }
 
   @action
@@ -351,14 +349,12 @@ abstract class _RegistroPressaoController with Store {
     registroObj.id_usuario = gc.perfilSelecionado.id;
     registroObj.id = null;
     var registrado = await registro_helper.saveRegistro(registroObj);
-    print(registrado.id);
     if (atividades_selecionadas.length > 0) {
       for (var atividade in atividades_selecionadas) {
         await registro_helper.saveAtividadePressao(
             AtividadePressao(idAtividade: atividade, idPressao: registrado.id));
       }
     }
-    print(registrado.id);
     if (medicamentos_selecionados.length > 0) {
       for (var medicamento in medicamentos_selecionados) {
         await registro_helper.saveMedicamentoPressao(MedicamentoPressao(
@@ -374,11 +370,12 @@ abstract class _RegistroPressaoController with Store {
     registroObj.dataHora = DateTime.now();
     pressao = RangeValues(70, 100);
     pulso = 60;
-    postura = 0;
-    braco = 0;
+    postura = 2;
+    braco = 1;
     anotacao = '';
     atividades_selecionadas.add(0);
     atividades_selecionadas.clear();
+    medicamentos_selecionados.add(0);
     medicamentos_selecionados.clear();
   }
 
