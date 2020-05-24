@@ -100,7 +100,64 @@ class RegistroPressaoHelper{
     return listaRegistroPressao;
   }
 
-  Future<List<PressaoGraficoBarra>> getAllGraficosBarraAtividade(int tipo,int usuario,String atividades) async{
+  Future<List<PressaoGraficoLinha>> getAllGraficosPulso(int periodo) async{
+    Database dbRegistroPressao = await bh.db;
+    String periodo_filtro;
+
+    switch(periodo) {
+      case 1:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-1 month') AND DATETIME('now')";
+        }
+        break;
+
+      case 2:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-3 month') AND DATETIME('now')";
+        }
+        break;
+
+      case 3:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-6 month') AND DATETIME('now')";
+        }
+        break;
+      case 6:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-7 day') AND DATETIME('now')";
+        }
+        break;
+      case 5:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-1 day') AND DATETIME('now')";
+        }
+        break;
+
+      default:
+        {
+          periodo_filtro = "WHERE datetime(${bh
+              .registroPressao_dateTimeColumn}, 'unixepoch') BETWEEN DATETIME('now', '-12 month') AND DATETIME('now')";
+        }
+        break;
+    }
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT ${bh.registroPressao_pulsoColumn} AS pressao, ${bh.registroPressao_dateTimeColumn} FROM RegistroPressaoTable ${periodo_filtro} AND ${bh.registroPressao_idUsuarioColumn} = ${gc.perfilSelecionado.id} ORDER BY datetime(${bh
+        .registroPressao_dateTimeColumn}, 'unixepoch') ASC");
+
+
+    List<PressaoGraficoLinha> listaRegistroPressao =  List();
+    for(Map m in listMaps) {
+      listaRegistroPressao.add(PressaoGraficoLinha.fromMap(m));
+    }
+    print("======Pulso===========${listaRegistroPressao}");
+    return listaRegistroPressao;
+  }
+
+  Future<List<PressaoGraficoBarra>> getAllGraficosBarraAtividade(int tipo,String atividades) async{
     Database dbRegistroPressao = await bh.db;
     atividades = atividades.replaceAll("[","(");
     atividades = atividades.replaceAll("]",")");
@@ -128,7 +185,27 @@ class RegistroPressaoHelper{
     return listaRegistroPressao;
   }
 
-  Future<List<PressaoGraficoBarra>> getAllGraficosBarraMedicamento(int tipo,int usuario,String medicamentos) async{
+  Future<List<PressaoGraficoBarra>> getAllGraficosBarraPulsoAtividade(String atividades) async{
+    Database dbRegistroPressao = await bh.db;
+    atividades = atividades.replaceAll("[","(");
+    atividades = atividades.replaceAll("]",")");
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT AVG(a.${bh.registroPressao_pulsoColumn}) AS pressao, "
+        "c.${bh.atividades_nomeColumn} AS nome FROM RegistroPressaoTable AS a "
+        "INNER JOIN ${bh.AtividadesPressaoTable} AS b "
+        "ON b.atividadesPressao_idPressaoColumn = a.registroPressao_idColumn "
+        "INNER JOIN ${bh.AtividadesTable} AS c "
+        "ON c.atividades_idColumn = b.atividadesPressao_idAtividadeColumn "
+        "WHERE a.registroPressao_idUsuarioColumn = ${gc.perfilSelecionado.id} AND c.atividades_idColumn IN ${atividades} GROUP BY c.atividades_idColumn");
+
+
+    List<PressaoGraficoBarra> listaRegistroPressao =  List();
+    for(Map m in listMaps) {
+      listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
+    }
+    return listaRegistroPressao;
+  }
+
+  Future<List<PressaoGraficoBarra>> getAllGraficosBarraMedicamento(int tipo,String medicamentos) async{
     Database dbRegistroPressao = await bh.db;
     print(medicamentos);
     medicamentos = medicamentos.replaceAll("[","(");
@@ -142,6 +219,28 @@ class RegistroPressaoHelper{
       tipo_column = bh.registroPressao_diastolicaColumn;
     }
     List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT AVG(a.${tipo_column}) AS pressao, "
+        "c.${bh.medicamento_nomeColumn} AS nome FROM RegistroPressaoTable AS a "
+        "INNER JOIN ${bh.MedicamentosPressaoTable} AS b "
+        "ON b.medicamentosPressao_idPressaoColumn = a.registroPressao_idColumn "
+        "INNER JOIN ${bh.MedicamentoTable} AS c "
+        "ON c.medicamento_idColumn = b.medicamentosPressao_idMedicamentoColumn "
+        "WHERE a.registroPressao_idUsuarioColumn = ${gc.perfilSelecionado.id} AND c.medicamento_idColumn IN  ${medicamentos}  GROUP BY c.medicamento_idColumn");
+
+
+    List<PressaoGraficoBarra> listaRegistroPressao =  List();
+    for(Map m in listMaps) {
+      listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
+    }
+    print("======REGISTROS Medicamentos===========${listMaps}");
+    return listaRegistroPressao;
+  }
+
+  Future<List<PressaoGraficoBarra>> getAllGraficosBarraPulsoMedicamento(String medicamentos) async{
+    Database dbRegistroPressao = await bh.db;
+    print(medicamentos);
+    medicamentos = medicamentos.replaceAll("[","(");
+    medicamentos = medicamentos.replaceAll("]",")");
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT AVG(a.${bh.registroPressao_pulsoColumn}) AS pressao, "
         "c.${bh.medicamento_nomeColumn} AS nome FROM RegistroPressaoTable AS a "
         "INNER JOIN ${bh.MedicamentosPressaoTable} AS b "
         "ON b.medicamentosPressao_idPressaoColumn = a.registroPressao_idColumn "

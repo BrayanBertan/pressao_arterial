@@ -19,15 +19,8 @@ class RelatorioGraficoPage extends StatefulWidget {
 }
 
 class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
-
-  static final List<OrdinalSales> _pressaoSiastolicaTempoLista = [
-    OrdinalSales(eixoX: 'Caminhada', eixoY: 110),
-    OrdinalSales(eixoX: 'Estudando', eixoY: 120),
-    OrdinalSales(eixoX: 'Correndo', eixoY: 140),
-    OrdinalSales(eixoX: 'Cozinhando', eixoY: 90),
-  ];
-
-  static List<charts.Series<PressaoGraficoBarra, String>> seriesSistolicaAtividade = [
+  static List<charts.Series<PressaoGraficoBarra, String>>
+      seriesSistolicaAtividade = [
     charts.Series<PressaoGraficoBarra, String>(
       id: 'seriesSistolicaAtividade',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
@@ -37,7 +30,8 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     )
   ];
 
-  static List<charts.Series<PressaoGraficoBarra, String>> seriesDiastolicaAtividade = [
+  static List<charts.Series<PressaoGraficoBarra, String>>
+      seriesDiastolicaAtividade = [
     charts.Series<PressaoGraficoBarra, String>(
       id: 'seriesDiastolicaAtividade',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
@@ -47,7 +41,19 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     )
   ];
 
-  static List<charts.Series<PressaoGraficoBarra, String>> seriesSistolicaMedicamento = [
+  static List<charts.Series<PressaoGraficoBarra, String>> seriesPulsoAtividade =
+      [
+    charts.Series<PressaoGraficoBarra, String>(
+      id: 'seriesPulsoAtividade',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (PressaoGraficoBarra series, _) => series.eixoX,
+      measureFn: (PressaoGraficoBarra series, _) => series.eixoY,
+      data: registro_controller.pulsoGraficoAtividade,
+    )
+  ];
+
+  static List<charts.Series<PressaoGraficoBarra, String>>
+      seriesSistolicaMedicamento = [
     charts.Series<PressaoGraficoBarra, String>(
       id: 'seriesSistolicaMedicamento',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
@@ -57,7 +63,8 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     )
   ];
 
-  static List<charts.Series<PressaoGraficoBarra, String>> seriesDiastolicaMedicamento = [
+  static List<charts.Series<PressaoGraficoBarra, String>>
+      seriesDiastolicaMedicamento = [
     charts.Series<PressaoGraficoBarra, String>(
       id: 'seriesDiastolicaMedicamento',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
@@ -67,8 +74,19 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
     )
   ];
 
+  static List<charts.Series<PressaoGraficoBarra, String>>
+      seriesPulsoMedicamento = [
+    charts.Series<PressaoGraficoBarra, String>(
+      id: 'seriesPulsoMedicamento',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (PressaoGraficoBarra series, _) => series.eixoX,
+      measureFn: (PressaoGraficoBarra series, _) => series.eixoY,
+      data: registro_controller.pulsoGraficoMedicamento,
+    )
+  ];
+
   static List<charts.Series<PressaoGraficoLinha, DateTime>>
-  seriesSistolicaTime = [
+      seriesSistolicaTime = [
     charts.Series<PressaoGraficoLinha, DateTime>(
       id: 'graficoSistolicaTime',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
@@ -79,13 +97,23 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
   ];
 
   static List<charts.Series<PressaoGraficoLinha, DateTime>>
-  seriesDiastolicaTime = [
+      seriesDiastolicaTime = [
     charts.Series<PressaoGraficoLinha, DateTime>(
       id: 'graficoDiastolicaTime',
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
       domainFn: (PressaoGraficoLinha series, _) => series.eixoX,
       measureFn: (PressaoGraficoLinha series, _) => series.eixoY,
       data: registro_controller.diastolicaGrafico,
+    ),
+  ];
+
+  static List<charts.Series<PressaoGraficoLinha, DateTime>> seriesPulsoTime = [
+    charts.Series<PressaoGraficoLinha, DateTime>(
+      id: 'seriesPulsoTime',
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      domainFn: (PressaoGraficoLinha series, _) => series.eixoX,
+      measureFn: (PressaoGraficoLinha series, _) => series.eixoY,
+      data: registro_controller.pulsoGrafico,
     ),
   ];
   @override
@@ -103,386 +131,468 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Pressão Arterial'),
-        ),
-        body: PageView(children: <Widget>[
-          Observer(builder:(_){
-            return  (!registro_controller.showCalendario)?
-            Center(
-              child: CircularProgressIndicator(),
-            )
-                :
-            ListView(
-              children: <Widget>[
-                Observer(builder: (_) {
-                  return DropdownButton<int>(
-                    items: [
-                      DropdownMenuItem(
-                        value: 5,
-                        child: Center(
-                          child: Text(
-                            'Ultimas 24 horas',
+      appBar: AppBar(
+        title: Text('Pressão Arterial'),
+      ),
+      body: PageView(children: <Widget>[
+        Observer(builder: (_) {
+          return (!registro_controller.showCalendario)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView(
+                  children: <Widget>[
+                    Observer(builder: (_) {
+                      return DropdownButton<int>(
+                        items: [
+                          DropdownMenuItem(
+                            value: 5,
+                            child: Center(
+                              child: Text(
+                                'Ultimas 24 horas',
+                              ),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 6,
+                            child: Center(
+                              child: Text(
+                                'Ultima semana',
+                              ),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 1,
+                            child: Center(
+                              child: Text(
+                                'Ultimo mês',
+                              ),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 2,
+                            child: Center(
+                              child: Text(
+                                'Ultimos 3 mêses',
+                              ),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 3,
+                            child: Center(
+                              child: Text(
+                                'Ultimos 6 mêses',
+                              ),
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 4,
+                            child: Center(
+                              child: Text(
+                                'Ultimo ano',
+                              ),
+                            ),
+                          ),
+                        ],
+                        onChanged: (valor) {
+                          registro_controller.setShowCalendario(false);
+                          registro_controller.setFiltroGraficoTempo(valor);
+                          registro_controller.setFormatoData();
+                          registro_controller.getAllTimeGraficos();
+                          Timer(Duration(seconds: 1), () {
+                            registro_controller.setShowCalendario(true);
+                          });
+                        },
+                        value: registro_controller.filtroGraficoTempo,
+                        isExpanded: true,
+                      );
+                    }),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Center(
+                      child: Text(
+                        (registro_controller.filtroGraficoTempo == 1)
+                            ? 'Ultimo mês'
+                            : (registro_controller.filtroGraficoTempo == 2)
+                                ? 'Ultimos 3 mêses'
+                                : (registro_controller.filtroGraficoTempo == 3)
+                                    ? 'Ultimos 6 mêses'
+                                    : (registro_controller.filtroGraficoTempo ==
+                                            5)
+                                        ? 'Ultimas 24 horas'
+                                        : (registro_controller
+                                                    .filtroGraficoTempo ==
+                                                6)
+                                            ? "Ultima semana"
+                                            : "Ultimo Ano",
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Siastolica",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: charts.TimeSeriesChart(
+                                    seriesSistolicaTime,
+                                    animate: true,
+                                    dateTimeFactory:
+                                        charts.LocalDateTimeFactory(),
+                                    primaryMeasureAxis: new charts.NumericAxisSpec(
+                                        tickProviderSpec:
+                                            new charts.BasicNumericTickProviderSpec(
+                                                desiredTickCount: 10)),
+                                    domainAxis: new charts.DateTimeAxisSpec(
+                                        tickFormatterSpec:
+                                            new charts.AutoDateTimeTickFormatterSpec(
+                                                day: new charts.TimeFormatterSpec(
+                                                    format: registro_controller
+                                                        .formatoDataX,
+                                                    transitionFormat:
+                                                        registro_controller
+                                                            .formatoDataX)))),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      DropdownMenuItem(
-                        value: 6,
-                        child: Center(
-                          child: Text(
-                            'Ultima semana',
+                    ),
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Diastolica",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: charts.TimeSeriesChart(
+                                    seriesDiastolicaTime,
+                                    animate: true,
+                                    dateTimeFactory:
+                                        charts.LocalDateTimeFactory(),
+                                    primaryMeasureAxis: new charts.NumericAxisSpec(
+                                        tickProviderSpec:
+                                            new charts.BasicNumericTickProviderSpec(
+                                                desiredTickCount: 10)),
+                                    domainAxis: new charts.DateTimeAxisSpec(
+                                        tickFormatterSpec:
+                                            new charts.AutoDateTimeTickFormatterSpec(
+                                                day: new charts.TimeFormatterSpec(
+                                                    format: registro_controller
+                                                        .formatoDataX,
+                                                    transitionFormat:
+                                                        registro_controller
+                                                            .formatoDataX)))),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      DropdownMenuItem(
-                        value: 1,
-                        child: Center(
-                          child: Text(
-                            'Ultimo mês',
+                    ),
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Pulso",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: charts.TimeSeriesChart(seriesPulsoTime,
+                                    animate: true,
+                                    dateTimeFactory:
+                                        charts.LocalDateTimeFactory(),
+                                    primaryMeasureAxis: new charts.NumericAxisSpec(
+                                        tickProviderSpec:
+                                            new charts.BasicNumericTickProviderSpec(
+                                                desiredTickCount: 10)),
+                                    domainAxis: new charts.DateTimeAxisSpec(
+                                        tickFormatterSpec:
+                                            new charts.AutoDateTimeTickFormatterSpec(
+                                                day: new charts.TimeFormatterSpec(
+                                                    format: registro_controller
+                                                        .formatoDataX,
+                                                    transitionFormat:
+                                                        registro_controller
+                                                            .formatoDataX)))),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      DropdownMenuItem(
-                        value: 2,
-                        child: Center(
-                          child: Text(
-                            'Ultimos 3 mêses',
+                    ),
+                  ],
+                );
+        }),
+        Observer(builder: (_) {
+          return (!registro_controller.showCalendario)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Observer(builder: (_) {
+                      return Container(
+                        padding: EdgeInsets.all(16),
+                        child: MultiSelectFormField(
+                          autovalidate: false,
+                          titleText: 'Atividades',
+                          validator: (value) {
+                            if (value.length > 5) {
+                              return 'Limite de 5';
+                            }
+                            return null;
+                          },
+                          dataSource:
+                              registro_controller.atividadesRelacionadasFiltro,
+                          textField: 'nome',
+                          valueField: 'id',
+                          okButtonLabel: 'OK',
+                          cancelButtonLabel: 'CANCELAR',
+                          // required: true,
+                          hintText: '',
+                          initialValue: registro_controller
+                              .atividades_selecionadas_filtro,
+                          onSaved: (value) {
+                            if (value == null) return;
+                            registro_controller.setShowCalendario(false);
+                            registro_controller
+                                .setAtividadesSelecionadasFiltro(value);
+                            registro_controller.getAllBarraGraficos();
+                            Timer(Duration(seconds: 2), () {
+                              registro_controller.setShowCalendario(true);
+                            });
+                          },
+                        ),
+                      );
+                    }),
+                    Center(
+                      child: Text(
+                        'Atividades',
+                        style: TextStyle(
+                          fontSize: 50,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Sistolica",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: new charts.BarChart(
+                                  seriesSistolicaAtividade,
+                                  animate: true,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      DropdownMenuItem(
-                        value: 3,
-                        child: Center(
-                          child: Text(
-                            'Ultimos 6 mêses',
+                    ),
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Diastolica",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: new charts.BarChart(
+                                  seriesDiastolicaAtividade,
+                                  animate: true,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      DropdownMenuItem(
-                        value: 4,
-                        child: Center(
-                          child: Text(
-                            'Ultimo ano',
+                    ),
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Pulso",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: new charts.BarChart(
+                                  seriesPulsoAtividade,
+                                  animate: true,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                    onChanged: (valor) {
-                      registro_controller.setShowCalendario(false);
-                      registro_controller.setFiltroGraficoTempo(valor);
-                      registro_controller.setFormatoData();
-                      registro_controller.getAllTimeGraficos();
-                      Timer(Duration(seconds: 1), () {
-                        registro_controller.setShowCalendario(true);
-                      });
-
-                    },
-                    value:  registro_controller.filtroGraficoTempo,
-                    isExpanded: true,
-                  );
-                }),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Center(
-                  child: Text(
-                    (registro_controller.filtroGraficoTempo == 1)?'Ultimo mês':(registro_controller.filtroGraficoTempo == 2)?'Ultimos 3 mêses':(registro_controller.filtroGraficoTempo == 3)?'Ultimos 6 mêses':(registro_controller.filtroGraficoTempo == 5)?'Ultimas 24 horas':(registro_controller.filtroGraficoTempo == 6)?"Ultima semana":"Ultimo Ano",
-                    style: TextStyle(
-                      fontSize: 30,
                     ),
-                  ),
-                ),
-                Container(
-                  height: 400,
-                  padding: EdgeInsets.all(20),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Siastolica",
-                            style: Theme.of(context).textTheme.body2,
-                          ),
-                          Expanded(
-                            child: charts.TimeSeriesChart(seriesSistolicaTime,
-                                animate: true,
-                                dateTimeFactory:
-                                charts.LocalDateTimeFactory(),
-                                primaryMeasureAxis: new charts.NumericAxisSpec(
-                                    tickProviderSpec:
-                                    new charts.BasicNumericTickProviderSpec(
-                                        desiredTickCount: 10)),
-                                domainAxis: new charts.DateTimeAxisSpec(
-                                    tickFormatterSpec:
-                                    new charts.AutoDateTimeTickFormatterSpec(
-                                        day: new charts.TimeFormatterSpec(
-                                            format: registro_controller.formatoDataX,
-                                            transitionFormat:
-                                            registro_controller.formatoDataX)))),
-                          ),
-                        ],
+                  ],
+                );
+        }),
+        Observer(builder: (_) {
+          return (!registro_controller.showCalendario)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Observer(builder: (_) {
+                      return Container(
+                        padding: EdgeInsets.all(16),
+                        child: MultiSelectFormField(
+                          autovalidate: false,
+                          titleText: 'Medicamentos',
+                          validator: (value) {
+                            if (value.length > 5) {
+                              return 'Limite de 5';
+                            }
+                            return null;
+                          },
+                          dataSource: registro_controller
+                              .medicamentosRelacionadasFiltro,
+                          textField: 'nome',
+                          valueField: 'id',
+                          okButtonLabel: 'OK',
+                          cancelButtonLabel: 'CANCELAR',
+                          // required: true,
+                          hintText: '',
+                          initialValue: registro_controller
+                              .medicamentos_selecionados_filtro,
+                          onSaved: (value) {
+                            if (value == null) return;
+                            registro_controller.setShowCalendario(false);
+                            registro_controller
+                                .setMedicamentosSelecionadosFiltro(value);
+                            registro_controller
+                                .getAllBarraGraficosMedicamentos();
+                            Timer(Duration(seconds: 2), () {
+                              registro_controller.setShowCalendario(true);
+                            });
+                          },
+                        ),
+                      );
+                    }),
+                    Center(
+                      child: Text(
+                        'Medicamentos',
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  height: 400,
-                  padding: EdgeInsets.all(20),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Diastolica",
-                            style: Theme.of(context).textTheme.body2,
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Sistolica",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: new charts.BarChart(
+                                    seriesSistolicaMedicamento,
+                                    animate: true),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child: charts.TimeSeriesChart(seriesDiastolicaTime,
-                                animate: true,
-                                dateTimeFactory:
-                                charts.LocalDateTimeFactory(),
-                                primaryMeasureAxis: new charts.NumericAxisSpec(
-                                    tickProviderSpec:
-                                    new charts.BasicNumericTickProviderSpec(
-                                        desiredTickCount: 10)),
-                                domainAxis: new charts.DateTimeAxisSpec(
-                                    tickFormatterSpec:
-                                    new charts.AutoDateTimeTickFormatterSpec(
-                                        day: new charts.TimeFormatterSpec(
-                                            format: registro_controller.formatoDataX,
-                                            transitionFormat:
-                                            registro_controller.formatoDataX)))),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            );
-          }),
-
-          Observer(builder:(_){
-            return  (!registro_controller.showCalendario)?
-            Center(
-              child: CircularProgressIndicator(),
-            )
-                :
-            ListView(
-              children: <Widget>[
-                SizedBox(
-                  height: 20.0,
-                ),   Observer(builder: (_) {
-                  return Container(
-                    padding: EdgeInsets.all(16),
-                    child: MultiSelectFormField(
-                      autovalidate: false,
-                      titleText: 'Atividades',
-                      validator: (value) {
-                        if (value.length > 5) {
-                          return 'Limite de 5';
-                        }
-                        return null;
-                      },
-                      dataSource: registro_controller.atividadesRelacionadasFiltro,
-                      textField: 'nome',
-                      valueField: 'id',
-                      okButtonLabel: 'OK',
-                      cancelButtonLabel: 'CANCELAR',
-                      // required: true,
-                      hintText: '',
-                      initialValue: registro_controller.atividades_selecionadas_filtro,
-                      onSaved: (value) {
-                        if (value == null) return;
-                        registro_controller.setShowCalendario(false);
-                        registro_controller.setAtividadesSelecionadasFiltro(value);
-                        registro_controller.getAllBarraGraficos();
-                        Timer(Duration(seconds: 2), () {
-                          registro_controller.setShowCalendario(true);
-                        });
-                      },
-                    ),
-                  );
-                }),
-                Center(
-                  child: Text(
-                    'Atividades',
-                    style: TextStyle(
-                      fontSize: 50,
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 400,
-                  padding: EdgeInsets.all(20),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Sistolica",
-                            style: Theme.of(context).textTheme.body2,
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Diastolica",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: new charts.BarChart(
+                                    seriesDiastolicaMedicamento,
+                                    animate: true),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child:  new charts.BarChart( seriesSistolicaAtividade, animate: true, ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  height: 400,
-                  padding: EdgeInsets.all(20),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Diastolica",
-                            style: Theme.of(context).textTheme.body2,
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(20),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Pulso",
+                                style: Theme.of(context).textTheme.body2,
+                              ),
+                              Expanded(
+                                child: new charts.BarChart(
+                                    seriesPulsoMedicamento,
+                                    animate: true),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child:  new charts.BarChart( seriesDiastolicaAtividade, animate: true, ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            );
-          }),
-          Observer(builder:(_){
-            return  (!registro_controller.showCalendario)?
-            Center(
-              child: CircularProgressIndicator(),
-            )
-                :
-            ListView(
-              children: <Widget>[
-                SizedBox(
-                  height: 20.0,
-                ),   Observer(builder: (_) {
-                  return Container(
-                    padding: EdgeInsets.all(16),
-                    child: MultiSelectFormField(
-                      autovalidate: false,
-                      titleText: 'Medicamentos',
-                      validator: (value) {
-                        if (value.length > 5) {
-                          return 'Limite de 5';
-                        }
-                        return null;
-                      },
-                      dataSource: registro_controller.medicamentosRelacionadasFiltro,
-                      textField: 'nome',
-                      valueField: 'id',
-                      okButtonLabel: 'OK',
-                      cancelButtonLabel: 'CANCELAR',
-                      // required: true,
-                      hintText: '',
-                      initialValue: registro_controller.medicamentos_selecionados_filtro,
-                      onSaved: (value) {
-                        if (value == null) return;
-                        registro_controller.setShowCalendario(false);
-                        registro_controller.setMedicamentosSelecionadosFiltro(value);
-                        registro_controller.getAllBarraGraficosMedicamentos();
-                        Timer(Duration(seconds: 2), () {
-                          registro_controller.setShowCalendario(true);
-                        });
-                      },
-                    ),
-                  );
-                }),
-                Center(
-                  child: Text(
-                    'Medicamentos',
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 400,
-                  padding: EdgeInsets.all(20),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Sistolica",
-                            style: Theme.of(context).textTheme.body2,
-                          ),
-                          Expanded(
-                            child:  new charts.BarChart( seriesSistolicaMedicamento, animate: true, ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 400,
-                  padding: EdgeInsets.all(20),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Diastolica",
-                            style: Theme.of(context).textTheme.body2,
-                          ),
-                          Expanded(
-                            child:  new charts.BarChart( seriesDiastolicaMedicamento, animate: true, ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }),
-        ]),
+                  ],
+                );
+        }),
+      ]),
     );
   }
-}
-
-/// Sample linear data type.
-class GraficoConstrutor {
-  final int eixoX;
-  final int eixoY;
-
-  GraficoConstrutor({@required this.eixoX, @required this.eixoY});
-}
-
-class LinearSales {
-  final int eixoX;
-  final double eixoY;
-  final double r;
-
-  LinearSales({@required this.eixoX, @required this.eixoY, @required this.r});
-}
-
-/// Sample ordinal data type.
-class LinearSales1 {
-  final int eixoX;
-  final String eixoY;
-
-  LinearSales1({@required this.eixoY, this.eixoX});
-}
-
-
-class OrdinalSales {
-  final String eixoX;
-  final int eixoY;
-
-  OrdinalSales({this.eixoX, this.eixoY});
 }

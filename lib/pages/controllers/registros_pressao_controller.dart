@@ -143,6 +143,8 @@ abstract class _RegistroPressaoController with Store {
 
   @observable
   List<PressaoGraficoLinha> diastolicaGrafico = [];
+  @observable
+  List<PressaoGraficoLinha> pulsoGrafico = [];
 
   @observable
   List<PressaoGraficoBarra> sistolicaGraficoAtividade = [];
@@ -151,10 +153,16 @@ abstract class _RegistroPressaoController with Store {
   List<PressaoGraficoBarra> diastolicaGraficoAtividade = [];
 
   @observable
+  List<PressaoGraficoBarra> pulsoGraficoAtividade = [];
+
+  @observable
   List<PressaoGraficoBarra> sistolicaGraficoMedicamento = [];
 
   @observable
   List<PressaoGraficoBarra> diastolicaGraficoMedicamento = [];
+
+  @observable
+  List<PressaoGraficoBarra> pulsoGraficoMedicamento = [];
 
   @observable
   ObservableList periodosGrafico = new List().asObservable();
@@ -392,7 +400,12 @@ abstract class _RegistroPressaoController with Store {
             event[i].dataHora.month, event[i].dataHora.day);
         var original = listaEventos[createTime];
         var format = DateFormat.jm('pt');
-       String hora = format.format(DateTime(event[i].dataHora.year,event[i].dataHora.month,event[i].dataHora.day,event[i].dataHora.hour,event[i].dataHora.minute));
+        String hora = format.format(DateTime(
+            event[i].dataHora.year,
+            event[i].dataHora.month,
+            event[i].dataHora.day,
+            event[i].dataHora.hour,
+            event[i].dataHora.minute));
         if (original == null) {
           listaEventos[createTime] = [
             {
@@ -435,29 +448,38 @@ abstract class _RegistroPressaoController with Store {
   getAllTimeGraficos() async {
     sistolicaGrafico.clear();
     diastolicaGrafico.clear();
+    pulsoGrafico.clear();
     List<PressaoGraficoLinha> sistolica_banco =
         await registro_helper.getAllGraficos(1, filtroGraficoTempo);
     sistolica_banco.forEach((element) => sistolicaGrafico.add(element));
     List<PressaoGraficoLinha> diastolica_banco =
         await registro_helper.getAllGraficos(2, filtroGraficoTempo);
     diastolica_banco.forEach((element) => diastolicaGrafico.add(element));
-    print(sistolicaGrafico);
+    List<PressaoGraficoLinha> pulso_banco =
+        await registro_helper.getAllGraficosPulso(filtroGraficoTempo);
+    pulso_banco.forEach((element) => pulsoGrafico.add(element));
   }
 
   @action
   getAllBarraGraficos() async {
     sistolicaGraficoAtividade.clear();
     diastolicaGraficoAtividade.clear();
+    pulsoGraficoAtividade.clear();
     List<PressaoGraficoBarra> sistolica_banco =
         await registro_helper.getAllGraficosBarraAtividade(
-            1, 1, atividades_selecionadas_filtro.toString());
+            1, atividades_selecionadas_filtro.toString());
     sistolica_banco
         .forEach((element) => sistolicaGraficoAtividade.add(element));
     List<PressaoGraficoBarra> diastolica_banco =
         await registro_helper.getAllGraficosBarraAtividade(
-            2, 1, atividades_selecionadas_filtro.toString());
+            2, atividades_selecionadas_filtro.toString());
     diastolica_banco
         .forEach((element) => diastolicaGraficoAtividade.add(element));
+    List<PressaoGraficoBarra> pulso_banco =
+        await registro_helper.getAllGraficosBarraPulsoAtividade(
+            atividades_selecionadas_filtro.toString());
+    pulso_banco.forEach((element) => pulsoGraficoAtividade.add(element));
+
     atividades_selecionadas_filtro.clear();
   }
 
@@ -465,16 +487,21 @@ abstract class _RegistroPressaoController with Store {
   getAllBarraGraficosMedicamentos() async {
     sistolicaGraficoMedicamento.clear();
     diastolicaGraficoMedicamento.clear();
+    pulsoGraficoMedicamento.clear();
     List<PressaoGraficoBarra> sistolica_banco =
         await registro_helper.getAllGraficosBarraMedicamento(
-            1, 1, medicamentos_selecionados_filtro.toString());
+            1, medicamentos_selecionados_filtro.toString());
     sistolica_banco
         .forEach((element) => sistolicaGraficoMedicamento.add(element));
     List<PressaoGraficoBarra> diastolica_banco =
         await registro_helper.getAllGraficosBarraMedicamento(
-            2, 1, medicamentos_selecionados_filtro.toString());
+            2, medicamentos_selecionados_filtro.toString());
     diastolica_banco
         .forEach((element) => diastolicaGraficoMedicamento.add(element));
+    List<PressaoGraficoBarra> pulso_banco =
+        await registro_helper.getAllGraficosBarraPulsoMedicamento(
+            medicamentos_selecionados_filtro.toString());
+    pulso_banco.forEach((element) => pulsoGraficoMedicamento.add(element));
     medicamentos_selecionados_filtro.clear();
   }
 }
