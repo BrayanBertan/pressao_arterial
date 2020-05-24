@@ -176,6 +176,14 @@ abstract class _RegistroPressaoController with Store {
   @observable
   String diaSelecionado;
 
+  @observable
+  bool showRegistro = true;
+
+  @action
+  setShowRegistro(bool valor) {
+    showRegistro = valor;
+  }
+
   @action
   setDiaSelecionado(DateTime valor) {
     var format = DateFormat.jm('pt');
@@ -232,23 +240,27 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setAtividadesSelecionadas(List lista) {
+    atividades_selecionadas.clear();
     lista.forEach((element) => atividades_selecionadas.add(element));
     print(atividades_selecionadas);
   }
 
   @action
   setMedicamentosSelecionados(List lista) {
+    medicamentos_selecionados.clear();
     lista.forEach((element) => medicamentos_selecionados.add(element));
   }
 
   @action
   setAtividadesSelecionadasFiltro(List lista) {
+    atividades_selecionadas_filtro.clear();
     lista.forEach((element) => atividades_selecionadas_filtro.add(element));
     print(atividades_selecionadas_filtro);
   }
 
   @action
   setMedicamentosSelecionadosFiltro(List lista) {
+    medicamentos_selecionados_filtro.clear();
     lista.forEach((element) => medicamentos_selecionados_filtro.add(element));
   }
 
@@ -344,6 +356,11 @@ abstract class _RegistroPressaoController with Store {
             idMedicamento: medicamento, idPressao: registrado.id));
       }
     }
+    clearRegistro();
+  }
+
+  @action
+  clearRegistro() {
     registroObj.sistolica = 0;
     registroObj.diastolica = 0;
     registroObj.pulso = 0;
@@ -355,7 +372,6 @@ abstract class _RegistroPressaoController with Store {
     pulso = 60;
     postura = 2;
     braco = 1;
-    anotacao = '';
     atividades_selecionadas.add(0);
     atividades_selecionadas.clear();
     medicamentos_selecionados.add(0);
@@ -454,8 +470,6 @@ abstract class _RegistroPressaoController with Store {
         await registro_helper.getAllGraficosBarraPulsoAtividade(
             atividades_selecionadas_filtro.toString());
     pulso_banco.forEach((element) => pulsoGraficoAtividade.add(element));
-
-    atividades_selecionadas_filtro.clear();
   }
 
   @action

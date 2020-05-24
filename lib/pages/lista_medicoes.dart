@@ -375,12 +375,12 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                                     width: 65,
                                     child: CircleAvatar(
                                       backgroundImage: ExactAssetImage(
-                                          'assets/images/brad.png'),
+                                          'assets/images/brae.png'),
                                       minRadius: 90,
                                       maxRadius: 120,
                                     ),
                                   ),
-                                  Text("Direito")
+                                  Text("Esquerdo")
                                 ],
                               ),
                             )
@@ -401,12 +401,12 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                                     width: 65,
                                     child: CircleAvatar(
                                       backgroundImage: ExactAssetImage(
-                                          'assets/images/brae.png'),
+                                          'assets/images/brad.png'),
                                       minRadius: 90,
                                       maxRadius: 120,
                                     ),
                                   ),
-                                  Text("Esquerdo")
+                                  Text("Direito")
                                 ],
                               ),
                             );
