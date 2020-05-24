@@ -5,7 +5,6 @@ import 'package:pressaoarterialapp/models/unidade_model.dart';
 import 'package:pressaoarterialapp/models/tipo_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
-import 'package:pressaoarterialapp/repositories/medicamentosapi_repository.dart';
 import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
 import 'dart:async';
 part 'medicamentos_controller.g.dart';
@@ -14,7 +13,6 @@ class MedicamentoController = _MedicamentoController
     with _$MedicamentoController;
 
 abstract class _MedicamentoController with Store {
-  final api = Modular.get<MedicamentoApiRepository>();
   final apiLite = Modular.get<MedicamentoHelper>();
   MedicamentoHelper helper = MedicamentoHelper();
 

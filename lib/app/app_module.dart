@@ -12,7 +12,6 @@ import 'package:pressaoarterialapp/pages/lista_medicoes.dart';
 import 'package:pressaoarterialapp/pages/medicamentos.dart';
 import 'package:pressaoarterialapp/pages/relatorio_grafico.dart';
 import 'package:pressaoarterialapp/pages/registro_pressao.dart';
-import 'package:pressaoarterialapp/repositories/medicamentosapi_repository.dart';
 import 'package:pressaoarterialapp/pages/controllers/medicamentos_controller.dart';
 import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
 
@@ -21,7 +20,6 @@ class AppModule extends MainModule {
 
   @override
   List<Bind> get binds => [
-    Bind((i) => MedicamentoApiRepository()),
     Bind((i) => MedicamentoController()),
     Bind((i) => RegistroPressaoController()),
     Bind((i) => MedicamentoHelper()),
