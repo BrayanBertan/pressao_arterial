@@ -9,6 +9,82 @@ part of 'medicamentos_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MedicamentoController on _MedicamentoController, Store {
+  final _$medicamento_nomeAtom =
+      Atom(name: '_MedicamentoController.medicamento_nome');
+
+  @override
+  TextEditingController get medicamento_nome {
+    _$medicamento_nomeAtom.context.enforceReadPolicy(_$medicamento_nomeAtom);
+    _$medicamento_nomeAtom.reportObserved();
+    return super.medicamento_nome;
+  }
+
+  @override
+  set medicamento_nome(TextEditingController value) {
+    _$medicamento_nomeAtom.context.conditionallyRunInAction(() {
+      super.medicamento_nome = value;
+      _$medicamento_nomeAtom.reportChanged();
+    }, _$medicamento_nomeAtom, name: '${_$medicamento_nomeAtom.name}_set');
+  }
+
+  final _$medicamento_doseAtom =
+      Atom(name: '_MedicamentoController.medicamento_dose');
+
+  @override
+  TextEditingController get medicamento_dose {
+    _$medicamento_doseAtom.context.enforceReadPolicy(_$medicamento_doseAtom);
+    _$medicamento_doseAtom.reportObserved();
+    return super.medicamento_dose;
+  }
+
+  @override
+  set medicamento_dose(TextEditingController value) {
+    _$medicamento_doseAtom.context.conditionallyRunInAction(() {
+      super.medicamento_dose = value;
+      _$medicamento_doseAtom.reportChanged();
+    }, _$medicamento_doseAtom, name: '${_$medicamento_doseAtom.name}_set');
+  }
+
+  final _$medicamento_quantidade_diariaAtom =
+      Atom(name: '_MedicamentoController.medicamento_quantidade_diaria');
+
+  @override
+  TextEditingController get medicamento_quantidade_diaria {
+    _$medicamento_quantidade_diariaAtom.context
+        .enforceReadPolicy(_$medicamento_quantidade_diariaAtom);
+    _$medicamento_quantidade_diariaAtom.reportObserved();
+    return super.medicamento_quantidade_diaria;
+  }
+
+  @override
+  set medicamento_quantidade_diaria(TextEditingController value) {
+    _$medicamento_quantidade_diariaAtom.context.conditionallyRunInAction(() {
+      super.medicamento_quantidade_diaria = value;
+      _$medicamento_quantidade_diariaAtom.reportChanged();
+    }, _$medicamento_quantidade_diariaAtom,
+        name: '${_$medicamento_quantidade_diariaAtom.name}_set');
+  }
+
+  final _$medicamento_anotacaoAtom =
+      Atom(name: '_MedicamentoController.medicamento_anotacao');
+
+  @override
+  TextEditingController get medicamento_anotacao {
+    _$medicamento_anotacaoAtom.context
+        .enforceReadPolicy(_$medicamento_anotacaoAtom);
+    _$medicamento_anotacaoAtom.reportObserved();
+    return super.medicamento_anotacao;
+  }
+
+  @override
+  set medicamento_anotacao(TextEditingController value) {
+    _$medicamento_anotacaoAtom.context.conditionallyRunInAction(() {
+      super.medicamento_anotacao = value;
+      _$medicamento_anotacaoAtom.reportChanged();
+    }, _$medicamento_anotacaoAtom,
+        name: '${_$medicamento_anotacaoAtom.name}_set');
+  }
+
   final _$remedioAtom = Atom(name: '_MedicamentoController.remedio');
 
   @override
@@ -77,31 +153,28 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
     }, _$remediosAtom, name: '${_$remediosAtom.name}_set');
   }
 
-  final _$carregandoListaAtom =
-      Atom(name: '_MedicamentoController.carregandoLista');
+  final _$showAtom = Atom(name: '_MedicamentoController.show');
 
   @override
-  bool get carregandoLista {
-    _$carregandoListaAtom.context.enforceReadPolicy(_$carregandoListaAtom);
-    _$carregandoListaAtom.reportObserved();
-    return super.carregandoLista;
+  bool get show {
+    _$showAtom.context.enforceReadPolicy(_$showAtom);
+    _$showAtom.reportObserved();
+    return super.show;
   }
 
   @override
-  set carregandoLista(bool value) {
-    _$carregandoListaAtom.context.conditionallyRunInAction(() {
-      super.carregandoLista = value;
-      _$carregandoListaAtom.reportChanged();
-    }, _$carregandoListaAtom, name: '${_$carregandoListaAtom.name}_set');
+  set show(bool value) {
+    _$showAtom.context.conditionallyRunInAction(() {
+      super.show = value;
+      _$showAtom.reportChanged();
+    }, _$showAtom, name: '${_$showAtom.name}_set');
   }
 
   final _$setMedicamentosAsyncAction = AsyncAction('setMedicamentos');
 
   @override
-  Future setMedicamentos(String nomeTxt, String doseTxt,
-      dynamic quantidade_diariaTxt, dynamic anotacaoTxt) {
-    return _$setMedicamentosAsyncAction.run(() => super
-        .setMedicamentos(nomeTxt, doseTxt, quantidade_diariaTxt, anotacaoTxt));
+  Future setMedicamentos() {
+    return _$setMedicamentosAsyncAction.run(() => super.setMedicamentos());
   }
 
   final _$getAllMedicamentosAsyncAction = AsyncAction('getAllMedicamentos');
@@ -124,10 +197,10 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
       ActionController(name: '_MedicamentoController');
 
   @override
-  dynamic setCarregandoLista(bool valor) {
+  dynamic setShow(bool valor) {
     final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
     try {
-      return super.setCarregandoLista(valor);
+      return super.setShow(valor);
     } finally {
       _$_MedicamentoControllerActionController.endAction(_$actionInfo);
     }
@@ -154,6 +227,16 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
   }
 
   @override
+  dynamic clearRemedio() {
+    final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
+    try {
+      return super.clearRemedio();
+    } finally {
+      _$_MedicamentoControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setEditMedicamento(Medicamento m) {
     final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
     try {
@@ -166,7 +249,7 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
   @override
   String toString() {
     final string =
-        'remedio: ${remedio.toString()},unidades: ${unidades.toString()},tipos: ${tipos.toString()},remedios: ${remedios.toString()},carregandoLista: ${carregandoLista.toString()}';
+        'medicamento_nome: ${medicamento_nome.toString()},medicamento_dose: ${medicamento_dose.toString()},medicamento_quantidade_diaria: ${medicamento_quantidade_diaria.toString()},medicamento_anotacao: ${medicamento_anotacao.toString()},remedio: ${remedio.toString()},unidades: ${unidades.toString()},tipos: ${tipos.toString()},remedios: ${remedios.toString()},show: ${show.toString()}';
     return '{$string}';
   }
 }

@@ -178,7 +178,7 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setDiaSelecionado(DateTime valor) {
-    var format = DateFormat.yMd('pt');
+    var format = DateFormat.jm('pt');
     diaSelecionado = format.format(valor);
   }
 
@@ -189,52 +189,27 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setFormatoData() {
-    if (filtroGraficoTempo == 1) {
-      formatoDataX = 'dd/MM';
-    } else {
-      formatoDataX = 'MM/yyyy';
-    }
 
     switch (filtroGraficoTempo) {
       case 1:
         {
-          formatoDataX = 'dd/MM';
-        }
-        break;
-      case 2:
-        {
-          formatoDataX = 'MM/yyyy';
-        }
-        break;
-      case 1:
-        {
-          formatoDataX = 'dd/MM';
-        }
-        break;
-      case 3:
-        {
-          formatoDataX = 'MM/yyyy';
-        }
-        break;
-      case 4:
-        {
-          formatoDataX = 'MM/yyyy';
+          formatoDataX =  DateFormat.MMMMd('pt').toString();
         }
         break;
       case 5:
         {
-          formatoDataX = 'Hm';
+          formatoDataX =  DateFormat.jm('pt').toString();
         }
         break;
       case 6:
         {
-          formatoDataX = 'EEEE';
+          formatoDataX =  DateFormat.EEEE('pt').toString();
         }
         break;
 
       default:
         {
-          formatoDataX = 'MM/yyyy';
+          formatoDataX = DateFormat.yMMMM('pt').toString();
         }
         break;
     }

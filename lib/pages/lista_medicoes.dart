@@ -316,7 +316,9 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                           ),
                       )
                     ],
-                  )))
+                  )
+          )
+          )
               .toList(),
         ),
       );

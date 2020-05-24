@@ -20,13 +20,15 @@ class _PerfilPageState extends State<PerfilPage> {
   final _formularioPerfilKey = GlobalKey<FormState>();
   @override
   void initState() {
-   perfil_controller.getAllPerfis();
-   perfil_controller.perfilNome.text = '';
-   Timer(Duration(milliseconds: 500), () {
-     perfil_controller.setShowLista(true);
-   });
+    perfil_controller.getAllPerfis();
+    perfil_controller.perfilNome.text = '';
+    perfil_controller.setShowLista(false);
+    Timer(Duration(milliseconds: 500), () {
+      perfil_controller.setShowLista(true);
+    });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +64,7 @@ class _PerfilPageState extends State<PerfilPage> {
                             keyboardType: TextInputType.text,
                             validator: (value) {
                               if (value.isEmpty) {
+                                FocusScope.of(context).requestFocus();
                                 return 'Nome obrigátorio';
                               }
                               return null;
@@ -105,8 +108,8 @@ class _PerfilPageState extends State<PerfilPage> {
                   perfil_controller.setAvatar();
                   SweetAlert.show(context,
                       title: "Salvo",
-                      style: SweetAlertStyle.success, onPress: (a) {
-                  });
+                      style: SweetAlertStyle.success,
+                      onPress: (a) {});
                 }
               },
             ),
@@ -124,52 +127,59 @@ class _PerfilPageState extends State<PerfilPage> {
           SizedBox(
             height: 15,
           ),
-        Observer(builder:(_){
-          return (!perfil_controller.showLista)?
-          Center(
-          child: CircularProgressIndicator(),
-          )
-          :
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: perfil_controller.listaPerfis.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Observer(
-                  builder: (_) {
-                    return GestureDetector(
-                      onTap: () {
-                        gc.changePerfil(perfil_controller.listaPerfis[index]);
-                        Modular.to.pushNamed('/registros');
+          Observer(builder: (_) {
+            return (!perfil_controller.showLista)
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: perfil_controller.listaPerfis.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Observer(
+                          builder: (_) {
+                            return GestureDetector(
+                              onTap: () {
+                                gc.changePerfil(
+                                    perfil_controller.listaPerfis[index]);
+                                Modular.to
+                                    .pushNamed('/registros')
+                                    .then((onValue) {
+                                  perfil_controller.clearPerfil();
+                                  FocusScope.of(context).unfocus();
+                                });
+                              },
+                              child: Card(
+                                child: ListTile(
+                                  title: Text(perfil_controller
+                                      .listaPerfis[index].nome),
+                                  leading: CircleAvatar(
+                                    backgroundImage: ExactAssetImage(
+                                        'assets/images/${perfil_controller.listaPerfis[index].icone}'),
+                                    minRadius: 20,
+                                    maxRadius: 30,
+                                  ),
+                                  trailing: FlatButton(
+                                    onPressed: () {
+                                      perfil_controller.setEdicao(
+                                          perfil_controller.listaPerfis[index]);
+                                    },
+                                    child: Icon(
+                                      Icons.edit,
+                                      size: 50,
+                                      color: gc.corPadrao,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       },
-                      child: Card(
-                        child: ListTile(
-                          title: Text(perfil_controller.listaPerfis[index].nome),
-                          leading: CircleAvatar(
-                            backgroundImage:
-                            ExactAssetImage('assets/images/${perfil_controller.listaPerfis[index].icone}'),
-                            minRadius: 20,
-                            maxRadius: 30,
-                          ),
-                          trailing: FlatButton(
-                            onPressed: () {
-                              perfil_controller.setEdicao(perfil_controller.listaPerfis[index]);
-                            },
-                            child: Icon(
-                            Icons.edit,
-                            size: 50,
-                          ),
-                          ),
-                        ),
-                      ),
-
-                    );
-                  },
-                );
-              },
-            ),
-          );
-        }),
+                    ),
+                  );
+          }),
         ],
       ),
     );

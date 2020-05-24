@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pressaoarterialapp/models/medicamento_model.dart';
 import 'package:pressaoarterialapp/models/unidade_model.dart';
@@ -16,6 +17,22 @@ abstract class _MedicamentoController with Store {
   final api = Modular.get<MedicamentoApiRepository>();
   final apiLite = Modular.get<MedicamentoHelper>();
   MedicamentoHelper helper = MedicamentoHelper();
+
+  _MedicamentoController() {
+      medicamento_nome.text = '';
+      medicamento_dose.text = '';
+      medicamento_quantidade_diaria.text = '';
+      medicamento_anotacao.text = '';
+  }
+  @observable
+   TextEditingController medicamento_nome = TextEditingController();
+  @observable
+   TextEditingController medicamento_dose = TextEditingController();
+  @observable
+   TextEditingController medicamento_quantidade_diaria =
+  TextEditingController();
+  @observable
+   TextEditingController medicamento_anotacao = TextEditingController();
 
   @observable
   Medicamento remedio = Medicamento(
@@ -62,11 +79,11 @@ abstract class _MedicamentoController with Store {
   ].asObservable();
 
   @observable
-  bool carregandoLista = false;
+  bool show = false;
 
   @action
-  setCarregandoLista(bool valor) {
-    carregandoLista = valor;
+  setShow(bool valor) {
+    show = valor;
   }
 
   @action
@@ -84,21 +101,24 @@ abstract class _MedicamentoController with Store {
   }
 
   @action
-  setMedicamentos(
-      String nomeTxt, String doseTxt, quantidade_diariaTxt, anotacaoTxt) async {
+  setMedicamentos() async {
     remedio.id_usuario = gc.perfilSelecionado.id;
-
-    remedio.nome = nomeTxt;
-    remedio.dose = int.tryParse(doseTxt);
-    remedio.quantidade_diaria = int.tryParse(quantidade_diariaTxt);
-    remedio.anotacao = anotacaoTxt;
+    remedio.nome = medicamento_nome.text;
+    remedio.dose = int.tryParse(medicamento_dose.text);
+    remedio.quantidade_diaria = int.tryParse(medicamento_quantidade_diaria.text);
+    remedio.anotacao = medicamento_anotacao.text;
     remedio.descricao = '(${tipos[remedio.id_tipo-1].toString()}) ${remedio.dose}${unidades[remedio.id_unidade-1].toString()} ${remedio.quantidade_diaria} vez(es) ao dia';
     if(remedio.id != null) {
       await helper.updateMedicamento(remedio);
     }else{
       await helper.saveMedicamento(remedio);
     }
+    clearRemedio();
+    getAllMedicamentos();
+  }
 
+  @action
+  clearRemedio(){
     remedio.id = null;
     remedio = Medicamento(
         nome: "",
@@ -109,7 +129,10 @@ abstract class _MedicamentoController with Store {
         anotacao: "",
         descricao:""
     );
-    getAllMedicamentos();
+    medicamento_nome.text = '';
+    medicamento_dose.text = '';
+    medicamento_quantidade_diaria.text = '';
+    medicamento_anotacao.text = '';
   }
 
   @action
@@ -124,20 +147,16 @@ abstract class _MedicamentoController with Store {
   @action
   setEditMedicamento(Medicamento m){
     remedio = m;
+    medicamento_nome.text = m.nome;
+    medicamento_dose.text = "${m.dose}";
+    medicamento_quantidade_diaria.text = "${m.quantidade_diaria}";
+    medicamento_anotacao.text = m.anotacao;
   }
 
   @action
   removeMedicamento(int id) async {
     await helper.deleteMedicamento(id);
-    remedio = Medicamento(
-        nome: "",
-        dose: 0,
-        quantidade_diaria: 0,
-        id_unidade: 1,
-        id_tipo: 1,
-        anotacao: "",
-        descricao:""
-    );
+    clearRemedio();
     getAllMedicamentos();
   }
 

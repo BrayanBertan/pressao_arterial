@@ -26,7 +26,7 @@ abstract class _PerfilController with Store {
   bool showLista = false;
 
   @observable
-  String avatarLinkSelecionado = 'avatarPadrao';
+  String avatarLinkSelecionado = 'avatarPadrao.png';
 
   @observable
   String avatarNome = '';
@@ -66,13 +66,18 @@ abstract class _PerfilController with Store {
     }else{
       var objRetorno = await perfil_helper.updatePerfil(objPerfil);
     }
+    clearPerfil();
+    getAllPerfis();
+  }
+
+  @action
+  clearPerfil() {
     objPerfil.id = null;
     objPerfil.nome = '';
     objPerfil.icone = 'avatarPadrao.png';
     avatarSelecionado = -1;
-    avatarLinkSelecionado = 'avatarPadrao';
+    avatarLinkSelecionado = 'avatarPadrao.png';
     perfilNome.text = '';
-    getAllPerfis();
   }
 
   @action
