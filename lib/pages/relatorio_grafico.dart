@@ -132,6 +132,15 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
   }
 
   @override
+  void dispose() {
+   registro_controller.atividades_selecionadas_filtro.clear();
+   registro_controller.atividadesRelacionadasFiltro.clear();
+   registro_controller.medicamentos_selecionados_filtro.clear();
+   registro_controller.medicamentosRelacionadasFiltro.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
