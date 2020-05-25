@@ -321,8 +321,13 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                         margin: const EdgeInsets.only(left: 0),
                         child: Tab(
                           icon: Container(
-                            margin: const EdgeInsets.only(top: 12.0, left: 2.5),
-                            child: Text('${event['hora']}'),
+                            margin:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025, left: MediaQuery.of(context).size.width * 0.015),
+                            child: Center(
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Text('${event['hora']}'),
+                              )
+                            ),
                             height: 42,
                             width: 42,
                           ),
