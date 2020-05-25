@@ -23,10 +23,11 @@ class RegistroPressaoController = _RegistroPressaoController
     with _$RegistroPressaoController;
 
 abstract class _RegistroPressaoController with Store {
-  final apiLite = Modular.get<AtividadeHelper>();
-  MedicamentoHelper helper = MedicamentoHelper();
-  RegistroPressaoHelper registro_helper = RegistroPressaoHelper();
-  AtividadeHelper atividade_helper = AtividadeHelper();
+  final helper =  Modular.get<MedicamentoHelper>();
+  final registro_helper = Modular.get<RegistroPressaoHelper>();
+  final atividade_helper = Modular.get<AtividadeHelper>();
+
+
   _RegistroPressaoController() {
     pressao = RangeValues(70, 100);
     atividades_selecionadas_filtro = [0].asObservable();
@@ -242,7 +243,6 @@ abstract class _RegistroPressaoController with Store {
   setAtividadesSelecionadas(List lista) {
     atividades_selecionadas.clear();
     lista.forEach((element) => atividades_selecionadas.add(element));
-    print(atividades_selecionadas);
   }
 
   @action
@@ -255,7 +255,6 @@ abstract class _RegistroPressaoController with Store {
   setAtividadesSelecionadasFiltro(List lista) {
     atividades_selecionadas_filtro.clear();
     lista.forEach((element) => atividades_selecionadas_filtro.add(element));
-    print(atividades_selecionadas_filtro);
   }
 
   @action
@@ -301,7 +300,6 @@ abstract class _RegistroPressaoController with Store {
   getAtividadesRelacionadas(int pressao) async {
     List<Atividade> atividades_banco =
         await atividade_helper.getAllAtividadesRelacionadas(pressao);
-    print("atividades relacionadas ${atividades_banco}");
     atividadesRelacionadas.clear();
     atividades_banco
         .forEach((element) => atividadesRelacionadas.add(element.toJson()));
@@ -311,7 +309,6 @@ abstract class _RegistroPressaoController with Store {
   getMedicamentosRelacionadas(int pressao) async {
     List<Medicamento> medicamentos_banco =
         await helper.getAllMedicamentosRelacionados(pressao);
-    print(medicamentos_banco);
     medicamentosRelacionadas.clear();
     medicamentos_banco
         .forEach((element) => medicamentosRelacionadas.add(element.toJson()));
@@ -380,7 +377,6 @@ abstract class _RegistroPressaoController with Store {
   getAllRegistros() async {
     listaEventos.clear();
     eventosSelecionados.clear();
-    print("length: ${eventosSelecionados.length}");
     List<RegistroPressao> event;
     registro_helper.getAllRegistroPressoes().then((lista) {
       event = lista;

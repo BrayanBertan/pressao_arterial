@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/Helpers/atividade_helper.dart';
+import 'package:pressaoarterialapp/Helpers/banco_helper.dart';
+import 'package:pressaoarterialapp/Helpers/perfil_helper.dart';
+import 'package:pressaoarterialapp/Helpers/registro_pressao_helper.dart';
+import 'package:pressaoarterialapp/pages/controllers/dicas_controller.dart';
+import 'package:pressaoarterialapp/pages/controllers/perfis_controller.dart';
 import 'package:pressaoarterialapp/pages/controllers/registros_pressao_controller.dart';
 import 'package:pressaoarterialapp/pages/dicas.dart';
 import 'package:pressaoarterialapp/pages/perfis.dart';
 
 import 'app_widget.dart';
 import 'package:pressaoarterialapp/pages/splash.dart';
-import 'package:pressaoarterialapp/pages/login.dart';
 import 'package:pressaoarterialapp/pages/lista_medicoes.dart';
 import 'package:pressaoarterialapp/pages/medicamentos.dart';
 import 'package:pressaoarterialapp/pages/relatorio_grafico.dart';
@@ -22,8 +26,13 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
     Bind((i) => MedicamentoController()),
     Bind((i) => RegistroPressaoController()),
+    Bind((i) => PerfilController()),
+    Bind((i) => DicaController()),
+    Bind((i) => BancoHelper()),
     Bind((i) => MedicamentoHelper()),
+    Bind((i) => RegistroPressaoHelper()),
     Bind((i) => AtividadeHelper()),
+    Bind((i) => PerfilHelper()),
   ];
 
   @override

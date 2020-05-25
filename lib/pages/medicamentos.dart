@@ -154,7 +154,6 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                                     .toList(),
                                 onChanged: (valor) {
                                   medicamento.setUnidadeSelecionada(valor);
-                                  print(valor);
                                 },
                                 value: medicamento.remedio.id_unidade,
                                 isExpanded: true,
@@ -197,7 +196,6 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
                                   .toList(),
                               onChanged: (valor) {
                                 medicamento.setTipoSelecionado(valor);
-                                print(valor);
                               },
                               value: medicamento.remedio.id_tipo,
                               isExpanded: true,

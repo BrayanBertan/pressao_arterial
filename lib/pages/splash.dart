@@ -56,7 +56,7 @@ class _SplashPageState extends State<SplashPage> {
                   top: 15.0,
                 ),
                 child: Image.asset(
-                  "assets/images/loading.png",
+                  "assets/images/pressao1.png",
                   height:  MediaQuery.of(context).size.height * 0.8,
                   width: MediaQuery.of(context).size.width * 1,
                 )

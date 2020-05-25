@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'dart:async';
-
-import 'package:pressaoarterialapp/models/perfil_model.dart';
 part 'dicas_controller.g.dart';
 
 class DicaController = _DicaController

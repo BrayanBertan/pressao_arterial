@@ -20,7 +20,6 @@ class RegistroPressaoHelper{
   Future<RegistroPressao>saveRegistro(RegistroPressao r) async{
     Database dbRegistroPressao = await bh.db;
     r.id = await dbRegistroPressao.insert(bh.RegistroPressaoTable, r.toMap());
-    print("===== anotacao cadastrada${r.pulso}");
     return r;
   }
 
@@ -33,7 +32,6 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(RegistroPressao.fromMap(m));
     }
-    print("======REGISTROS===========${listaRegistroPressao}");
     return listaRegistroPressao;
   }
 
@@ -96,7 +94,6 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(PressaoGraficoLinha.fromMap(m));
     }
-    print("======REGISTROS===========${listaRegistroPressao}");
     return listaRegistroPressao;
   }
 
@@ -153,7 +150,6 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(PressaoGraficoLinha.fromMap(m));
     }
-    print("======Pulso===========${listaRegistroPressao}");
     return listaRegistroPressao;
   }
 
@@ -181,7 +177,6 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
     }
-    print("======REGISTROS Atividades===========${listaRegistroPressao}");
     return listaRegistroPressao;
   }
 
@@ -207,12 +202,10 @@ class RegistroPressaoHelper{
 
   Future<List<PressaoGraficoBarra>> getAllGraficosBarraMedicamento(int tipo,String medicamentos) async{
     Database dbRegistroPressao = await bh.db;
-    print(medicamentos);
     medicamentos = medicamentos.replaceAll("[","(");
     medicamentos = medicamentos.replaceAll("]",")");
 
     String tipo_column;
-    String periodo_filtro;
     if(tipo == 1){
       tipo_column = bh.registroPressao_sistolicaColumn;
     }else{
@@ -231,13 +224,11 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
     }
-    print("======REGISTROS Medicamentos===========${listMaps}");
     return listaRegistroPressao;
   }
 
   Future<List<PressaoGraficoBarra>> getAllGraficosBarraPulsoMedicamento(String medicamentos) async{
     Database dbRegistroPressao = await bh.db;
-    print(medicamentos);
     medicamentos = medicamentos.replaceAll("[","(");
     medicamentos = medicamentos.replaceAll("]",")");
     List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT AVG(a.${bh.registroPressao_pulsoColumn}) AS pressao, "
@@ -253,14 +244,12 @@ class RegistroPressaoHelper{
     for(Map m in listMaps) {
       listaRegistroPressao.add(PressaoGraficoBarra.fromMap(m));
     }
-    print("======REGISTROS Medicamentos===========${listMaps}");
     return listaRegistroPressao;
   }
 
   Future<AtividadePressao>saveAtividadePressao(AtividadePressao ap) async{
     Database dbRegistroPressao = await bh.db;
     ap.id = await dbRegistroPressao.insert(bh.AtividadesPressaoTable, ap.toMap());
-    print("id: ${ap.id}");
     return ap;
   }
 
@@ -275,13 +264,7 @@ class RegistroPressaoHelper{
     Database dbRegistroPressao = await bh.db;
     am.id = await dbRegistroPressao.insert(bh.MedicamentosPressaoTable, am.toMap());
     MedicamentoPressao retorno = am;
-    print("testandooooooooo ${am}");
     am = null;
     return retorno;
   }
-
-/*Future close() async{
-    Database dbMedicamento = await bh.db;
-    dbMedicamento.close();
-  }*/
 }

@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:pressaoarterialapp/models/atividade_model.dart';
 import 'package:pressaoarterialapp/models/perfil_model.dart';
-import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:pressaoarterialapp/Helpers/banco_helper.dart';
 
@@ -35,7 +33,6 @@ class PerfilHelper {
     for (Map m in listMaps) {
       listaPerfil.add(Perfil.fromMap(m));
     }
-    print(listaPerfil);
     return listaPerfil;
   }
 

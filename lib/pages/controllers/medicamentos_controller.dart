@@ -13,8 +13,7 @@ class MedicamentoController = _MedicamentoController
     with _$MedicamentoController;
 
 abstract class _MedicamentoController with Store {
-  final apiLite = Modular.get<MedicamentoHelper>();
-  MedicamentoHelper helper = MedicamentoHelper();
+  final helper = Modular.get<MedicamentoHelper>();
 
   _MedicamentoController() {
       medicamento_nome.text = '';

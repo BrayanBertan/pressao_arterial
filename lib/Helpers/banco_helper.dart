@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:pressaoarterialapp/models/atividade_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
 
 class BancoHelper {
   //==============Medicamentos
@@ -72,20 +71,16 @@ class BancoHelper {
 
   Future<Database> get db async {
     if (_db != null) {
-      print("já existe============================================");
-      print(_db);
       return _db;
     } else {
       _db = await initDb();
-      print("não existia============================================");
-      print(_db);
       return _db;
     }
   }
 
   Future<Database> initDb() async {
     final dataBasesPath = await getDatabasesPath();
-    final path = join(dataBasesPath, "pressao22.db");
+    final path = join(dataBasesPath, "pressao23.db");
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute("CREATE TABLE $MedicamentoTable("

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
 import 'package:pressaoarterialapp/Helpers/perfil_helper.dart';
 import 'dart:async';
-
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/models/perfil_model.dart';
 part 'perfis_controller.g.dart';
 
 class PerfilController = _PerfilController with _$PerfilController;
 
 abstract class _PerfilController with Store {
-  PerfilHelper perfil_helper = PerfilHelper();
+  final perfil_helper = Modular.get<PerfilHelper>();
 
   _PerfilController() {
     perfilNome.text = '';

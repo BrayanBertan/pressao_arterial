@@ -17,7 +17,6 @@ class MedicamentoHelper{
 Future<Medicamento>saveMedicamento(Medicamento m) async{
     Database dbMedicamento = await bh.db;
     m.id = await dbMedicamento.insert(bh.MedicamentoTable, m.toMap());
-    print(m);
     return m;
 }
 
@@ -45,9 +44,6 @@ Future<int>deleteMedicamento(int id) async {
 
   Future<int>updateMedicamento(Medicamento m) async {
     Database dbMedicamento = await bh.db;
-    print(dbMedicamento);
-    print(bh.medicamento_idColumn);
-    print(m.toMap());
     return await dbMedicamento.update(bh.MedicamentoTable,m.toMap(),where: "${bh.medicamento_idColumn} = ?",whereArgs: [m.id]);
   }
 
@@ -60,7 +56,6 @@ Future<int>deleteMedicamento(int id) async {
     for(Map m in listMaps) {
       listaMedicamento.add(Medicamento.fromMap(m));
     }
-    print(listaMedicamento);
     return listaMedicamento;
   }
 
@@ -79,7 +74,6 @@ Future<int>deleteMedicamento(int id) async {
     for (Map m in listMaps) {
       listaAtividade.add(Medicamento.fromMap(m));
     }
-    print(listMaps);
     return listaAtividade;
   }
 
@@ -92,7 +86,6 @@ Future<int>deleteMedicamento(int id) async {
     for(Map m in listMaps) {
       listaAtividade.add(Medicamento.fromMap(m));
     }
-    print(listMaps);
     return listaAtividade;
   }
 

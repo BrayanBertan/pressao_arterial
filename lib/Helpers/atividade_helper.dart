@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:pressaoarterialapp/models/atividade_model.dart';
-import 'package:pressaoarterialapp/models/pressao_grafico_barra_model.dart';
 import 'package:pressaoarterialapp/pages/configuracao_global.dart' as gc;
 import 'package:sqflite/sqflite.dart';
 import 'package:pressaoarterialapp/Helpers/banco_helper.dart';
@@ -21,7 +20,6 @@ class AtividadeHelper {
     for (Map m in listMaps) {
       listaAtividade.add(Atividade.fromMap(m));
     }
-    print(listaAtividade);
     return listaAtividade;
   }
 
@@ -34,7 +32,6 @@ class AtividadeHelper {
     for (Map m in listMaps) {
       listaAtividade.add(Atividade.fromMap(m));
     }
-    print(listMaps);
     return listaAtividade;
   }
 
@@ -53,7 +50,6 @@ class AtividadeHelper {
     for (Map m in listMaps) {
       listaAtividade.add(Atividade.fromMap(m));
     }
-    print(listMaps);
     return listaAtividade;
   }
 
