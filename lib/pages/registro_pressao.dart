@@ -232,7 +232,16 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                                           maxRadius: 120,
                                         ),
                                       ),
-                                      Text("Em pé")
+                                      Text("Em pé",style: (registro_controller.postura==1)?
+                                      TextStyle(
+                                         fontSize: 15,
+                                        color: gc.corPadrao,
+                                      ):
+                                      TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      )
+                                      )
                                     ],
                                   ),
                                 )
@@ -266,7 +275,15 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                                           maxRadius: 120,
                                         ),
                                       ),
-                                      Text("Sentado")
+                                      Text("Sentado",style: (registro_controller.postura==2)?
+                                      TextStyle(
+                                        fontSize: 15,
+                                        color: gc.corPadrao,
+                                      ):
+                                      TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      ))
                                     ],
                                   ),
                                 )
@@ -300,7 +317,15 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                                           maxRadius: 120,
                                         ),
                                       ),
-                                      Text("Deitado"),
+                                      Text("Deitado",style: (registro_controller.postura==3)?
+                                      TextStyle(
+                                        fontSize: 15,
+                                        color: gc.corPadrao,
+                                      ):
+                                      TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      )),
                                     ],
                                   ),
                                 )
@@ -354,7 +379,15 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                                           maxRadius: 120,
                                         ),
                                       ),
-                                      Text("Esquerdo")
+                                      Text("Esquerdo",style: (registro_controller.braco==1)?
+                                      TextStyle(
+                                        fontSize: 15,
+                                        color: gc.corPadrao,
+                                      ):
+                                      TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      ))
                                     ],
                                   ),
                                 )
@@ -391,7 +424,15 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                                               maxRadius: 120,
                                             ),
                                           ),
-                                          Text("Direito")
+                                          Text("Direito",style: (registro_controller.braco==2)?
+                                          TextStyle(
+                                            fontSize: 15,
+                                            color: gc.corPadrao,
+                                          ):
+                                          TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                          ))
                                         ],
                                       ),
                                     )
