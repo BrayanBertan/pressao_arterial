@@ -21,12 +21,18 @@ class _PerfilPageState extends State<PerfilPage> {
   @override
   void initState() {
     perfil_controller.getAllPerfis();
-    perfil_controller.perfilNome.text = '';
+    perfil_controller.clearPerfil();
     perfil_controller.setShowLista(false);
     Timer(Duration(milliseconds: 500), () {
       perfil_controller.setShowLista(true);
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    FocusScope.of(context).unfocus();
+    super.dispose();
   }
 
   @override
@@ -109,7 +115,14 @@ class _PerfilPageState extends State<PerfilPage> {
                   SweetAlert.show(context,
                       title: "Salvo",
                       style: SweetAlertStyle.success,
-                      onPress: (a) {});
+                      onPress: (a) {
+                        perfil_controller.setShowLista(false);
+                        Timer(Duration(milliseconds: 500), () {
+                         if(perfil_controller.objPerfil.id == null){
+                           Modular.to.pushReplacementNamed('/registros');
+                         }
+                        });
+                      });
                 }
               },
             ),
@@ -144,11 +157,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                 gc.changePerfil(
                                     perfil_controller.listaPerfis[index]);
                                 Modular.to
-                                    .pushNamed('/registros')
-                                    .then((onValue) {
-                                  perfil_controller.clearPerfil();
-                                  FocusScope.of(context).unfocus();
-                                });
+                                    .pushReplacementNamed('/registros');
                               },
                               child: Card(
                                 child: ListTile(

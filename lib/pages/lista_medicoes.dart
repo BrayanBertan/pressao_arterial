@@ -46,6 +46,12 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: CircleAvatar(
+          backgroundImage: ExactAssetImage(
+              'assets/images/${gc.perfilSelecionado.icone}'),
+          minRadius: 20,
+          maxRadius: 30,
+        ),
         title: Text('${gc.perfilSelecionado.nome}'),
       ),
       body: new Container(child: Observer(builder: (_) {
@@ -61,7 +67,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                     children: <Widget>[
                       Expanded(child: Divider(color: Colors.black)),
                       Text(
-                        'Calendario:',
+                        'Calendário:',
                         style: TextStyle(fontSize: 15),
                       ),
                       Expanded(child: Divider(color: Colors.black)),

@@ -14,10 +14,10 @@ class PerfilHelper {
 
   Future<Perfil>savePerfil(Perfil p) async{
     Database dbPerfil = await bh.db;
-    Perfil retorno = p;
-    retorno.id = await dbPerfil.insert(bh.UsuarioTable, p.toMap());
-    p.id = null;
-    print(retorno);
+    Perfil retorno;
+    p.id = await dbPerfil.insert(bh.UsuarioTable, p.toMap());
+    retorno = p;
+    p = null;
     return retorno;
   }
 
