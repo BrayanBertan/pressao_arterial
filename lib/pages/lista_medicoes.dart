@@ -49,18 +49,8 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            SweetAlert.show(context,
-                title: "Mudar Perfil?",
-                style: SweetAlertStyle.confirm,
-                showCancelButton: true,
-                cancelButtonText: "Cancelar",
-                confirmButtonText: "Confirmar", onPress: (bool isConfirm) {
-              if (isConfirm) {
-                gc.clearPerfil();
-                Modular.to.pushReplacementNamed('/login');
-                return false;
-              }
-            });
+            gc.clearPerfil();
+            Modular.to.pushReplacementNamed('/login');
           },
           child: CircleAvatar(
             backgroundImage:

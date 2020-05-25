@@ -113,14 +113,16 @@ class _PerfilPageState extends State<PerfilPage> {
                 FocusScope.of(context).unfocus();
                 if (_formularioPerfilKey.currentState.validate()) {
                   perfil_controller.setAvatar();
-                  SweetAlert.show(context,
-                      title: "Salvo",
-                      style: SweetAlertStyle.success, onPress: (a) {
-                    if (perfil_controller.modoEdicao == false) {
+                  if (perfil_controller.modoEdicao == false) {
+                    Timer(Duration(milliseconds: 500), () {
                       Modular.to.pushReplacementNamed('/registros');
-                    }
-                    return false;
-                  });
+                    });
+                  }else{
+                    SweetAlert.show(context,
+                        title: "Salvo",
+                        style: SweetAlertStyle.success, onPress: (a) {
+                        });
+                  }
                 }
               },
             ),
