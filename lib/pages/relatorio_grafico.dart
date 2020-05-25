@@ -194,7 +194,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                               value: 5,
                               child: Center(
                                 child: Text(
-                                  'Ultimas 24 horas',
+                                  'Últimas 24 horas',
                                 ),
                               ),
                             ),
@@ -202,7 +202,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                               value: 6,
                               child: Center(
                                 child: Text(
-                                  'Ultima semana',
+                                  'Última semana',
                                 ),
                               ),
                             ),
@@ -210,7 +210,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                               value: 1,
                               child: Center(
                                 child: Text(
-                                  'Ultimo mês',
+                                  'Último mês',
                                 ),
                               ),
                             ),
@@ -218,7 +218,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                               value: 2,
                               child: Center(
                                 child: Text(
-                                  'Ultimos 3 mêses',
+                                  'Últimos 3 meses',
                                 ),
                               ),
                             ),
@@ -226,7 +226,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                               value: 3,
                               child: Center(
                                 child: Text(
-                                  'Ultimos 6 mêses',
+                                  'Últimos 6 meses',
                                 ),
                               ),
                             ),
@@ -234,7 +234,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                               value: 4,
                               child: Center(
                                 child: Text(
-                                  'Ultimo ano',
+                                  'Último ano',
                                 ),
                               ),
                             ),
@@ -287,7 +287,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Siastolica",
+                                  "Sistólica",
                                   style: Theme.of(context).textTheme.body2,
                                 ),
                                 Expanded(
@@ -325,7 +325,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Diastolica",
+                                  "Diastólica",
                                   style: Theme.of(context).textTheme.body2,
                                 ),
                                 Expanded(
