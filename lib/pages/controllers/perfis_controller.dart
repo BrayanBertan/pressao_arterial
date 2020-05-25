@@ -23,6 +23,9 @@ abstract class _PerfilController with Store {
   int avatarSelecionado = -1;
 
   @observable
+  bool modoEdicao = false;
+
+  @observable
   bool showLista = false;
 
   @observable
@@ -50,6 +53,7 @@ abstract class _PerfilController with Store {
 
   @action
   setEdicao(Perfil p) {
+    modoEdicao = true;
     objPerfil.id = p.id;
     perfilNome.text = p.nome;
     avatarSelecionado = int.parse(p.icone.split('avatar').toString()[3]);
@@ -64,6 +68,7 @@ abstract class _PerfilController with Store {
     if (objPerfil.id == null) {
       var objRetorno = await perfil_helper.savePerfil(objPerfil);
       gc.changePerfil(objRetorno);
+      modoEdicao = false;
     } else {
       var objRetorno = await perfil_helper.updatePerfil(objPerfil);
       getAllPerfis();

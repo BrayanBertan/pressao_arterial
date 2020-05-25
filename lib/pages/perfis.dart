@@ -20,6 +20,7 @@ class _PerfilPageState extends State<PerfilPage> {
   final _formularioPerfilKey = GlobalKey<FormState>();
   @override
   void initState() {
+    gc.clearPerfil();
     perfil_controller.getAllPerfis();
     perfil_controller.clearPerfil();
     perfil_controller.setShowLista(false);
@@ -114,15 +115,12 @@ class _PerfilPageState extends State<PerfilPage> {
                   perfil_controller.setAvatar();
                   SweetAlert.show(context,
                       title: "Salvo",
-                      style: SweetAlertStyle.success,
-                      onPress: (a) {
-                        perfil_controller.setShowLista(false);
-                        Timer(Duration(milliseconds: 500), () {
-                         if(perfil_controller.objPerfil.id == null){
-                           Modular.to.pushReplacementNamed('/registros');
-                         }
-                        });
-                      });
+                      style: SweetAlertStyle.success, onPress: (a) {
+                    if (perfil_controller.modoEdicao == false) {
+                      Modular.to.pushReplacementNamed('/registros');
+                    }
+                    return false;
+                  });
                 }
               },
             ),
@@ -156,8 +154,7 @@ class _PerfilPageState extends State<PerfilPage> {
                               onTap: () {
                                 gc.changePerfil(
                                     perfil_controller.listaPerfis[index]);
-                                Modular.to
-                                    .pushReplacementNamed('/registros');
+                                Modular.to.pushReplacementNamed('/registros');
                               },
                               child: Card(
                                 child: ListTile(
