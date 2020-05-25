@@ -137,6 +137,12 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
    registro_controller.atividadesRelacionadasFiltro.clear();
    registro_controller.medicamentos_selecionados_filtro.clear();
    registro_controller.medicamentosRelacionadasFiltro.clear();
+   registro_controller.sistolicaGraficoAtividade.clear();
+   registro_controller.diastolicaGraficoAtividade.clear();
+   registro_controller.pulsoGraficoAtividade.clear();
+   registro_controller.sistolicaGraficoMedicamento.clear();
+   registro_controller.diastolicaGraficoMedicamento.clear();
+   registro_controller.pulsoGraficoMedicamento.clear();
     super.dispose();
   }
 
