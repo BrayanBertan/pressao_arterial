@@ -26,6 +26,7 @@ class _MedicamentosPageState extends State<MedicamentosPage> {
 
   @override
   void initState() {
+    medicamento.clearRemedio();
     medicamento.getAllMedicamentos();
     medicamento.setShow(false);
     Timer(Duration(milliseconds: 500), () {
