@@ -187,7 +187,7 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setDiaSelecionado(DateTime valor) {
-    var format = DateFormat.jm('pt');
+    var format = DateFormat.yMd('pt');
     diaSelecionado = format.format(valor);
   }
 
