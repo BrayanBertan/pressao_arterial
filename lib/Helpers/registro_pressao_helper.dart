@@ -264,6 +264,13 @@ class RegistroPressaoHelper{
     return ap;
   }
 
+  Future<int>deleteRegistro(int id) async {
+    Database dbRegistroPressao = await bh.db;
+    await dbRegistroPressao.delete(bh.MedicamentosPressaoTable,where: "${bh.medicamentosPressao_idPressaoColumn} = ?",whereArgs: [id]);
+    await dbRegistroPressao.delete(bh.AtividadesPressaoTable,where: "${bh.atividadesPressao_idPressaoColumn} = ?",whereArgs: [id]);
+    return await dbRegistroPressao.delete(bh.RegistroPressaoTable,where: "${bh.registroPressao_idColumn} = ?",whereArgs: [id]);
+  }
+
   Future<MedicamentoPressao>saveMedicamentoPressao(MedicamentoPressao am) async{
     Database dbRegistroPressao = await bh.db;
     am.id = await dbRegistroPressao.insert(bh.MedicamentosPressaoTable, am.toMap());

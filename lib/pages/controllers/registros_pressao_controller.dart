@@ -301,7 +301,7 @@ abstract class _RegistroPressaoController with Store {
   getAtividadesRelacionadas(int pressao) async {
     List<Atividade> atividades_banco =
         await atividade_helper.getAllAtividadesRelacionadas(pressao);
-    print(atividades_banco);
+    print("atividades relacionadas ${atividades_banco}");
     atividadesRelacionadas.clear();
     atividades_banco
         .forEach((element) => atividadesRelacionadas.add(element.toJson()));
@@ -372,9 +372,7 @@ abstract class _RegistroPressaoController with Store {
     pulso = 60;
     postura = 2;
     braco = 1;
-    atividades_selecionadas.add(0);
     atividades_selecionadas.clear();
-    medicamentos_selecionados.add(0);
     medicamentos_selecionados.clear();
   }
 
@@ -492,5 +490,11 @@ abstract class _RegistroPressaoController with Store {
             medicamentos_selecionados_filtro.toString());
     pulso_banco.forEach((element) => pulsoGraficoMedicamento.add(element));
     medicamentos_selecionados_filtro.clear();
+  }
+
+  @action
+  removeRegistro(int id) async {
+    await registro_helper.deleteRegistro(id);
+    getAllRegistros();
   }
 }

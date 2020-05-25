@@ -620,19 +620,46 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                     }),
                     Padding(
                         padding:
-                            const EdgeInsets.only(left: 10, right: 10, top: 1),
+                            const EdgeInsets.only(left: 20, right: 10, top: 1),
                         child: Center(
-                          child: RaisedButton(
-                            color: gc.corPadrao,
-                            onPressed: () {
-                              Modular.to.pop();
-                            },
-                            child: Text(
-                              'Voltar',
-                              style: TextStyle(
-                                  fontSize: 18.0, color: Colors.white),
-                            ),
-                          ),
+                          child: Row(
+                            children: <Widget>[
+                              RaisedButton(
+                                color: gc.corPadrao,
+                                onPressed: () {
+                                  SweetAlert.show(context,
+                                      title: "Deletar?",
+                                      style: SweetAlertStyle.confirm,
+                                      showCancelButton: true,
+                                      cancelButtonText: "Cancelar",
+                                      confirmButtonText: "Confirmar",
+                                      onPress: (bool isConfirm) {
+                                        if (isConfirm) {
+                                          registro_controller.removeRegistro(event['id']);
+                                          Modular.to.pop();
+                                        }
+                                      });
+                                },
+                                child: Text(
+                                  'Excluir',
+                                  style: TextStyle(
+                                      fontSize: 18.0, color: Colors.white),
+                                ),
+                              ),
+                              SizedBox(width:15.0),
+                              RaisedButton(
+                                color: gc.corPadrao,
+                                onPressed: () {
+                                  Modular.to.pop();
+                                },
+                                child: Text(
+                                  'Voltar',
+                                  style: TextStyle(
+                                      fontSize: 18.0, color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          )
                         )),
                   ],
                 ),

@@ -23,6 +23,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
 
   @override
   void initState() {
+    registro_controller.clearRegistro();
     registro_controller.getAllAtividades();
     registro_controller.getAllMedicamentos();
     super.initState();
