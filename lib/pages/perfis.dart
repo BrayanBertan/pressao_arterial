@@ -40,7 +40,7 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pressão Arterial', textAlign: TextAlign.center),
+        title: Text('         Pressão Arterial', textAlign: TextAlign.center),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,

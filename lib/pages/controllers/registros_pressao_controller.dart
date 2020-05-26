@@ -202,23 +202,23 @@ abstract class _RegistroPressaoController with Store {
     switch (filtroGraficoTempo) {
       case 1:
         {
-          formatoDataX =  DateFormat.MMMMd('pt').toString();
+          formatoDataX =  'dd/MM';
         }
         break;
       case 5:
         {
-          formatoDataX =  DateFormat.jm('pt').toString();
+          formatoDataX =  'dd/MM';
         }
         break;
       case 6:
         {
-          formatoDataX =  DateFormat.EEEE('pt').toString();
+          formatoDataX =  'dd/MM';
         }
         break;
 
       default:
         {
-          formatoDataX = DateFormat.yMMMM('pt').toString();
+          formatoDataX = 'dd/MM';
         }
         break;
     }

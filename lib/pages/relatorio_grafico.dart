@@ -472,7 +472,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Sistolica",
+                                  "Sistólica",
                                   style: Theme.of(context).textTheme.body2,
                                 ),
                                 Expanded(
@@ -495,7 +495,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Diastolica",
+                                  "Diastólica",
                                   style: Theme.of(context).textTheme.body2,
                                 ),
                                 Expanded(
@@ -598,7 +598,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Sistolica",
+                                  "Sistólica",
                                   style: Theme.of(context).textTheme.body2,
                                 ),
                                 Expanded(
@@ -620,7 +620,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Diastolica",
+                                  "Diastólica",
                                   style: Theme.of(context).textTheme.body2,
                                 ),
                                 Expanded(
