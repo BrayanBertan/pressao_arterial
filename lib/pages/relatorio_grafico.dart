@@ -257,7 +257,6 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                           onChanged: (valor) {
                             registro_controller.setShowCalendario(false);
                             registro_controller.setFiltroGraficoTempo(valor);
-                            registro_controller.setFormatoData();
                             registro_controller.getAllTimeGraficos();
                             Timer(Duration(seconds: 1), () {
                               registro_controller.setShowCalendario(true);
