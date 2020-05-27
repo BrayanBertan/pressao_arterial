@@ -40,7 +40,9 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('         Pressão Arterial', textAlign: TextAlign.center),
+        title: Center(
+            child: Text('Diário de pressão', textAlign: TextAlign.center)
+          ),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -51,7 +53,7 @@ class _PerfilPageState extends State<PerfilPage> {
               Expanded(child: Divider(color: Colors.black)),
               Text(
                 'Novo perfil:',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 25),
               ),
               Expanded(child: Divider(color: Colors.black)),
             ],
@@ -61,11 +63,12 @@ class _PerfilPageState extends State<PerfilPage> {
               child: Padding(
                   padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     child: Column(
                       children: <Widget>[
                         Observer(builder: (_) {
                           return TextFormField(
+                            style: TextStyle(fontSize: 20),
                             decoration: InputDecoration(labelText: 'Nome'),
                             controller: perfil_controller.perfilNome,
                             keyboardType: TextInputType.text,
@@ -93,12 +96,12 @@ class _PerfilPageState extends State<PerfilPage> {
                                     child: CircleAvatar(
                                         backgroundImage: ExactAssetImage(
                                             'assets/images/avatar${index}.png'),
-                                        minRadius: 30,
+                                        minRadius: 40,
                                         maxRadius: (perfil_controller
                                                     .avatarSelecionado ==
                                                 index)
-                                            ? 40
-                                            : 30)),
+                                            ? 60
+                                            : 50)),
                               );
                             }),
                           ),
@@ -108,7 +111,7 @@ class _PerfilPageState extends State<PerfilPage> {
                   ))),
           Center(
             child: RaisedButton(
-              child: Text('Salvar'),
+              child: Text('Salvar',style: TextStyle(fontSize: 20),),
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 if (_formularioPerfilKey.currentState.validate()) {
@@ -132,7 +135,7 @@ class _PerfilPageState extends State<PerfilPage> {
               Expanded(child: Divider(color: Colors.black)),
               Text(
                 'Perfil existente:',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 25),
               ),
               Expanded(child: Divider(color: Colors.black)),
             ],
@@ -161,11 +164,11 @@ class _PerfilPageState extends State<PerfilPage> {
                               child: Card(
                                 child: ListTile(
                                   title: Text(perfil_controller
-                                      .listaPerfis[index].nome),
+                                      .listaPerfis[index].nome,style: TextStyle(fontSize: 20)),
                                   leading: CircleAvatar(
                                     backgroundImage: ExactAssetImage(
                                         'assets/images/${perfil_controller.listaPerfis[index].icone}'),
-                                    minRadius: 20,
+                                    minRadius: 30,
                                     maxRadius: 30,
                                   ),
                                   trailing: FlatButton(

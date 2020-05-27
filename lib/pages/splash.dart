@@ -50,15 +50,22 @@ class _SplashPageState extends State<SplashPage> {
                     ],
                   ),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height * 0.9,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(
-                  top: 15.0,
+                  top: 5.0,
                 ),
-                child: Image.asset(
-                  "assets/images/pressao1.png",
-                  height:  MediaQuery.of(context).size.height * 0.8,
-                  width: MediaQuery.of(context).size.width * 1,
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/images/pressao1.png",
+                      height:  MediaQuery.of(context).size.height * 0.8,
+                      width: MediaQuery.of(context).size.width * 1,
+                    ),
+                    Center(
+                        child: Text('Diário de pressão',style: TextStyle(fontSize: 30))
+                    )
+                  ],
                 )
               ),
             ],

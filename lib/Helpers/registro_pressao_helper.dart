@@ -25,7 +25,8 @@ class RegistroPressaoHelper{
 
   Future<List<RegistroPressao>> getAllRegistroPressoes() async{
     Database dbRegistroPressao = await bh.db;
-    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT * FROM RegistroPressaoTable WHERE ${bh.registroPressao_idUsuarioColumn} = ${gc.perfilSelecionado.id}");
+    List<Map> listMaps = await dbRegistroPressao.rawQuery("SELECT * FROM RegistroPressaoTable WHERE ${bh.registroPressao_idUsuarioColumn} = ${gc.perfilSelecionado.id} ORDER BY datetime(${bh
+        .registroPressao_dateTimeColumn}, 'unixepoch') ASC");
 
 
     List<RegistroPressao> listaRegistroPressao =  List();

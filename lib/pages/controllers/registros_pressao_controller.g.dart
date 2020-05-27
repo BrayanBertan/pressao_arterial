@@ -648,6 +648,26 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
     }, _$showRegistroAtom, name: '${_$showRegistroAtom.name}_set');
   }
 
+  final _$diaSelecionadoCadastroAtom =
+      Atom(name: '_RegistroPressaoController.diaSelecionadoCadastro');
+
+  @override
+  String get diaSelecionadoCadastro {
+    _$diaSelecionadoCadastroAtom.context
+        .enforceReadPolicy(_$diaSelecionadoCadastroAtom);
+    _$diaSelecionadoCadastroAtom.reportObserved();
+    return super.diaSelecionadoCadastro;
+  }
+
+  @override
+  set diaSelecionadoCadastro(String value) {
+    _$diaSelecionadoCadastroAtom.context.conditionallyRunInAction(() {
+      super.diaSelecionadoCadastro = value;
+      _$diaSelecionadoCadastroAtom.reportChanged();
+    }, _$diaSelecionadoCadastroAtom,
+        name: '${_$diaSelecionadoCadastroAtom.name}_set');
+  }
+
   final _$getAllAtividadesAsyncAction = AsyncAction('getAllAtividades');
 
   @override
@@ -749,6 +769,17 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
       ActionController(name: '_RegistroPressaoController');
 
   @override
+  dynamic setDiaSelecionadoCadastro(DateTime valor) {
+    final _$actionInfo =
+        _$_RegistroPressaoControllerActionController.startAction();
+    try {
+      return super.setDiaSelecionadoCadastro(valor);
+    } finally {
+      _$_RegistroPressaoControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setShowRegistro(bool valor) {
     final _$actionInfo =
         _$_RegistroPressaoControllerActionController.startAction();
@@ -776,17 +807,6 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
         _$_RegistroPressaoControllerActionController.startAction();
     try {
       return super.setFiltroGraficoTempo(valor);
-    } finally {
-      _$_RegistroPressaoControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setFormatoData() {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
-    try {
-      return super.setFormatoData();
     } finally {
       _$_RegistroPressaoControllerActionController.endAction(_$actionInfo);
     }
@@ -916,7 +936,7 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   String toString() {
     final string =
-        'registroObj: ${registroObj.toString()},pressao: ${pressao.toString()},atividades: ${atividades.toString()},atividades_selecionadas: ${atividades_selecionadas.toString()},atividades_selecionadas_filtro: ${atividades_selecionadas_filtro.toString()},medicamentos_selecionados_filtro: ${medicamentos_selecionados_filtro.toString()},medicamentos: ${medicamentos.toString()},medicamentos_selecionados: ${medicamentos_selecionados.toString()},braco: ${braco.toString()},pulso: ${pulso.toString()},postura: ${postura.toString()},registros: ${registros.toString()},listaEventos: ${listaEventos.toString()},eventosSelecionados: ${eventosSelecionados.toString()},showCalendario: ${showCalendario.toString()},telaDescricaoMedicao: ${telaDescricaoMedicao.toString()},atividadesRelacionadas: ${atividadesRelacionadas.toString()},medicamentosRelacionadasFiltro: ${medicamentosRelacionadasFiltro.toString()},atividadesRelacionadasFiltro: ${atividadesRelacionadasFiltro.toString()},medicamentosRelacionadas: ${medicamentosRelacionadas.toString()},sistolicaGrafico: ${sistolicaGrafico.toString()},diastolicaGrafico: ${diastolicaGrafico.toString()},pulsoGrafico: ${pulsoGrafico.toString()},sistolicaGraficoAtividade: ${sistolicaGraficoAtividade.toString()},diastolicaGraficoAtividade: ${diastolicaGraficoAtividade.toString()},pulsoGraficoAtividade: ${pulsoGraficoAtividade.toString()},sistolicaGraficoMedicamento: ${sistolicaGraficoMedicamento.toString()},diastolicaGraficoMedicamento: ${diastolicaGraficoMedicamento.toString()},pulsoGraficoMedicamento: ${pulsoGraficoMedicamento.toString()},periodosGrafico: ${periodosGrafico.toString()},filtroGraficoTempo: ${filtroGraficoTempo.toString()},formatoDataX: ${formatoDataX.toString()},diaSelecionado: ${diaSelecionado.toString()},showRegistro: ${showRegistro.toString()}';
+        'registroObj: ${registroObj.toString()},pressao: ${pressao.toString()},atividades: ${atividades.toString()},atividades_selecionadas: ${atividades_selecionadas.toString()},atividades_selecionadas_filtro: ${atividades_selecionadas_filtro.toString()},medicamentos_selecionados_filtro: ${medicamentos_selecionados_filtro.toString()},medicamentos: ${medicamentos.toString()},medicamentos_selecionados: ${medicamentos_selecionados.toString()},braco: ${braco.toString()},pulso: ${pulso.toString()},postura: ${postura.toString()},registros: ${registros.toString()},listaEventos: ${listaEventos.toString()},eventosSelecionados: ${eventosSelecionados.toString()},showCalendario: ${showCalendario.toString()},telaDescricaoMedicao: ${telaDescricaoMedicao.toString()},atividadesRelacionadas: ${atividadesRelacionadas.toString()},medicamentosRelacionadasFiltro: ${medicamentosRelacionadasFiltro.toString()},atividadesRelacionadasFiltro: ${atividadesRelacionadasFiltro.toString()},medicamentosRelacionadas: ${medicamentosRelacionadas.toString()},sistolicaGrafico: ${sistolicaGrafico.toString()},diastolicaGrafico: ${diastolicaGrafico.toString()},pulsoGrafico: ${pulsoGrafico.toString()},sistolicaGraficoAtividade: ${sistolicaGraficoAtividade.toString()},diastolicaGraficoAtividade: ${diastolicaGraficoAtividade.toString()},pulsoGraficoAtividade: ${pulsoGraficoAtividade.toString()},sistolicaGraficoMedicamento: ${sistolicaGraficoMedicamento.toString()},diastolicaGraficoMedicamento: ${diastolicaGraficoMedicamento.toString()},pulsoGraficoMedicamento: ${pulsoGraficoMedicamento.toString()},periodosGrafico: ${periodosGrafico.toString()},filtroGraficoTempo: ${filtroGraficoTempo.toString()},formatoDataX: ${formatoDataX.toString()},diaSelecionado: ${diaSelecionado.toString()},showRegistro: ${showRegistro.toString()},diaSelecionadoCadastro: ${diaSelecionadoCadastro.toString()}';
     return '{$string}';
   }
 }

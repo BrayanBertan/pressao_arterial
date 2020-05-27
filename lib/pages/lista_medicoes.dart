@@ -75,7 +75,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                       Expanded(child: Divider(color: Colors.black)),
                       Text(
                         'Calendário:',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 25),
                       ),
                       Expanded(child: Divider(color: Colors.black)),
                     ],
@@ -90,7 +90,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                         builder: (_) {
                           return Text(
                             '${registro_controller.diaSelecionado}',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 25),
                           );
                         },
                       ),
@@ -101,7 +101,8 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                   (registro_controller.eventosSelecionados.length > 0)
                       ? Expanded(child: _listaEventosConstrutor())
                       : Center(
-                          child: Text("Sem registros neste dia"),
+                          child: Text("Sem registros neste dia",
+                              style: TextStyle(fontSize: 25)),
                         )
                 ],
               );
@@ -369,7 +370,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 53, right: 10, top: 1),
+                          const EdgeInsets.only(left: 60, right: 10, top: 1),
                       child: Row(
                         children: <Widget>[
                           Observer(builder: (_) {
@@ -518,7 +519,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(25, 15, 0, 0),
+                      padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
                       child: new Row(
                         children: <Widget>[
                           SizedBox(
@@ -625,7 +626,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                     }),
                     Padding(
                         padding:
-                            const EdgeInsets.only(left: 20, right: 10, top: 1),
+                            const EdgeInsets.only(left: 50, right: 10, top: 1),
                         child: Center(
                           child: Row(
                             children: <Widget>[

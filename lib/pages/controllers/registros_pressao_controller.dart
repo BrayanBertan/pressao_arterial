@@ -63,6 +63,8 @@ abstract class _RegistroPressaoController with Store {
     ].asObservable();
     var format = DateFormat.yMd('pt');
     diaSelecionado = format.format(DateTime.now());
+    var formatCadastro = DateFormat('dd/MM/yyy H:m');
+    diaSelecionadoCadastro = formatCadastro.format(DateTime.now());
   }
   @observable
   RegistroPressao registroObj;
@@ -180,6 +182,15 @@ abstract class _RegistroPressaoController with Store {
   @observable
   bool showRegistro = true;
 
+  @observable
+  String diaSelecionadoCadastro;
+
+  @action
+  setDiaSelecionadoCadastro(DateTime valor) {
+    var format = DateFormat('dd/MM/yyy H:m');
+    diaSelecionadoCadastro = format.format(valor);
+  }
+
   @action
   setShowRegistro(bool valor) {
     showRegistro = valor;
@@ -194,34 +205,6 @@ abstract class _RegistroPressaoController with Store {
   @action
   setFiltroGraficoTempo(int valor) {
     filtroGraficoTempo = valor;
-  }
-
-  @action
-  setFormatoData() {
-
-    switch (filtroGraficoTempo) {
-      case 1:
-        {
-          formatoDataX =  'dd/MM';
-        }
-        break;
-      case 5:
-        {
-          formatoDataX =  'dd/MM';
-        }
-        break;
-      case 6:
-        {
-          formatoDataX =  'dd/MM';
-        }
-        break;
-
-      default:
-        {
-          formatoDataX = 'dd/MM';
-        }
-        break;
-    }
   }
 
   @action
@@ -337,7 +320,6 @@ abstract class _RegistroPressaoController with Store {
     registroObj.postura = postura;
     registroObj.braco = braco;
     registroObj.anotacao = anotacao;
-    registroObj.dataHora = DateTime.now();
     registroObj.id_usuario = gc.perfilSelecionado.id;
     registroObj.id = null;
     var registrado = await registro_helper.saveRegistro(registroObj);

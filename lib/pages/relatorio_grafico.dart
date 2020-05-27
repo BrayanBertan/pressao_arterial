@@ -150,7 +150,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pressão Arterial'),
+        title: Text('Relátorios'),
       ),
       body: Container(
         child: Column(
@@ -272,21 +272,21 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                       Center(
                         child: Text(
                           (registro_controller.filtroGraficoTempo == 1)
-                              ? 'Ultimo mês'
+                              ? 'Último mês'
                               : (registro_controller.filtroGraficoTempo == 2)
-                                  ? 'Ultimos 3 mêses'
+                                  ? 'Últimos 3 meses'
                                   : (registro_controller.filtroGraficoTempo ==
                                           3)
-                                      ? 'Ultimos 6 mêses'
+                                      ? 'Últimos 6 meses'
                                       : (registro_controller
                                                   .filtroGraficoTempo ==
                                               5)
-                                          ? 'Ultimas 24 horas'
+                                          ? 'Últimas 24 horas'
                                           : (registro_controller
                                                       .filtroGraficoTempo ==
                                                   6)
-                                              ? "Ultima semana"
-                                              : "Ultimo Ano",
+                                              ? "Última semana"
+                                              : "Último Ano",
                           style: TextStyle(
                             fontSize: 30,
                           ),

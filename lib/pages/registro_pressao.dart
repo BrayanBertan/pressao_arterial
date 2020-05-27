@@ -9,6 +9,7 @@ import 'configuracao_global.dart' as gc;
 import 'package:sweetalert/sweetalert.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 final registro_controller = RegistroPressaoController();
 
@@ -73,6 +74,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                             ),
                             child: Text(
                               ('Sistolica: ${registro_controller.pressao.end.round()}'),
+                                style: TextStyle(fontSize: 20)
                             ),
                           ),
                           SizedBox(
@@ -90,6 +92,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                             ),
                             child: Text(
                               ('Diastolica: ${registro_controller.pressao.start.round()}'),
+                                style: TextStyle(fontSize: 20)
                             ),
                           ),
                         ]),
@@ -125,6 +128,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                           ),
                           child: Text(
                             ('Pulso: ${registro_controller.pulso.round()}'),
+                              style: TextStyle(fontSize: 20)
                           ),
                         ),
                       );
@@ -195,7 +199,8 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                     }),
                     Row(children: <Widget>[
                       Expanded(child: Divider(color: Colors.black)),
-                      Text("Postura"),
+                      Text("Postura",
+                          style: TextStyle(fontSize: 20)),
                       Expanded(child: Divider(color: Colors.black)),
                     ]),
                     SizedBox(
@@ -203,7 +208,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                     ),
                     Observer(builder: (_) {
                       return Container(
-                        padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
                         child: Row(
                           children: <Widget>[
                             GestureDetector(
@@ -339,7 +344,8 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                     ),
                     Row(children: <Widget>[
                       Expanded(child: Divider(color: Colors.black)),
-                      Text("Braço medido"),
+                      Text("Braço medido",
+                          style: TextStyle(fontSize: 20)),
                       Expanded(child: Divider(color: Colors.black)),
                     ]),
                     SizedBox(
@@ -442,6 +448,28 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         ],
                       ),
                     ),
+                FlatButton(
+                    onPressed: () {
+                      DatePicker.showDateTimePicker(context,
+                          showTitleActions: true,
+                          maxTime: DateTime.now(),
+                          onChanged: (date) {
+                            print('change $date');
+                          }, onConfirm: (date) {
+                        registro_controller.registroObj.dataHora = date;
+                        registro_controller.setDiaSelecionadoCadastro(date);
+                          }, currentTime: DateTime.now(), locale: LocaleType.pt);
+                    },
+                    child:Observer(
+                      builder: (_) {
+                        return Card(
+                          child: ListTile(
+                            title: Text((registro_controller.diaSelecionadoCadastro)),
+                            leading: Image.asset('assets/images/schedule.png'),
+                          ),
+                        );
+                      },
+                    )),
                     TextFormField(
                       controller: registro_anotacao,
                       decoration: InputDecoration(
