@@ -56,7 +56,7 @@ abstract class _DicaController with Store {
       'tituloprincipal':'Não tome medicamentos sem prescrição médica',
       'titulo':'Nada de se automedicar e correr riscos. Os remédios de hipertensão devem ser prescritos após uma série de exames. "Cada pessoa apresenta um nível diferente de elevação da pressão arterial, por isso é importante ressaltar que o uso indevido desses medicamentos pode contribuir até para a piora do quadro. O remédio que funciona para uma amiga, certamente não funcionará para você", alerta o especialista.',
       'subtitulo':'',
-      'foto':'sm.png'
+      'foto':'remedio1.png'
     },
     {
       'tituloprincipal':'Hora de mexer o corpo',
