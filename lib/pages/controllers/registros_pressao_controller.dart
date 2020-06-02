@@ -65,7 +65,12 @@ abstract class _RegistroPressaoController with Store {
     diaSelecionado = format.format(DateTime.now());
     var formatCadastro = DateFormat('dd/MM/yyy H:m');
     diaSelecionadoCadastro = formatCadastro.format(DateTime.now());
+    registro_anotacao.text = '';
   }
+
+  @observable
+   TextEditingController registro_anotacao = TextEditingController();
+
   @observable
   RegistroPressao registroObj;
 
@@ -187,8 +192,15 @@ abstract class _RegistroPressaoController with Store {
 
   @action
   setDiaSelecionadoCadastro(DateTime valor) {
-    var format = DateFormat('dd/MM/yyy H:m');
-    diaSelecionadoCadastro = format.format(valor);
+    var formatHora = DateFormat.jm('pt');
+    String hora = formatHora.format(DateTime(
+        valor.year,
+        valor.month,
+        valor.day,
+        valor.hour,
+        valor.minute));
+    var format = DateFormat('dd/MM/yyyy');
+    diaSelecionadoCadastro = '${format.format(valor)} ${hora}';
   }
 
   @action
@@ -313,13 +325,13 @@ abstract class _RegistroPressaoController with Store {
   }
 
   @action
-  setAnotacao(String anotacao) async {
+  setAnotacao() async {
     registroObj.sistolica = pressao.end;
     registroObj.diastolica = pressao.start;
     registroObj.pulso = pulso;
     registroObj.postura = postura;
     registroObj.braco = braco;
-    registroObj.anotacao = anotacao;
+    registroObj.anotacao = registro_anotacao.text;
     registroObj.id_usuario = gc.perfilSelecionado.id;
     registroObj.id = null;
     var registrado = await registro_helper.saveRegistro(registroObj);
@@ -353,6 +365,7 @@ abstract class _RegistroPressaoController with Store {
     braco = 1;
     atividades_selecionadas.clear();
     medicamentos_selecionados.clear();
+    registro_anotacao.text = '';
   }
 
   @action

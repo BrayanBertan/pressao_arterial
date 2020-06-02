@@ -9,6 +9,24 @@ part of 'registros_pressao_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
+  final _$registro_anotacaoAtom =
+      Atom(name: '_RegistroPressaoController.registro_anotacao');
+
+  @override
+  TextEditingController get registro_anotacao {
+    _$registro_anotacaoAtom.context.enforceReadPolicy(_$registro_anotacaoAtom);
+    _$registro_anotacaoAtom.reportObserved();
+    return super.registro_anotacao;
+  }
+
+  @override
+  set registro_anotacao(TextEditingController value) {
+    _$registro_anotacaoAtom.context.conditionallyRunInAction(() {
+      super.registro_anotacao = value;
+      _$registro_anotacaoAtom.reportChanged();
+    }, _$registro_anotacaoAtom, name: '${_$registro_anotacaoAtom.name}_set');
+  }
+
   final _$registroObjAtom =
       Atom(name: '_RegistroPressaoController.registroObj');
 
@@ -722,8 +740,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   final _$setAnotacaoAsyncAction = AsyncAction('setAnotacao');
 
   @override
-  Future setAnotacao(String anotacao) {
-    return _$setAnotacaoAsyncAction.run(() => super.setAnotacao(anotacao));
+  Future setAnotacao() {
+    return _$setAnotacaoAsyncAction.run(() => super.setAnotacao());
   }
 
   final _$getAllRegistrosAsyncAction = AsyncAction('getAllRegistros');
@@ -936,7 +954,7 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   String toString() {
     final string =
-        'registroObj: ${registroObj.toString()},pressao: ${pressao.toString()},atividades: ${atividades.toString()},atividades_selecionadas: ${atividades_selecionadas.toString()},atividades_selecionadas_filtro: ${atividades_selecionadas_filtro.toString()},medicamentos_selecionados_filtro: ${medicamentos_selecionados_filtro.toString()},medicamentos: ${medicamentos.toString()},medicamentos_selecionados: ${medicamentos_selecionados.toString()},braco: ${braco.toString()},pulso: ${pulso.toString()},postura: ${postura.toString()},registros: ${registros.toString()},listaEventos: ${listaEventos.toString()},eventosSelecionados: ${eventosSelecionados.toString()},showCalendario: ${showCalendario.toString()},telaDescricaoMedicao: ${telaDescricaoMedicao.toString()},atividadesRelacionadas: ${atividadesRelacionadas.toString()},medicamentosRelacionadasFiltro: ${medicamentosRelacionadasFiltro.toString()},atividadesRelacionadasFiltro: ${atividadesRelacionadasFiltro.toString()},medicamentosRelacionadas: ${medicamentosRelacionadas.toString()},sistolicaGrafico: ${sistolicaGrafico.toString()},diastolicaGrafico: ${diastolicaGrafico.toString()},pulsoGrafico: ${pulsoGrafico.toString()},sistolicaGraficoAtividade: ${sistolicaGraficoAtividade.toString()},diastolicaGraficoAtividade: ${diastolicaGraficoAtividade.toString()},pulsoGraficoAtividade: ${pulsoGraficoAtividade.toString()},sistolicaGraficoMedicamento: ${sistolicaGraficoMedicamento.toString()},diastolicaGraficoMedicamento: ${diastolicaGraficoMedicamento.toString()},pulsoGraficoMedicamento: ${pulsoGraficoMedicamento.toString()},periodosGrafico: ${periodosGrafico.toString()},filtroGraficoTempo: ${filtroGraficoTempo.toString()},formatoDataX: ${formatoDataX.toString()},diaSelecionado: ${diaSelecionado.toString()},showRegistro: ${showRegistro.toString()},diaSelecionadoCadastro: ${diaSelecionadoCadastro.toString()}';
+        'registro_anotacao: ${registro_anotacao.toString()},registroObj: ${registroObj.toString()},pressao: ${pressao.toString()},atividades: ${atividades.toString()},atividades_selecionadas: ${atividades_selecionadas.toString()},atividades_selecionadas_filtro: ${atividades_selecionadas_filtro.toString()},medicamentos_selecionados_filtro: ${medicamentos_selecionados_filtro.toString()},medicamentos: ${medicamentos.toString()},medicamentos_selecionados: ${medicamentos_selecionados.toString()},braco: ${braco.toString()},pulso: ${pulso.toString()},postura: ${postura.toString()},registros: ${registros.toString()},listaEventos: ${listaEventos.toString()},eventosSelecionados: ${eventosSelecionados.toString()},showCalendario: ${showCalendario.toString()},telaDescricaoMedicao: ${telaDescricaoMedicao.toString()},atividadesRelacionadas: ${atividadesRelacionadas.toString()},medicamentosRelacionadasFiltro: ${medicamentosRelacionadasFiltro.toString()},atividadesRelacionadasFiltro: ${atividadesRelacionadasFiltro.toString()},medicamentosRelacionadas: ${medicamentosRelacionadas.toString()},sistolicaGrafico: ${sistolicaGrafico.toString()},diastolicaGrafico: ${diastolicaGrafico.toString()},pulsoGrafico: ${pulsoGrafico.toString()},sistolicaGraficoAtividade: ${sistolicaGraficoAtividade.toString()},diastolicaGraficoAtividade: ${diastolicaGraficoAtividade.toString()},pulsoGraficoAtividade: ${pulsoGraficoAtividade.toString()},sistolicaGraficoMedicamento: ${sistolicaGraficoMedicamento.toString()},diastolicaGraficoMedicamento: ${diastolicaGraficoMedicamento.toString()},pulsoGraficoMedicamento: ${pulsoGraficoMedicamento.toString()},periodosGrafico: ${periodosGrafico.toString()},filtroGraficoTempo: ${filtroGraficoTempo.toString()},formatoDataX: ${formatoDataX.toString()},diaSelecionado: ${diaSelecionado.toString()},showRegistro: ${showRegistro.toString()},diaSelecionadoCadastro: ${diaSelecionadoCadastro.toString()}';
     return '{$string}';
   }
 }

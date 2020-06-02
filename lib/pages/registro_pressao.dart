@@ -20,7 +20,6 @@ class RegistroPressaoPage extends StatefulWidget {
 
 class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
   final _formularioRegistroKey = GlobalKey<FormState>();
-  final TextEditingController registro_anotacao = TextEditingController();
 
   @override
   void initState() {
@@ -73,7 +72,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                               ),
                             ),
                             child: Text(
-                              ('Sistolica: ${registro_controller.pressao.end.round()}'),
+                              ('Sistólica: ${registro_controller.pressao.end.round()}'),
                                 style: TextStyle(fontSize: 20)
                             ),
                           ),
@@ -91,7 +90,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                               ),
                             ),
                             child: Text(
-                              ('Diastolica: ${registro_controller.pressao.start.round()}'),
+                              ('Diastólica: ${registro_controller.pressao.start.round()}'),
                                 style: TextStyle(fontSize: 20)
                             ),
                           ),
@@ -471,7 +470,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                       },
                     )),
                     TextFormField(
-                      controller: registro_anotacao,
+                      controller: registro_controller.registro_anotacao,
                       decoration: InputDecoration(
                           labelText: 'Anotação', hintText: 'Ex: De manhã'),
                     ),
@@ -483,7 +482,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                           child: new Text('Salvar'),
                           onPressed: () {
                             if (_formularioRegistroKey.currentState.validate()) {
-                              registro_controller.setAnotacao(registro_anotacao.text);
+                              registro_controller.setAnotacao();
                               FocusScope.of(context).unfocus();
                               SweetAlert.show(context,
                                   title: "Salvo",
