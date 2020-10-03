@@ -36,14 +36,14 @@ class AppModule extends MainModule {
   ];
 
   @override
-  List<Router> get routers => [
-    Router("/", child: (_, args) => SplashPage()),
-    Router("/login", child: (_, args) => PerfilPage()),
-    Router("/registros", child: (_, args) => ListaMedicoesPage()),
-    Router("/medicamentos", child: (_, args) => MedicamentosPage()),
-    Router("/relatorios", child: (_, args) => RelatorioGraficoPage()),
-    Router("/registroPressao", child: (_, args) => RegistroPressaoPage()),
-    Router("/dicas", child: (_, args) => DicaPage()),
+  List<ModularRouter> get routers => [
+    ModularRouter("/", child: (_, args) => SplashPage()),
+    ModularRouter("/login", child: (_, args) => PerfilPage()),
+    ModularRouter("/registros", child: (_, args) => ListaMedicoesPage()),
+    ModularRouter("/medicamentos", child: (_, args) => MedicamentosPage()),
+    ModularRouter("/relatorios", child: (_, args) => RelatorioGraficoPage()),
+    ModularRouter("/registroPressao", child: (_, args) => RegistroPressaoPage()),
+    ModularRouter("/dicas", child: (_, args) => DicaPage()),
 
   ];
 
