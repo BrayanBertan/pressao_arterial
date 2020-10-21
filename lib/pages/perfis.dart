@@ -8,6 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/pages/controllers/perfis_controller.dart';
 import 'configuracao_global.dart' as gc;
 import 'package:sweetalert/sweetalert.dart';
+import 'package:flutter/services.dart';
 
 final perfil_controller = PerfilController();
 
@@ -17,6 +18,8 @@ class PerfilPage extends StatefulWidget {
 }
 
 class _PerfilPageState extends State<PerfilPage> {
+  String _batteryPercentage = 'Battery precentage';
+
   final _formularioPerfilKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -42,7 +45,7 @@ class _PerfilPageState extends State<PerfilPage> {
       appBar: AppBar(
         title: Center(
             child: Text('Diário de pressão', textAlign: TextAlign.center)
-          ),
+        ),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -89,21 +92,21 @@ class _PerfilPageState extends State<PerfilPage> {
                             itemCount: 8,
                             itemBuilder: (BuildContext context, int index) =>
                                 Observer(builder: (_) {
-                              return GestureDetector(
-                                onTap: () => perfil_controller
-                                    .setAvatarSelecionado(index),
-                                child: Center(
-                                    child: CircleAvatar(
-                                        backgroundImage: ExactAssetImage(
-                                            'assets/images/avatar${index}.png'),
-                                        minRadius: 40,
-                                        maxRadius: (perfil_controller
-                                                    .avatarSelecionado ==
+                                  return GestureDetector(
+                                    onTap: () => perfil_controller
+                                        .setAvatarSelecionado(index),
+                                    child: Center(
+                                        child: CircleAvatar(
+                                            backgroundImage: ExactAssetImage(
+                                                'assets/images/avatar${index}.png'),
+                                            minRadius: 40,
+                                            maxRadius: (perfil_controller
+                                                .avatarSelecionado ==
                                                 index)
-                                            ? 60
-                                            : 50)),
-                              );
-                            }),
+                                                ? 60
+                                                : 50)),
+                                  );
+                                }),
                           ),
                         ),
                       ],
@@ -130,6 +133,12 @@ class _PerfilPageState extends State<PerfilPage> {
               },
             ),
           ),
+          RaisedButton(
+              child:Text(_batteryPercentage),
+              onPressed: () {
+                _getBatteryInformation();
+              }
+          ),
           Row(
             children: <Widget>[
               Expanded(child: Divider(color: Colors.black)),
@@ -146,53 +155,69 @@ class _PerfilPageState extends State<PerfilPage> {
           Observer(builder: (_) {
             return (!perfil_controller.showLista)
                 ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+              child: CircularProgressIndicator(),
+            )
                 : Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: perfil_controller.listaPerfis.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Observer(
-                          builder: (_) {
-                            return GestureDetector(
-                              onTap: () {
-                                gc.changePerfil(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: perfil_controller.listaPerfis.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Observer(
+                    builder: (_) {
+                      return GestureDetector(
+                        onTap: () {
+                          gc.changePerfil(
+                              perfil_controller.listaPerfis[index]);
+                          Modular.to.pushReplacementNamed('/registros');
+                        },
+                        child: Card(
+                          child: ListTile(
+                            title: Text(perfil_controller
+                                .listaPerfis[index].nome,style: TextStyle(fontSize: 20)),
+                            leading: CircleAvatar(
+                              backgroundImage: ExactAssetImage(
+                                  'assets/images/${perfil_controller.listaPerfis[index].icone}'),
+                              minRadius: 30,
+                              maxRadius: 30,
+                            ),
+                            trailing: FlatButton(
+                              onPressed: () {
+                                perfil_controller.setEdicao(
                                     perfil_controller.listaPerfis[index]);
-                                Modular.to.pushReplacementNamed('/registros');
                               },
-                              child: Card(
-                                child: ListTile(
-                                  title: Text(perfil_controller
-                                      .listaPerfis[index].nome,style: TextStyle(fontSize: 20)),
-                                  leading: CircleAvatar(
-                                    backgroundImage: ExactAssetImage(
-                                        'assets/images/${perfil_controller.listaPerfis[index].icone}'),
-                                    minRadius: 30,
-                                    maxRadius: 30,
-                                  ),
-                                  trailing: FlatButton(
-                                    onPressed: () {
-                                      perfil_controller.setEdicao(
-                                          perfil_controller.listaPerfis[index]);
-                                    },
-                                    child: Icon(
-                                      Icons.edit,
-                                      size: 50,
-                                      color: gc.corPadrao,
-                                    ),
-                                  ),
-                                ),
+                              child: Icon(
+                                Icons.edit,
+                                size: 50,
+                                color: gc.corPadrao,
                               ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
+                },
+              ),
+            );
           }),
         ],
       ),
     );
+  }
+
+  static const batteryChannel = const MethodChannel('samples.flutter.dev/battery');
+
+  Future<void> _getBatteryInformation() async {
+    String batteryPercentage;
+    try {
+      var result = await batteryChannel.invokeMethod('getBatteryLevel');
+      batteryPercentage = 'Battery level at $result%';
+    } on PlatformException catch (e) {
+      batteryPercentage = "Failed to get battery level: '${e.message}'.";
+    }
+
+    setState(() {
+      _batteryPercentage = batteryPercentage;
+    });
   }
 }

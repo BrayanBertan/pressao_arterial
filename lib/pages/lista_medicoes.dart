@@ -10,7 +10,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'configuracao_global.dart' as gc;
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:sweetalert/sweetalert.dart';  
+import 'package:sweetalert/sweetalert.dart';
 
 final registro_controller = RegistroPressaoController();
 
