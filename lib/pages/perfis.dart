@@ -18,7 +18,6 @@ class PerfilPage extends StatefulWidget {
 }
 
 class _PerfilPageState extends State<PerfilPage> {
-  String _batteryPercentage = 'Battery precentage';
 
   final _formularioPerfilKey = GlobalKey<FormState>();
   @override
@@ -134,9 +133,9 @@ class _PerfilPageState extends State<PerfilPage> {
             ),
           ),
           RaisedButton(
-              child:Text(_batteryPercentage),
+              child:Text(perfil_controller.batteryPercentage),
               onPressed: () {
-                _getBatteryInformation();
+                perfil_controller.getBatteryInformation();
               }
           ),
           Row(
@@ -205,19 +204,5 @@ class _PerfilPageState extends State<PerfilPage> {
     );
   }
 
-  static const batteryChannel = const MethodChannel('samples.flutter.dev/battery');
 
-  Future<void> _getBatteryInformation() async {
-    String batteryPercentage;
-    try {
-      var result = await batteryChannel.invokeMethod('getBatteryLevel');
-      batteryPercentage = 'Battery level at $result%';
-    } on PlatformException catch (e) {
-      batteryPercentage = "Failed to get battery level: '${e.message}'.";
-    }
-
-    setState(() {
-      _batteryPercentage = batteryPercentage;
-    });
-  }
 }

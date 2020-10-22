@@ -146,7 +146,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         padding: EdgeInsets.all(16),
                         child: MultiSelectFormField(
                           autovalidate: false,
-                          titleText: 'Atividades',
+                          title: Text("Atividades"),
                           validator: (value) {
                             if (value == null || value.length == 0) {
                               // return 'Escolha uma atividade';
@@ -159,7 +159,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                           okButtonLabel: 'OK',
                           cancelButtonLabel: 'CANCELAR',
                           // required: true,
-                          hintText: '',
+                         hintWidget: Text(''),
                           initialValue: registro_controller.atividades_selecionadas,
                           onSaved: (value) {
                             if (value == null) return;
@@ -173,7 +173,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                         padding: EdgeInsets.all(16),
                         child: MultiSelectFormField(
                           autovalidate: false,
-                          titleText: 'Medicamentos',
+                          title: Text("Medicamentos"),
                           validator: (value) {
                             if (value == null || value.length == 0) {
                               //return 'Escolha um Medicamentos';
@@ -186,7 +186,7 @@ class _RegistroPressaoPageState extends State<RegistroPressaoPage> {
                           okButtonLabel: 'OK',
                           cancelButtonLabel: 'CANCELAR',
                           // required: true,
-                          hintText: '',
+                          hintWidget: Text(''),
                           initialValue:
                           registro_controller.medicamentos_selecionados,
                           onSaved: (value) {

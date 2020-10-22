@@ -424,7 +424,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                           padding: EdgeInsets.all(16),
                           child: MultiSelectFormField(
                             autovalidate: false,
-                            titleText: 'Atividades',
+                            title: Text("Atividades"),
                             validator: (value) {
                               if (value.length > 5) {
                                 return 'Limite de 5';
@@ -438,7 +438,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             okButtonLabel: 'OK',
                             cancelButtonLabel: 'CANCELAR',
                             // required: true,
-                            hintText: '',
+                            hintWidget: Text(""),
                             initialValue: registro_controller
                                 .atividades_selecionadas_filtro,
                             onSaved: (value) {
@@ -549,7 +549,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                           padding: EdgeInsets.all(16),
                           child: MultiSelectFormField(
                             autovalidate: false,
-                            titleText: 'Medicamentos',
+                            title:  Text('Medicamentoa'),
                             validator: (value) {
                               if (value.length > 5) {
                                 return 'Limite de 5';
@@ -563,7 +563,7 @@ class _RelatorioGraficoPageState extends State<RelatorioGraficoPage> {
                             okButtonLabel: 'OK',
                             cancelButtonLabel: 'CANCELAR',
                             // required: true,
-                            hintText: '',
+                            hintWidget: Text(''),
                             initialValue: registro_controller
                                 .medicamentos_selecionados_filtro,
                             onSaved: (value) {

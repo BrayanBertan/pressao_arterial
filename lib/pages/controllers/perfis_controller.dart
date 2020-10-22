@@ -5,6 +5,7 @@ import 'package:pressaoarterialapp/Helpers/perfil_helper.dart';
 import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pressaoarterialapp/models/perfil_model.dart';
+import 'package:flutter/services.dart';
 part 'perfis_controller.g.dart';
 
 class PerfilController = _PerfilController with _$PerfilController;
@@ -38,6 +39,27 @@ abstract class _PerfilController with Store {
 
   @observable
   Perfil objPerfil = Perfil(nome: '', icone: '');
+
+  @observable
+    var batteryChannel =  MethodChannel('samples.flutter.dev/battery');
+
+  @observable
+  String batteryPercentage = 'Battery precentage';
+
+  @action
+  Future<void> getBatteryInformation() async {
+    String resultado;
+    try {
+      var result = await batteryChannel.invokeMethod('getBatteryLevel');
+      resultado = 'Battery level at $result%';
+    } on PlatformException catch (e) {
+      resultado = "Failed to get battery level: '${e.message}'.";
+    }
+
+
+      batteryPercentage = resultado;
+
+  }
 
   @action
   setAvatarSelecionado(int index) {

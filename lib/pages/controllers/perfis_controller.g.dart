@@ -6,7 +6,7 @@ part of 'perfis_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PerfilController on _PerfilController, Store {
   final _$avatarSelecionadoAtom =
@@ -14,51 +14,45 @@ mixin _$PerfilController on _PerfilController, Store {
 
   @override
   int get avatarSelecionado {
-    _$avatarSelecionadoAtom.context.enforceReadPolicy(_$avatarSelecionadoAtom);
-    _$avatarSelecionadoAtom.reportObserved();
+    _$avatarSelecionadoAtom.reportRead();
     return super.avatarSelecionado;
   }
 
   @override
   set avatarSelecionado(int value) {
-    _$avatarSelecionadoAtom.context.conditionallyRunInAction(() {
+    _$avatarSelecionadoAtom.reportWrite(value, super.avatarSelecionado, () {
       super.avatarSelecionado = value;
-      _$avatarSelecionadoAtom.reportChanged();
-    }, _$avatarSelecionadoAtom, name: '${_$avatarSelecionadoAtom.name}_set');
+    });
   }
 
   final _$modoEdicaoAtom = Atom(name: '_PerfilController.modoEdicao');
 
   @override
   bool get modoEdicao {
-    _$modoEdicaoAtom.context.enforceReadPolicy(_$modoEdicaoAtom);
-    _$modoEdicaoAtom.reportObserved();
+    _$modoEdicaoAtom.reportRead();
     return super.modoEdicao;
   }
 
   @override
   set modoEdicao(bool value) {
-    _$modoEdicaoAtom.context.conditionallyRunInAction(() {
+    _$modoEdicaoAtom.reportWrite(value, super.modoEdicao, () {
       super.modoEdicao = value;
-      _$modoEdicaoAtom.reportChanged();
-    }, _$modoEdicaoAtom, name: '${_$modoEdicaoAtom.name}_set');
+    });
   }
 
   final _$showListaAtom = Atom(name: '_PerfilController.showLista');
 
   @override
   bool get showLista {
-    _$showListaAtom.context.enforceReadPolicy(_$showListaAtom);
-    _$showListaAtom.reportObserved();
+    _$showListaAtom.reportRead();
     return super.showLista;
   }
 
   @override
   set showLista(bool value) {
-    _$showListaAtom.context.conditionallyRunInAction(() {
+    _$showListaAtom.reportWrite(value, super.showLista, () {
       super.showLista = value;
-      _$showListaAtom.reportChanged();
-    }, _$showListaAtom, name: '${_$showListaAtom.name}_set');
+    });
   }
 
   final _$avatarLinkSelecionadoAtom =
@@ -66,80 +60,112 @@ mixin _$PerfilController on _PerfilController, Store {
 
   @override
   String get avatarLinkSelecionado {
-    _$avatarLinkSelecionadoAtom.context
-        .enforceReadPolicy(_$avatarLinkSelecionadoAtom);
-    _$avatarLinkSelecionadoAtom.reportObserved();
+    _$avatarLinkSelecionadoAtom.reportRead();
     return super.avatarLinkSelecionado;
   }
 
   @override
   set avatarLinkSelecionado(String value) {
-    _$avatarLinkSelecionadoAtom.context.conditionallyRunInAction(() {
+    _$avatarLinkSelecionadoAtom.reportWrite(value, super.avatarLinkSelecionado,
+        () {
       super.avatarLinkSelecionado = value;
-      _$avatarLinkSelecionadoAtom.reportChanged();
-    }, _$avatarLinkSelecionadoAtom,
-        name: '${_$avatarLinkSelecionadoAtom.name}_set');
+    });
   }
 
   final _$avatarNomeAtom = Atom(name: '_PerfilController.avatarNome');
 
   @override
   String get avatarNome {
-    _$avatarNomeAtom.context.enforceReadPolicy(_$avatarNomeAtom);
-    _$avatarNomeAtom.reportObserved();
+    _$avatarNomeAtom.reportRead();
     return super.avatarNome;
   }
 
   @override
   set avatarNome(String value) {
-    _$avatarNomeAtom.context.conditionallyRunInAction(() {
+    _$avatarNomeAtom.reportWrite(value, super.avatarNome, () {
       super.avatarNome = value;
-      _$avatarNomeAtom.reportChanged();
-    }, _$avatarNomeAtom, name: '${_$avatarNomeAtom.name}_set');
+    });
   }
 
   final _$listaPerfisAtom = Atom(name: '_PerfilController.listaPerfis');
 
   @override
   ObservableList<dynamic> get listaPerfis {
-    _$listaPerfisAtom.context.enforceReadPolicy(_$listaPerfisAtom);
-    _$listaPerfisAtom.reportObserved();
+    _$listaPerfisAtom.reportRead();
     return super.listaPerfis;
   }
 
   @override
   set listaPerfis(ObservableList<dynamic> value) {
-    _$listaPerfisAtom.context.conditionallyRunInAction(() {
+    _$listaPerfisAtom.reportWrite(value, super.listaPerfis, () {
       super.listaPerfis = value;
-      _$listaPerfisAtom.reportChanged();
-    }, _$listaPerfisAtom, name: '${_$listaPerfisAtom.name}_set');
+    });
   }
 
   final _$objPerfilAtom = Atom(name: '_PerfilController.objPerfil');
 
   @override
   Perfil get objPerfil {
-    _$objPerfilAtom.context.enforceReadPolicy(_$objPerfilAtom);
-    _$objPerfilAtom.reportObserved();
+    _$objPerfilAtom.reportRead();
     return super.objPerfil;
   }
 
   @override
   set objPerfil(Perfil value) {
-    _$objPerfilAtom.context.conditionallyRunInAction(() {
+    _$objPerfilAtom.reportWrite(value, super.objPerfil, () {
       super.objPerfil = value;
-      _$objPerfilAtom.reportChanged();
-    }, _$objPerfilAtom, name: '${_$objPerfilAtom.name}_set');
+    });
   }
 
-  final _$setAvatarAsyncAction = AsyncAction('setAvatar');
+  final _$batteryChannelAtom = Atom(name: '_PerfilController.batteryChannel');
+
+  @override
+  MethodChannel get batteryChannel {
+    _$batteryChannelAtom.reportRead();
+    return super.batteryChannel;
+  }
+
+  @override
+  set batteryChannel(MethodChannel value) {
+    _$batteryChannelAtom.reportWrite(value, super.batteryChannel, () {
+      super.batteryChannel = value;
+    });
+  }
+
+  final _$batteryPercentageAtom =
+      Atom(name: '_PerfilController.batteryPercentage');
+
+  @override
+  String get batteryPercentage {
+    _$batteryPercentageAtom.reportRead();
+    return super.batteryPercentage;
+  }
+
+  @override
+  set batteryPercentage(String value) {
+    _$batteryPercentageAtom.reportWrite(value, super.batteryPercentage, () {
+      super.batteryPercentage = value;
+    });
+  }
+
+  final _$getBatteryInformationAsyncAction =
+      AsyncAction('_PerfilController.getBatteryInformation');
+
+  @override
+  Future<void> getBatteryInformation() {
+    return _$getBatteryInformationAsyncAction
+        .run(() => super.getBatteryInformation());
+  }
+
+  final _$setAvatarAsyncAction = AsyncAction('_PerfilController.setAvatar');
 
   @override
   Future setAvatar() {
     return _$setAvatarAsyncAction.run(() => super.setAvatar());
   }
 
-  final _$getAllPerfisAsyncAction = AsyncAction('getAllPerfis');
+  final _$getAllPerfisAsyncAction =
+      AsyncAction('_PerfilController.getAllPerfis');
 
   @override
   Future getAllPerfis() {
@@ -151,7 +177,8 @@ mixin _$PerfilController on _PerfilController, Store {
 
   @override
   dynamic setAvatarSelecionado(int index) {
-    final _$actionInfo = _$_PerfilControllerActionController.startAction();
+    final _$actionInfo = _$_PerfilControllerActionController.startAction(
+        name: '_PerfilController.setAvatarSelecionado');
     try {
       return super.setAvatarSelecionado(index);
     } finally {
@@ -161,7 +188,8 @@ mixin _$PerfilController on _PerfilController, Store {
 
   @override
   dynamic setShowLista(bool valor) {
-    final _$actionInfo = _$_PerfilControllerActionController.startAction();
+    final _$actionInfo = _$_PerfilControllerActionController.startAction(
+        name: '_PerfilController.setShowLista');
     try {
       return super.setShowLista(valor);
     } finally {
@@ -171,7 +199,8 @@ mixin _$PerfilController on _PerfilController, Store {
 
   @override
   dynamic setEdicao(Perfil p) {
-    final _$actionInfo = _$_PerfilControllerActionController.startAction();
+    final _$actionInfo = _$_PerfilControllerActionController.startAction(
+        name: '_PerfilController.setEdicao');
     try {
       return super.setEdicao(p);
     } finally {
@@ -181,7 +210,8 @@ mixin _$PerfilController on _PerfilController, Store {
 
   @override
   dynamic clearPerfil() {
-    final _$actionInfo = _$_PerfilControllerActionController.startAction();
+    final _$actionInfo = _$_PerfilControllerActionController.startAction(
+        name: '_PerfilController.clearPerfil');
     try {
       return super.clearPerfil();
     } finally {
@@ -191,8 +221,16 @@ mixin _$PerfilController on _PerfilController, Store {
 
   @override
   String toString() {
-    final string =
-        'avatarSelecionado: ${avatarSelecionado.toString()},modoEdicao: ${modoEdicao.toString()},showLista: ${showLista.toString()},avatarLinkSelecionado: ${avatarLinkSelecionado.toString()},avatarNome: ${avatarNome.toString()},listaPerfis: ${listaPerfis.toString()},objPerfil: ${objPerfil.toString()}';
-    return '{$string}';
+    return '''
+avatarSelecionado: ${avatarSelecionado},
+modoEdicao: ${modoEdicao},
+showLista: ${showLista},
+avatarLinkSelecionado: ${avatarLinkSelecionado},
+avatarNome: ${avatarNome},
+listaPerfis: ${listaPerfis},
+objPerfil: ${objPerfil},
+batteryChannel: ${batteryChannel},
+batteryPercentage: ${batteryPercentage}
+    ''';
   }
 }

@@ -37,7 +37,7 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
     super.dispose();
   }
 
-  void _onDaySelected(DateTime day, List events) {
+  void _onDaySelected(DateTime day, List events, List a) {
     print('CALLBACK: _onDaySelected');
     registro_controller.setDiaSelecionado(day);
     registro_controller.eventosSelecionados = events;

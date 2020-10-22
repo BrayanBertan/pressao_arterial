@@ -6,7 +6,7 @@ part of 'medicamentos_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MedicamentoController on _MedicamentoController, Store {
   final _$medicamento_nomeAtom =
@@ -14,17 +14,15 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   TextEditingController get medicamento_nome {
-    _$medicamento_nomeAtom.context.enforceReadPolicy(_$medicamento_nomeAtom);
-    _$medicamento_nomeAtom.reportObserved();
+    _$medicamento_nomeAtom.reportRead();
     return super.medicamento_nome;
   }
 
   @override
   set medicamento_nome(TextEditingController value) {
-    _$medicamento_nomeAtom.context.conditionallyRunInAction(() {
+    _$medicamento_nomeAtom.reportWrite(value, super.medicamento_nome, () {
       super.medicamento_nome = value;
-      _$medicamento_nomeAtom.reportChanged();
-    }, _$medicamento_nomeAtom, name: '${_$medicamento_nomeAtom.name}_set');
+    });
   }
 
   final _$medicamento_doseAtom =
@@ -32,17 +30,15 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   TextEditingController get medicamento_dose {
-    _$medicamento_doseAtom.context.enforceReadPolicy(_$medicamento_doseAtom);
-    _$medicamento_doseAtom.reportObserved();
+    _$medicamento_doseAtom.reportRead();
     return super.medicamento_dose;
   }
 
   @override
   set medicamento_dose(TextEditingController value) {
-    _$medicamento_doseAtom.context.conditionallyRunInAction(() {
+    _$medicamento_doseAtom.reportWrite(value, super.medicamento_dose, () {
       super.medicamento_dose = value;
-      _$medicamento_doseAtom.reportChanged();
-    }, _$medicamento_doseAtom, name: '${_$medicamento_doseAtom.name}_set');
+    });
   }
 
   final _$medicamento_quantidade_diariaAtom =
@@ -50,19 +46,16 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   TextEditingController get medicamento_quantidade_diaria {
-    _$medicamento_quantidade_diariaAtom.context
-        .enforceReadPolicy(_$medicamento_quantidade_diariaAtom);
-    _$medicamento_quantidade_diariaAtom.reportObserved();
+    _$medicamento_quantidade_diariaAtom.reportRead();
     return super.medicamento_quantidade_diaria;
   }
 
   @override
   set medicamento_quantidade_diaria(TextEditingController value) {
-    _$medicamento_quantidade_diariaAtom.context.conditionallyRunInAction(() {
+    _$medicamento_quantidade_diariaAtom
+        .reportWrite(value, super.medicamento_quantidade_diaria, () {
       super.medicamento_quantidade_diaria = value;
-      _$medicamento_quantidade_diariaAtom.reportChanged();
-    }, _$medicamento_quantidade_diariaAtom,
-        name: '${_$medicamento_quantidade_diariaAtom.name}_set');
+    });
   }
 
   final _$medicamento_anotacaoAtom =
@@ -70,114 +63,103 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   TextEditingController get medicamento_anotacao {
-    _$medicamento_anotacaoAtom.context
-        .enforceReadPolicy(_$medicamento_anotacaoAtom);
-    _$medicamento_anotacaoAtom.reportObserved();
+    _$medicamento_anotacaoAtom.reportRead();
     return super.medicamento_anotacao;
   }
 
   @override
   set medicamento_anotacao(TextEditingController value) {
-    _$medicamento_anotacaoAtom.context.conditionallyRunInAction(() {
+    _$medicamento_anotacaoAtom.reportWrite(value, super.medicamento_anotacao,
+        () {
       super.medicamento_anotacao = value;
-      _$medicamento_anotacaoAtom.reportChanged();
-    }, _$medicamento_anotacaoAtom,
-        name: '${_$medicamento_anotacaoAtom.name}_set');
+    });
   }
 
   final _$remedioAtom = Atom(name: '_MedicamentoController.remedio');
 
   @override
   Medicamento get remedio {
-    _$remedioAtom.context.enforceReadPolicy(_$remedioAtom);
-    _$remedioAtom.reportObserved();
+    _$remedioAtom.reportRead();
     return super.remedio;
   }
 
   @override
   set remedio(Medicamento value) {
-    _$remedioAtom.context.conditionallyRunInAction(() {
+    _$remedioAtom.reportWrite(value, super.remedio, () {
       super.remedio = value;
-      _$remedioAtom.reportChanged();
-    }, _$remedioAtom, name: '${_$remedioAtom.name}_set');
+    });
   }
 
   final _$unidadesAtom = Atom(name: '_MedicamentoController.unidades');
 
   @override
   ObservableList<Unidade> get unidades {
-    _$unidadesAtom.context.enforceReadPolicy(_$unidadesAtom);
-    _$unidadesAtom.reportObserved();
+    _$unidadesAtom.reportRead();
     return super.unidades;
   }
 
   @override
   set unidades(ObservableList<Unidade> value) {
-    _$unidadesAtom.context.conditionallyRunInAction(() {
+    _$unidadesAtom.reportWrite(value, super.unidades, () {
       super.unidades = value;
-      _$unidadesAtom.reportChanged();
-    }, _$unidadesAtom, name: '${_$unidadesAtom.name}_set');
+    });
   }
 
   final _$tiposAtom = Atom(name: '_MedicamentoController.tipos');
 
   @override
   ObservableList<Tipo> get tipos {
-    _$tiposAtom.context.enforceReadPolicy(_$tiposAtom);
-    _$tiposAtom.reportObserved();
+    _$tiposAtom.reportRead();
     return super.tipos;
   }
 
   @override
   set tipos(ObservableList<Tipo> value) {
-    _$tiposAtom.context.conditionallyRunInAction(() {
+    _$tiposAtom.reportWrite(value, super.tipos, () {
       super.tipos = value;
-      _$tiposAtom.reportChanged();
-    }, _$tiposAtom, name: '${_$tiposAtom.name}_set');
+    });
   }
 
   final _$remediosAtom = Atom(name: '_MedicamentoController.remedios');
 
   @override
   ObservableList<Medicamento> get remedios {
-    _$remediosAtom.context.enforceReadPolicy(_$remediosAtom);
-    _$remediosAtom.reportObserved();
+    _$remediosAtom.reportRead();
     return super.remedios;
   }
 
   @override
   set remedios(ObservableList<Medicamento> value) {
-    _$remediosAtom.context.conditionallyRunInAction(() {
+    _$remediosAtom.reportWrite(value, super.remedios, () {
       super.remedios = value;
-      _$remediosAtom.reportChanged();
-    }, _$remediosAtom, name: '${_$remediosAtom.name}_set');
+    });
   }
 
   final _$showAtom = Atom(name: '_MedicamentoController.show');
 
   @override
   bool get show {
-    _$showAtom.context.enforceReadPolicy(_$showAtom);
-    _$showAtom.reportObserved();
+    _$showAtom.reportRead();
     return super.show;
   }
 
   @override
   set show(bool value) {
-    _$showAtom.context.conditionallyRunInAction(() {
+    _$showAtom.reportWrite(value, super.show, () {
       super.show = value;
-      _$showAtom.reportChanged();
-    }, _$showAtom, name: '${_$showAtom.name}_set');
+    });
   }
 
-  final _$setMedicamentosAsyncAction = AsyncAction('setMedicamentos');
+  final _$setMedicamentosAsyncAction =
+      AsyncAction('_MedicamentoController.setMedicamentos');
 
   @override
   Future setMedicamentos() {
     return _$setMedicamentosAsyncAction.run(() => super.setMedicamentos());
   }
 
-  final _$getAllMedicamentosAsyncAction = AsyncAction('getAllMedicamentos');
+  final _$getAllMedicamentosAsyncAction =
+      AsyncAction('_MedicamentoController.getAllMedicamentos');
 
   @override
   Future getAllMedicamentos() {
@@ -185,7 +167,8 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
         .run(() => super.getAllMedicamentos());
   }
 
-  final _$removeMedicamentoAsyncAction = AsyncAction('removeMedicamento');
+  final _$removeMedicamentoAsyncAction =
+      AsyncAction('_MedicamentoController.removeMedicamento');
 
   @override
   Future removeMedicamento(int id) {
@@ -198,7 +181,8 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   dynamic setShow(bool valor) {
-    final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
+    final _$actionInfo = _$_MedicamentoControllerActionController.startAction(
+        name: '_MedicamentoController.setShow');
     try {
       return super.setShow(valor);
     } finally {
@@ -208,7 +192,8 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   dynamic setUnidadeSelecionada(int valor) {
-    final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
+    final _$actionInfo = _$_MedicamentoControllerActionController.startAction(
+        name: '_MedicamentoController.setUnidadeSelecionada');
     try {
       return super.setUnidadeSelecionada(valor);
     } finally {
@@ -218,7 +203,8 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   dynamic setTipoSelecionado(int valor) {
-    final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
+    final _$actionInfo = _$_MedicamentoControllerActionController.startAction(
+        name: '_MedicamentoController.setTipoSelecionado');
     try {
       return super.setTipoSelecionado(valor);
     } finally {
@@ -228,7 +214,8 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   dynamic clearRemedio() {
-    final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
+    final _$actionInfo = _$_MedicamentoControllerActionController.startAction(
+        name: '_MedicamentoController.clearRemedio');
     try {
       return super.clearRemedio();
     } finally {
@@ -238,7 +225,8 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   dynamic setEditMedicamento(Medicamento m) {
-    final _$actionInfo = _$_MedicamentoControllerActionController.startAction();
+    final _$actionInfo = _$_MedicamentoControllerActionController.startAction(
+        name: '_MedicamentoController.setEditMedicamento');
     try {
       return super.setEditMedicamento(m);
     } finally {
@@ -248,8 +236,16 @@ mixin _$MedicamentoController on _MedicamentoController, Store {
 
   @override
   String toString() {
-    final string =
-        'medicamento_nome: ${medicamento_nome.toString()},medicamento_dose: ${medicamento_dose.toString()},medicamento_quantidade_diaria: ${medicamento_quantidade_diaria.toString()},medicamento_anotacao: ${medicamento_anotacao.toString()},remedio: ${remedio.toString()},unidades: ${unidades.toString()},tipos: ${tipos.toString()},remedios: ${remedios.toString()},show: ${show.toString()}';
-    return '{$string}';
+    return '''
+medicamento_nome: ${medicamento_nome},
+medicamento_dose: ${medicamento_dose},
+medicamento_quantidade_diaria: ${medicamento_quantidade_diaria},
+medicamento_anotacao: ${medicamento_anotacao},
+remedio: ${remedio},
+unidades: ${unidades},
+tipos: ${tipos},
+remedios: ${remedios},
+show: ${show}
+    ''';
   }
 }

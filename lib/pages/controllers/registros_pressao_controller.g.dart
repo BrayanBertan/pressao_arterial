@@ -6,7 +6,7 @@ part of 'registros_pressao_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   final _$registro_anotacaoAtom =
@@ -14,17 +14,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   TextEditingController get registro_anotacao {
-    _$registro_anotacaoAtom.context.enforceReadPolicy(_$registro_anotacaoAtom);
-    _$registro_anotacaoAtom.reportObserved();
+    _$registro_anotacaoAtom.reportRead();
     return super.registro_anotacao;
   }
 
   @override
   set registro_anotacao(TextEditingController value) {
-    _$registro_anotacaoAtom.context.conditionallyRunInAction(() {
+    _$registro_anotacaoAtom.reportWrite(value, super.registro_anotacao, () {
       super.registro_anotacao = value;
-      _$registro_anotacaoAtom.reportChanged();
-    }, _$registro_anotacaoAtom, name: '${_$registro_anotacaoAtom.name}_set');
+    });
   }
 
   final _$registroObjAtom =
@@ -32,51 +30,45 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   RegistroPressao get registroObj {
-    _$registroObjAtom.context.enforceReadPolicy(_$registroObjAtom);
-    _$registroObjAtom.reportObserved();
+    _$registroObjAtom.reportRead();
     return super.registroObj;
   }
 
   @override
   set registroObj(RegistroPressao value) {
-    _$registroObjAtom.context.conditionallyRunInAction(() {
+    _$registroObjAtom.reportWrite(value, super.registroObj, () {
       super.registroObj = value;
-      _$registroObjAtom.reportChanged();
-    }, _$registroObjAtom, name: '${_$registroObjAtom.name}_set');
+    });
   }
 
   final _$pressaoAtom = Atom(name: '_RegistroPressaoController.pressao');
 
   @override
   dynamic get pressao {
-    _$pressaoAtom.context.enforceReadPolicy(_$pressaoAtom);
-    _$pressaoAtom.reportObserved();
+    _$pressaoAtom.reportRead();
     return super.pressao;
   }
 
   @override
   set pressao(dynamic value) {
-    _$pressaoAtom.context.conditionallyRunInAction(() {
+    _$pressaoAtom.reportWrite(value, super.pressao, () {
       super.pressao = value;
-      _$pressaoAtom.reportChanged();
-    }, _$pressaoAtom, name: '${_$pressaoAtom.name}_set');
+    });
   }
 
   final _$atividadesAtom = Atom(name: '_RegistroPressaoController.atividades');
 
   @override
   ObservableList<dynamic> get atividades {
-    _$atividadesAtom.context.enforceReadPolicy(_$atividadesAtom);
-    _$atividadesAtom.reportObserved();
+    _$atividadesAtom.reportRead();
     return super.atividades;
   }
 
   @override
   set atividades(ObservableList<dynamic> value) {
-    _$atividadesAtom.context.conditionallyRunInAction(() {
+    _$atividadesAtom.reportWrite(value, super.atividades, () {
       super.atividades = value;
-      _$atividadesAtom.reportChanged();
-    }, _$atividadesAtom, name: '${_$atividadesAtom.name}_set');
+    });
   }
 
   final _$atividades_selecionadasAtom =
@@ -84,19 +76,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   ObservableList<dynamic> get atividades_selecionadas {
-    _$atividades_selecionadasAtom.context
-        .enforceReadPolicy(_$atividades_selecionadasAtom);
-    _$atividades_selecionadasAtom.reportObserved();
+    _$atividades_selecionadasAtom.reportRead();
     return super.atividades_selecionadas;
   }
 
   @override
   set atividades_selecionadas(ObservableList<dynamic> value) {
-    _$atividades_selecionadasAtom.context.conditionallyRunInAction(() {
+    _$atividades_selecionadasAtom
+        .reportWrite(value, super.atividades_selecionadas, () {
       super.atividades_selecionadas = value;
-      _$atividades_selecionadasAtom.reportChanged();
-    }, _$atividades_selecionadasAtom,
-        name: '${_$atividades_selecionadasAtom.name}_set');
+    });
   }
 
   final _$atividades_selecionadas_filtroAtom =
@@ -104,19 +93,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   ObservableList<dynamic> get atividades_selecionadas_filtro {
-    _$atividades_selecionadas_filtroAtom.context
-        .enforceReadPolicy(_$atividades_selecionadas_filtroAtom);
-    _$atividades_selecionadas_filtroAtom.reportObserved();
+    _$atividades_selecionadas_filtroAtom.reportRead();
     return super.atividades_selecionadas_filtro;
   }
 
   @override
   set atividades_selecionadas_filtro(ObservableList<dynamic> value) {
-    _$atividades_selecionadas_filtroAtom.context.conditionallyRunInAction(() {
+    _$atividades_selecionadas_filtroAtom
+        .reportWrite(value, super.atividades_selecionadas_filtro, () {
       super.atividades_selecionadas_filtro = value;
-      _$atividades_selecionadas_filtroAtom.reportChanged();
-    }, _$atividades_selecionadas_filtroAtom,
-        name: '${_$atividades_selecionadas_filtroAtom.name}_set');
+    });
   }
 
   final _$medicamentos_selecionados_filtroAtom =
@@ -124,19 +110,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   ObservableList<dynamic> get medicamentos_selecionados_filtro {
-    _$medicamentos_selecionados_filtroAtom.context
-        .enforceReadPolicy(_$medicamentos_selecionados_filtroAtom);
-    _$medicamentos_selecionados_filtroAtom.reportObserved();
+    _$medicamentos_selecionados_filtroAtom.reportRead();
     return super.medicamentos_selecionados_filtro;
   }
 
   @override
   set medicamentos_selecionados_filtro(ObservableList<dynamic> value) {
-    _$medicamentos_selecionados_filtroAtom.context.conditionallyRunInAction(() {
+    _$medicamentos_selecionados_filtroAtom
+        .reportWrite(value, super.medicamentos_selecionados_filtro, () {
       super.medicamentos_selecionados_filtro = value;
-      _$medicamentos_selecionados_filtroAtom.reportChanged();
-    }, _$medicamentos_selecionados_filtroAtom,
-        name: '${_$medicamentos_selecionados_filtroAtom.name}_set');
+    });
   }
 
   final _$medicamentosAtom =
@@ -144,17 +127,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   ObservableList<dynamic> get medicamentos {
-    _$medicamentosAtom.context.enforceReadPolicy(_$medicamentosAtom);
-    _$medicamentosAtom.reportObserved();
+    _$medicamentosAtom.reportRead();
     return super.medicamentos;
   }
 
   @override
   set medicamentos(ObservableList<dynamic> value) {
-    _$medicamentosAtom.context.conditionallyRunInAction(() {
+    _$medicamentosAtom.reportWrite(value, super.medicamentos, () {
       super.medicamentos = value;
-      _$medicamentosAtom.reportChanged();
-    }, _$medicamentosAtom, name: '${_$medicamentosAtom.name}_set');
+    });
   }
 
   final _$medicamentos_selecionadosAtom =
@@ -162,87 +143,76 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   ObservableList<dynamic> get medicamentos_selecionados {
-    _$medicamentos_selecionadosAtom.context
-        .enforceReadPolicy(_$medicamentos_selecionadosAtom);
-    _$medicamentos_selecionadosAtom.reportObserved();
+    _$medicamentos_selecionadosAtom.reportRead();
     return super.medicamentos_selecionados;
   }
 
   @override
   set medicamentos_selecionados(ObservableList<dynamic> value) {
-    _$medicamentos_selecionadosAtom.context.conditionallyRunInAction(() {
+    _$medicamentos_selecionadosAtom
+        .reportWrite(value, super.medicamentos_selecionados, () {
       super.medicamentos_selecionados = value;
-      _$medicamentos_selecionadosAtom.reportChanged();
-    }, _$medicamentos_selecionadosAtom,
-        name: '${_$medicamentos_selecionadosAtom.name}_set');
+    });
   }
 
   final _$bracoAtom = Atom(name: '_RegistroPressaoController.braco');
 
   @override
   int get braco {
-    _$bracoAtom.context.enforceReadPolicy(_$bracoAtom);
-    _$bracoAtom.reportObserved();
+    _$bracoAtom.reportRead();
     return super.braco;
   }
 
   @override
   set braco(int value) {
-    _$bracoAtom.context.conditionallyRunInAction(() {
+    _$bracoAtom.reportWrite(value, super.braco, () {
       super.braco = value;
-      _$bracoAtom.reportChanged();
-    }, _$bracoAtom, name: '${_$bracoAtom.name}_set');
+    });
   }
 
   final _$pulsoAtom = Atom(name: '_RegistroPressaoController.pulso');
 
   @override
   double get pulso {
-    _$pulsoAtom.context.enforceReadPolicy(_$pulsoAtom);
-    _$pulsoAtom.reportObserved();
+    _$pulsoAtom.reportRead();
     return super.pulso;
   }
 
   @override
   set pulso(double value) {
-    _$pulsoAtom.context.conditionallyRunInAction(() {
+    _$pulsoAtom.reportWrite(value, super.pulso, () {
       super.pulso = value;
-      _$pulsoAtom.reportChanged();
-    }, _$pulsoAtom, name: '${_$pulsoAtom.name}_set');
+    });
   }
 
   final _$posturaAtom = Atom(name: '_RegistroPressaoController.postura');
 
   @override
   int get postura {
-    _$posturaAtom.context.enforceReadPolicy(_$posturaAtom);
-    _$posturaAtom.reportObserved();
+    _$posturaAtom.reportRead();
     return super.postura;
   }
 
   @override
   set postura(int value) {
-    _$posturaAtom.context.conditionallyRunInAction(() {
+    _$posturaAtom.reportWrite(value, super.postura, () {
       super.postura = value;
-      _$posturaAtom.reportChanged();
-    }, _$posturaAtom, name: '${_$posturaAtom.name}_set');
+    });
   }
 
   final _$registrosAtom = Atom(name: '_RegistroPressaoController.registros');
 
   @override
   ObservableList<RegistroPressao> get registros {
-    _$registrosAtom.context.enforceReadPolicy(_$registrosAtom);
-    _$registrosAtom.reportObserved();
+    _$registrosAtom.reportRead();
     return super.registros;
   }
 
   @override
   set registros(ObservableList<RegistroPressao> value) {
-    _$registrosAtom.context.conditionallyRunInAction(() {
+    _$registrosAtom.reportWrite(value, super.registros, () {
       super.registros = value;
-      _$registrosAtom.reportChanged();
-    }, _$registrosAtom, name: '${_$registrosAtom.name}_set');
+    });
   }
 
   final _$listaEventosAtom =
@@ -250,17 +220,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   ObservableMap<DateTime, List<dynamic>> get listaEventos {
-    _$listaEventosAtom.context.enforceReadPolicy(_$listaEventosAtom);
-    _$listaEventosAtom.reportObserved();
+    _$listaEventosAtom.reportRead();
     return super.listaEventos;
   }
 
   @override
   set listaEventos(ObservableMap<DateTime, List<dynamic>> value) {
-    _$listaEventosAtom.context.conditionallyRunInAction(() {
+    _$listaEventosAtom.reportWrite(value, super.listaEventos, () {
       super.listaEventos = value;
-      _$listaEventosAtom.reportChanged();
-    }, _$listaEventosAtom, name: '${_$listaEventosAtom.name}_set');
+    });
   }
 
   final _$eventosSelecionadosAtom =
@@ -268,19 +236,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<dynamic> get eventosSelecionados {
-    _$eventosSelecionadosAtom.context
-        .enforceReadPolicy(_$eventosSelecionadosAtom);
-    _$eventosSelecionadosAtom.reportObserved();
+    _$eventosSelecionadosAtom.reportRead();
     return super.eventosSelecionados;
   }
 
   @override
   set eventosSelecionados(List<dynamic> value) {
-    _$eventosSelecionadosAtom.context.conditionallyRunInAction(() {
+    _$eventosSelecionadosAtom.reportWrite(value, super.eventosSelecionados, () {
       super.eventosSelecionados = value;
-      _$eventosSelecionadosAtom.reportChanged();
-    }, _$eventosSelecionadosAtom,
-        name: '${_$eventosSelecionadosAtom.name}_set');
+    });
   }
 
   final _$showCalendarioAtom =
@@ -288,17 +252,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   bool get showCalendario {
-    _$showCalendarioAtom.context.enforceReadPolicy(_$showCalendarioAtom);
-    _$showCalendarioAtom.reportObserved();
+    _$showCalendarioAtom.reportRead();
     return super.showCalendario;
   }
 
   @override
   set showCalendario(bool value) {
-    _$showCalendarioAtom.context.conditionallyRunInAction(() {
+    _$showCalendarioAtom.reportWrite(value, super.showCalendario, () {
       super.showCalendario = value;
-      _$showCalendarioAtom.reportChanged();
-    }, _$showCalendarioAtom, name: '${_$showCalendarioAtom.name}_set');
+    });
   }
 
   final _$telaDescricaoMedicaoAtom =
@@ -306,19 +268,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   int get telaDescricaoMedicao {
-    _$telaDescricaoMedicaoAtom.context
-        .enforceReadPolicy(_$telaDescricaoMedicaoAtom);
-    _$telaDescricaoMedicaoAtom.reportObserved();
+    _$telaDescricaoMedicaoAtom.reportRead();
     return super.telaDescricaoMedicao;
   }
 
   @override
   set telaDescricaoMedicao(int value) {
-    _$telaDescricaoMedicaoAtom.context.conditionallyRunInAction(() {
+    _$telaDescricaoMedicaoAtom.reportWrite(value, super.telaDescricaoMedicao,
+        () {
       super.telaDescricaoMedicao = value;
-      _$telaDescricaoMedicaoAtom.reportChanged();
-    }, _$telaDescricaoMedicaoAtom,
-        name: '${_$telaDescricaoMedicaoAtom.name}_set');
+    });
   }
 
   final _$atividadesRelacionadasAtom =
@@ -326,19 +285,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<dynamic> get atividadesRelacionadas {
-    _$atividadesRelacionadasAtom.context
-        .enforceReadPolicy(_$atividadesRelacionadasAtom);
-    _$atividadesRelacionadasAtom.reportObserved();
+    _$atividadesRelacionadasAtom.reportRead();
     return super.atividadesRelacionadas;
   }
 
   @override
   set atividadesRelacionadas(List<dynamic> value) {
-    _$atividadesRelacionadasAtom.context.conditionallyRunInAction(() {
+    _$atividadesRelacionadasAtom
+        .reportWrite(value, super.atividadesRelacionadas, () {
       super.atividadesRelacionadas = value;
-      _$atividadesRelacionadasAtom.reportChanged();
-    }, _$atividadesRelacionadasAtom,
-        name: '${_$atividadesRelacionadasAtom.name}_set');
+    });
   }
 
   final _$medicamentosRelacionadasFiltroAtom =
@@ -346,19 +302,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<dynamic> get medicamentosRelacionadasFiltro {
-    _$medicamentosRelacionadasFiltroAtom.context
-        .enforceReadPolicy(_$medicamentosRelacionadasFiltroAtom);
-    _$medicamentosRelacionadasFiltroAtom.reportObserved();
+    _$medicamentosRelacionadasFiltroAtom.reportRead();
     return super.medicamentosRelacionadasFiltro;
   }
 
   @override
   set medicamentosRelacionadasFiltro(List<dynamic> value) {
-    _$medicamentosRelacionadasFiltroAtom.context.conditionallyRunInAction(() {
+    _$medicamentosRelacionadasFiltroAtom
+        .reportWrite(value, super.medicamentosRelacionadasFiltro, () {
       super.medicamentosRelacionadasFiltro = value;
-      _$medicamentosRelacionadasFiltroAtom.reportChanged();
-    }, _$medicamentosRelacionadasFiltroAtom,
-        name: '${_$medicamentosRelacionadasFiltroAtom.name}_set');
+    });
   }
 
   final _$atividadesRelacionadasFiltroAtom =
@@ -366,19 +319,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<dynamic> get atividadesRelacionadasFiltro {
-    _$atividadesRelacionadasFiltroAtom.context
-        .enforceReadPolicy(_$atividadesRelacionadasFiltroAtom);
-    _$atividadesRelacionadasFiltroAtom.reportObserved();
+    _$atividadesRelacionadasFiltroAtom.reportRead();
     return super.atividadesRelacionadasFiltro;
   }
 
   @override
   set atividadesRelacionadasFiltro(List<dynamic> value) {
-    _$atividadesRelacionadasFiltroAtom.context.conditionallyRunInAction(() {
+    _$atividadesRelacionadasFiltroAtom
+        .reportWrite(value, super.atividadesRelacionadasFiltro, () {
       super.atividadesRelacionadasFiltro = value;
-      _$atividadesRelacionadasFiltroAtom.reportChanged();
-    }, _$atividadesRelacionadasFiltroAtom,
-        name: '${_$atividadesRelacionadasFiltroAtom.name}_set');
+    });
   }
 
   final _$medicamentosRelacionadasAtom =
@@ -386,19 +336,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<dynamic> get medicamentosRelacionadas {
-    _$medicamentosRelacionadasAtom.context
-        .enforceReadPolicy(_$medicamentosRelacionadasAtom);
-    _$medicamentosRelacionadasAtom.reportObserved();
+    _$medicamentosRelacionadasAtom.reportRead();
     return super.medicamentosRelacionadas;
   }
 
   @override
   set medicamentosRelacionadas(List<dynamic> value) {
-    _$medicamentosRelacionadasAtom.context.conditionallyRunInAction(() {
+    _$medicamentosRelacionadasAtom
+        .reportWrite(value, super.medicamentosRelacionadas, () {
       super.medicamentosRelacionadas = value;
-      _$medicamentosRelacionadasAtom.reportChanged();
-    }, _$medicamentosRelacionadasAtom,
-        name: '${_$medicamentosRelacionadasAtom.name}_set');
+    });
   }
 
   final _$sistolicaGraficoAtom =
@@ -406,17 +353,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoLinha> get sistolicaGrafico {
-    _$sistolicaGraficoAtom.context.enforceReadPolicy(_$sistolicaGraficoAtom);
-    _$sistolicaGraficoAtom.reportObserved();
+    _$sistolicaGraficoAtom.reportRead();
     return super.sistolicaGrafico;
   }
 
   @override
   set sistolicaGrafico(List<PressaoGraficoLinha> value) {
-    _$sistolicaGraficoAtom.context.conditionallyRunInAction(() {
+    _$sistolicaGraficoAtom.reportWrite(value, super.sistolicaGrafico, () {
       super.sistolicaGrafico = value;
-      _$sistolicaGraficoAtom.reportChanged();
-    }, _$sistolicaGraficoAtom, name: '${_$sistolicaGraficoAtom.name}_set');
+    });
   }
 
   final _$diastolicaGraficoAtom =
@@ -424,17 +369,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoLinha> get diastolicaGrafico {
-    _$diastolicaGraficoAtom.context.enforceReadPolicy(_$diastolicaGraficoAtom);
-    _$diastolicaGraficoAtom.reportObserved();
+    _$diastolicaGraficoAtom.reportRead();
     return super.diastolicaGrafico;
   }
 
   @override
   set diastolicaGrafico(List<PressaoGraficoLinha> value) {
-    _$diastolicaGraficoAtom.context.conditionallyRunInAction(() {
+    _$diastolicaGraficoAtom.reportWrite(value, super.diastolicaGrafico, () {
       super.diastolicaGrafico = value;
-      _$diastolicaGraficoAtom.reportChanged();
-    }, _$diastolicaGraficoAtom, name: '${_$diastolicaGraficoAtom.name}_set');
+    });
   }
 
   final _$pulsoGraficoAtom =
@@ -442,17 +385,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoLinha> get pulsoGrafico {
-    _$pulsoGraficoAtom.context.enforceReadPolicy(_$pulsoGraficoAtom);
-    _$pulsoGraficoAtom.reportObserved();
+    _$pulsoGraficoAtom.reportRead();
     return super.pulsoGrafico;
   }
 
   @override
   set pulsoGrafico(List<PressaoGraficoLinha> value) {
-    _$pulsoGraficoAtom.context.conditionallyRunInAction(() {
+    _$pulsoGraficoAtom.reportWrite(value, super.pulsoGrafico, () {
       super.pulsoGrafico = value;
-      _$pulsoGraficoAtom.reportChanged();
-    }, _$pulsoGraficoAtom, name: '${_$pulsoGraficoAtom.name}_set');
+    });
   }
 
   final _$sistolicaGraficoAtividadeAtom =
@@ -460,19 +401,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoBarra> get sistolicaGraficoAtividade {
-    _$sistolicaGraficoAtividadeAtom.context
-        .enforceReadPolicy(_$sistolicaGraficoAtividadeAtom);
-    _$sistolicaGraficoAtividadeAtom.reportObserved();
+    _$sistolicaGraficoAtividadeAtom.reportRead();
     return super.sistolicaGraficoAtividade;
   }
 
   @override
   set sistolicaGraficoAtividade(List<PressaoGraficoBarra> value) {
-    _$sistolicaGraficoAtividadeAtom.context.conditionallyRunInAction(() {
+    _$sistolicaGraficoAtividadeAtom
+        .reportWrite(value, super.sistolicaGraficoAtividade, () {
       super.sistolicaGraficoAtividade = value;
-      _$sistolicaGraficoAtividadeAtom.reportChanged();
-    }, _$sistolicaGraficoAtividadeAtom,
-        name: '${_$sistolicaGraficoAtividadeAtom.name}_set');
+    });
   }
 
   final _$diastolicaGraficoAtividadeAtom =
@@ -480,19 +418,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoBarra> get diastolicaGraficoAtividade {
-    _$diastolicaGraficoAtividadeAtom.context
-        .enforceReadPolicy(_$diastolicaGraficoAtividadeAtom);
-    _$diastolicaGraficoAtividadeAtom.reportObserved();
+    _$diastolicaGraficoAtividadeAtom.reportRead();
     return super.diastolicaGraficoAtividade;
   }
 
   @override
   set diastolicaGraficoAtividade(List<PressaoGraficoBarra> value) {
-    _$diastolicaGraficoAtividadeAtom.context.conditionallyRunInAction(() {
+    _$diastolicaGraficoAtividadeAtom
+        .reportWrite(value, super.diastolicaGraficoAtividade, () {
       super.diastolicaGraficoAtividade = value;
-      _$diastolicaGraficoAtividadeAtom.reportChanged();
-    }, _$diastolicaGraficoAtividadeAtom,
-        name: '${_$diastolicaGraficoAtividadeAtom.name}_set');
+    });
   }
 
   final _$pulsoGraficoAtividadeAtom =
@@ -500,19 +435,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoBarra> get pulsoGraficoAtividade {
-    _$pulsoGraficoAtividadeAtom.context
-        .enforceReadPolicy(_$pulsoGraficoAtividadeAtom);
-    _$pulsoGraficoAtividadeAtom.reportObserved();
+    _$pulsoGraficoAtividadeAtom.reportRead();
     return super.pulsoGraficoAtividade;
   }
 
   @override
   set pulsoGraficoAtividade(List<PressaoGraficoBarra> value) {
-    _$pulsoGraficoAtividadeAtom.context.conditionallyRunInAction(() {
+    _$pulsoGraficoAtividadeAtom.reportWrite(value, super.pulsoGraficoAtividade,
+        () {
       super.pulsoGraficoAtividade = value;
-      _$pulsoGraficoAtividadeAtom.reportChanged();
-    }, _$pulsoGraficoAtividadeAtom,
-        name: '${_$pulsoGraficoAtividadeAtom.name}_set');
+    });
   }
 
   final _$sistolicaGraficoMedicamentoAtom =
@@ -520,19 +452,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoBarra> get sistolicaGraficoMedicamento {
-    _$sistolicaGraficoMedicamentoAtom.context
-        .enforceReadPolicy(_$sistolicaGraficoMedicamentoAtom);
-    _$sistolicaGraficoMedicamentoAtom.reportObserved();
+    _$sistolicaGraficoMedicamentoAtom.reportRead();
     return super.sistolicaGraficoMedicamento;
   }
 
   @override
   set sistolicaGraficoMedicamento(List<PressaoGraficoBarra> value) {
-    _$sistolicaGraficoMedicamentoAtom.context.conditionallyRunInAction(() {
+    _$sistolicaGraficoMedicamentoAtom
+        .reportWrite(value, super.sistolicaGraficoMedicamento, () {
       super.sistolicaGraficoMedicamento = value;
-      _$sistolicaGraficoMedicamentoAtom.reportChanged();
-    }, _$sistolicaGraficoMedicamentoAtom,
-        name: '${_$sistolicaGraficoMedicamentoAtom.name}_set');
+    });
   }
 
   final _$diastolicaGraficoMedicamentoAtom =
@@ -540,19 +469,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoBarra> get diastolicaGraficoMedicamento {
-    _$diastolicaGraficoMedicamentoAtom.context
-        .enforceReadPolicy(_$diastolicaGraficoMedicamentoAtom);
-    _$diastolicaGraficoMedicamentoAtom.reportObserved();
+    _$diastolicaGraficoMedicamentoAtom.reportRead();
     return super.diastolicaGraficoMedicamento;
   }
 
   @override
   set diastolicaGraficoMedicamento(List<PressaoGraficoBarra> value) {
-    _$diastolicaGraficoMedicamentoAtom.context.conditionallyRunInAction(() {
+    _$diastolicaGraficoMedicamentoAtom
+        .reportWrite(value, super.diastolicaGraficoMedicamento, () {
       super.diastolicaGraficoMedicamento = value;
-      _$diastolicaGraficoMedicamentoAtom.reportChanged();
-    }, _$diastolicaGraficoMedicamentoAtom,
-        name: '${_$diastolicaGraficoMedicamentoAtom.name}_set');
+    });
   }
 
   final _$pulsoGraficoMedicamentoAtom =
@@ -560,19 +486,16 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   List<PressaoGraficoBarra> get pulsoGraficoMedicamento {
-    _$pulsoGraficoMedicamentoAtom.context
-        .enforceReadPolicy(_$pulsoGraficoMedicamentoAtom);
-    _$pulsoGraficoMedicamentoAtom.reportObserved();
+    _$pulsoGraficoMedicamentoAtom.reportRead();
     return super.pulsoGraficoMedicamento;
   }
 
   @override
   set pulsoGraficoMedicamento(List<PressaoGraficoBarra> value) {
-    _$pulsoGraficoMedicamentoAtom.context.conditionallyRunInAction(() {
+    _$pulsoGraficoMedicamentoAtom
+        .reportWrite(value, super.pulsoGraficoMedicamento, () {
       super.pulsoGraficoMedicamento = value;
-      _$pulsoGraficoMedicamentoAtom.reportChanged();
-    }, _$pulsoGraficoMedicamentoAtom,
-        name: '${_$pulsoGraficoMedicamentoAtom.name}_set');
+    });
   }
 
   final _$periodosGraficoAtom =
@@ -580,17 +503,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   ObservableList<dynamic> get periodosGrafico {
-    _$periodosGraficoAtom.context.enforceReadPolicy(_$periodosGraficoAtom);
-    _$periodosGraficoAtom.reportObserved();
+    _$periodosGraficoAtom.reportRead();
     return super.periodosGrafico;
   }
 
   @override
   set periodosGrafico(ObservableList<dynamic> value) {
-    _$periodosGraficoAtom.context.conditionallyRunInAction(() {
+    _$periodosGraficoAtom.reportWrite(value, super.periodosGrafico, () {
       super.periodosGrafico = value;
-      _$periodosGraficoAtom.reportChanged();
-    }, _$periodosGraficoAtom, name: '${_$periodosGraficoAtom.name}_set');
+    });
   }
 
   final _$filtroGraficoTempoAtom =
@@ -598,18 +519,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   int get filtroGraficoTempo {
-    _$filtroGraficoTempoAtom.context
-        .enforceReadPolicy(_$filtroGraficoTempoAtom);
-    _$filtroGraficoTempoAtom.reportObserved();
+    _$filtroGraficoTempoAtom.reportRead();
     return super.filtroGraficoTempo;
   }
 
   @override
   set filtroGraficoTempo(int value) {
-    _$filtroGraficoTempoAtom.context.conditionallyRunInAction(() {
+    _$filtroGraficoTempoAtom.reportWrite(value, super.filtroGraficoTempo, () {
       super.filtroGraficoTempo = value;
-      _$filtroGraficoTempoAtom.reportChanged();
-    }, _$filtroGraficoTempoAtom, name: '${_$filtroGraficoTempoAtom.name}_set');
+    });
   }
 
   final _$formatoDataXAtom =
@@ -617,17 +535,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   String get formatoDataX {
-    _$formatoDataXAtom.context.enforceReadPolicy(_$formatoDataXAtom);
-    _$formatoDataXAtom.reportObserved();
+    _$formatoDataXAtom.reportRead();
     return super.formatoDataX;
   }
 
   @override
   set formatoDataX(String value) {
-    _$formatoDataXAtom.context.conditionallyRunInAction(() {
+    _$formatoDataXAtom.reportWrite(value, super.formatoDataX, () {
       super.formatoDataX = value;
-      _$formatoDataXAtom.reportChanged();
-    }, _$formatoDataXAtom, name: '${_$formatoDataXAtom.name}_set');
+    });
   }
 
   final _$diaSelecionadoAtom =
@@ -635,17 +551,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   String get diaSelecionado {
-    _$diaSelecionadoAtom.context.enforceReadPolicy(_$diaSelecionadoAtom);
-    _$diaSelecionadoAtom.reportObserved();
+    _$diaSelecionadoAtom.reportRead();
     return super.diaSelecionado;
   }
 
   @override
   set diaSelecionado(String value) {
-    _$diaSelecionadoAtom.context.conditionallyRunInAction(() {
+    _$diaSelecionadoAtom.reportWrite(value, super.diaSelecionado, () {
       super.diaSelecionado = value;
-      _$diaSelecionadoAtom.reportChanged();
-    }, _$diaSelecionadoAtom, name: '${_$diaSelecionadoAtom.name}_set');
+    });
   }
 
   final _$showRegistroAtom =
@@ -653,17 +567,15 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   bool get showRegistro {
-    _$showRegistroAtom.context.enforceReadPolicy(_$showRegistroAtom);
-    _$showRegistroAtom.reportObserved();
+    _$showRegistroAtom.reportRead();
     return super.showRegistro;
   }
 
   @override
   set showRegistro(bool value) {
-    _$showRegistroAtom.context.conditionallyRunInAction(() {
+    _$showRegistroAtom.reportWrite(value, super.showRegistro, () {
       super.showRegistro = value;
-      _$showRegistroAtom.reportChanged();
-    }, _$showRegistroAtom, name: '${_$showRegistroAtom.name}_set');
+    });
   }
 
   final _$diaSelecionadoCadastroAtom =
@@ -671,22 +583,20 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   String get diaSelecionadoCadastro {
-    _$diaSelecionadoCadastroAtom.context
-        .enforceReadPolicy(_$diaSelecionadoCadastroAtom);
-    _$diaSelecionadoCadastroAtom.reportObserved();
+    _$diaSelecionadoCadastroAtom.reportRead();
     return super.diaSelecionadoCadastro;
   }
 
   @override
   set diaSelecionadoCadastro(String value) {
-    _$diaSelecionadoCadastroAtom.context.conditionallyRunInAction(() {
+    _$diaSelecionadoCadastroAtom
+        .reportWrite(value, super.diaSelecionadoCadastro, () {
       super.diaSelecionadoCadastro = value;
-      _$diaSelecionadoCadastroAtom.reportChanged();
-    }, _$diaSelecionadoCadastroAtom,
-        name: '${_$diaSelecionadoCadastroAtom.name}_set');
+    });
   }
 
-  final _$getAllAtividadesAsyncAction = AsyncAction('getAllAtividades');
+  final _$getAllAtividadesAsyncAction =
+      AsyncAction('_RegistroPressaoController.getAllAtividades');
 
   @override
   Future getAllAtividades() {
@@ -694,7 +604,7 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   }
 
   final _$getAllAtividadesFiltroAsyncAction =
-      AsyncAction('getAllAtividadesFiltro');
+      AsyncAction('_RegistroPressaoController.getAllAtividadesFiltro');
 
   @override
   Future getAllAtividadesFiltro() {
@@ -703,7 +613,7 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   }
 
   final _$getAllMedicamentosFiltroAsyncAction =
-      AsyncAction('getAllMedicamentosFiltro');
+      AsyncAction('_RegistroPressaoController.getAllMedicamentosFiltro');
 
   @override
   Future getAllMedicamentosFiltro() {
@@ -711,7 +621,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
         .run(() => super.getAllMedicamentosFiltro());
   }
 
-  final _$getAllMedicamentosAsyncAction = AsyncAction('getAllMedicamentos');
+  final _$getAllMedicamentosAsyncAction =
+      AsyncAction('_RegistroPressaoController.getAllMedicamentos');
 
   @override
   Future getAllMedicamentos() {
@@ -720,7 +631,7 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   }
 
   final _$getAtividadesRelacionadasAsyncAction =
-      AsyncAction('getAtividadesRelacionadas');
+      AsyncAction('_RegistroPressaoController.getAtividadesRelacionadas');
 
   @override
   Future getAtividadesRelacionadas(int pressao) {
@@ -729,7 +640,7 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   }
 
   final _$getMedicamentosRelacionadasAsyncAction =
-      AsyncAction('getMedicamentosRelacionadas');
+      AsyncAction('_RegistroPressaoController.getMedicamentosRelacionadas');
 
   @override
   Future getMedicamentosRelacionadas(int pressao) {
@@ -737,21 +648,24 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
         .run(() => super.getMedicamentosRelacionadas(pressao));
   }
 
-  final _$setAnotacaoAsyncAction = AsyncAction('setAnotacao');
+  final _$setAnotacaoAsyncAction =
+      AsyncAction('_RegistroPressaoController.setAnotacao');
 
   @override
   Future setAnotacao() {
     return _$setAnotacaoAsyncAction.run(() => super.setAnotacao());
   }
 
-  final _$getAllRegistrosAsyncAction = AsyncAction('getAllRegistros');
+  final _$getAllRegistrosAsyncAction =
+      AsyncAction('_RegistroPressaoController.getAllRegistros');
 
   @override
   Future getAllRegistros() {
     return _$getAllRegistrosAsyncAction.run(() => super.getAllRegistros());
   }
 
-  final _$getAllTimeGraficosAsyncAction = AsyncAction('getAllTimeGraficos');
+  final _$getAllTimeGraficosAsyncAction =
+      AsyncAction('_RegistroPressaoController.getAllTimeGraficos');
 
   @override
   Future getAllTimeGraficos() {
@@ -759,7 +673,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
         .run(() => super.getAllTimeGraficos());
   }
 
-  final _$getAllBarraGraficosAsyncAction = AsyncAction('getAllBarraGraficos');
+  final _$getAllBarraGraficosAsyncAction =
+      AsyncAction('_RegistroPressaoController.getAllBarraGraficos');
 
   @override
   Future getAllBarraGraficos() {
@@ -768,7 +683,7 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   }
 
   final _$getAllBarraGraficosMedicamentosAsyncAction =
-      AsyncAction('getAllBarraGraficosMedicamentos');
+      AsyncAction('_RegistroPressaoController.getAllBarraGraficosMedicamentos');
 
   @override
   Future getAllBarraGraficosMedicamentos() {
@@ -776,7 +691,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
         .run(() => super.getAllBarraGraficosMedicamentos());
   }
 
-  final _$removeRegistroAsyncAction = AsyncAction('removeRegistro');
+  final _$removeRegistroAsyncAction =
+      AsyncAction('_RegistroPressaoController.removeRegistro');
 
   @override
   Future removeRegistro(int id) {
@@ -789,7 +705,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   dynamic setDiaSelecionadoCadastro(DateTime valor) {
     final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+        _$_RegistroPressaoControllerActionController.startAction(
+            name: '_RegistroPressaoController.setDiaSelecionadoCadastro');
     try {
       return super.setDiaSelecionadoCadastro(valor);
     } finally {
@@ -799,8 +716,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setShowRegistro(bool valor) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setShowRegistro');
     try {
       return super.setShowRegistro(valor);
     } finally {
@@ -810,8 +727,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setDiaSelecionado(DateTime valor) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setDiaSelecionado');
     try {
       return super.setDiaSelecionado(valor);
     } finally {
@@ -821,8 +738,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setFiltroGraficoTempo(int valor) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setFiltroGraficoTempo');
     try {
       return super.setFiltroGraficoTempo(valor);
     } finally {
@@ -832,8 +749,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setShowCalendario(bool valor) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setShowCalendario');
     try {
       return super.setShowCalendario(valor);
     } finally {
@@ -844,7 +761,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   dynamic setTelaDescricaoMedicao(int valor) {
     final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+        _$_RegistroPressaoControllerActionController.startAction(
+            name: '_RegistroPressaoController.setTelaDescricaoMedicao');
     try {
       return super.setTelaDescricaoMedicao(valor);
     } finally {
@@ -854,8 +772,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setPressao(RangeValues novo) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setPressao');
     try {
       return super.setPressao(novo);
     } finally {
@@ -866,7 +784,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   dynamic setAtividadesSelecionadas(List<dynamic> lista) {
     final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+        _$_RegistroPressaoControllerActionController.startAction(
+            name: '_RegistroPressaoController.setAtividadesSelecionadas');
     try {
       return super.setAtividadesSelecionadas(lista);
     } finally {
@@ -877,7 +796,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   dynamic setMedicamentosSelecionados(List<dynamic> lista) {
     final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+        _$_RegistroPressaoControllerActionController.startAction(
+            name: '_RegistroPressaoController.setMedicamentosSelecionados');
     try {
       return super.setMedicamentosSelecionados(lista);
     } finally {
@@ -888,7 +808,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   dynamic setAtividadesSelecionadasFiltro(List<dynamic> lista) {
     final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+        _$_RegistroPressaoControllerActionController.startAction(
+            name: '_RegistroPressaoController.setAtividadesSelecionadasFiltro');
     try {
       return super.setAtividadesSelecionadasFiltro(lista);
     } finally {
@@ -899,7 +820,9 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
   @override
   dynamic setMedicamentosSelecionadosFiltro(List<dynamic> lista) {
     final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+        _$_RegistroPressaoControllerActionController.startAction(
+            name:
+                '_RegistroPressaoController.setMedicamentosSelecionadosFiltro');
     try {
       return super.setMedicamentosSelecionadosFiltro(lista);
     } finally {
@@ -909,8 +832,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setPostura(int valor) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setPostura');
     try {
       return super.setPostura(valor);
     } finally {
@@ -920,8 +843,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setBraco(int valor) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setBraco');
     try {
       return super.setBraco(valor);
     } finally {
@@ -931,8 +854,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic setPulso(double valor) {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.setPulso');
     try {
       return super.setPulso(valor);
     } finally {
@@ -942,8 +865,8 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   dynamic clearRegistro() {
-    final _$actionInfo =
-        _$_RegistroPressaoControllerActionController.startAction();
+    final _$actionInfo = _$_RegistroPressaoControllerActionController
+        .startAction(name: '_RegistroPressaoController.clearRegistro');
     try {
       return super.clearRegistro();
     } finally {
@@ -953,8 +876,43 @@ mixin _$RegistroPressaoController on _RegistroPressaoController, Store {
 
   @override
   String toString() {
-    final string =
-        'registro_anotacao: ${registro_anotacao.toString()},registroObj: ${registroObj.toString()},pressao: ${pressao.toString()},atividades: ${atividades.toString()},atividades_selecionadas: ${atividades_selecionadas.toString()},atividades_selecionadas_filtro: ${atividades_selecionadas_filtro.toString()},medicamentos_selecionados_filtro: ${medicamentos_selecionados_filtro.toString()},medicamentos: ${medicamentos.toString()},medicamentos_selecionados: ${medicamentos_selecionados.toString()},braco: ${braco.toString()},pulso: ${pulso.toString()},postura: ${postura.toString()},registros: ${registros.toString()},listaEventos: ${listaEventos.toString()},eventosSelecionados: ${eventosSelecionados.toString()},showCalendario: ${showCalendario.toString()},telaDescricaoMedicao: ${telaDescricaoMedicao.toString()},atividadesRelacionadas: ${atividadesRelacionadas.toString()},medicamentosRelacionadasFiltro: ${medicamentosRelacionadasFiltro.toString()},atividadesRelacionadasFiltro: ${atividadesRelacionadasFiltro.toString()},medicamentosRelacionadas: ${medicamentosRelacionadas.toString()},sistolicaGrafico: ${sistolicaGrafico.toString()},diastolicaGrafico: ${diastolicaGrafico.toString()},pulsoGrafico: ${pulsoGrafico.toString()},sistolicaGraficoAtividade: ${sistolicaGraficoAtividade.toString()},diastolicaGraficoAtividade: ${diastolicaGraficoAtividade.toString()},pulsoGraficoAtividade: ${pulsoGraficoAtividade.toString()},sistolicaGraficoMedicamento: ${sistolicaGraficoMedicamento.toString()},diastolicaGraficoMedicamento: ${diastolicaGraficoMedicamento.toString()},pulsoGraficoMedicamento: ${pulsoGraficoMedicamento.toString()},periodosGrafico: ${periodosGrafico.toString()},filtroGraficoTempo: ${filtroGraficoTempo.toString()},formatoDataX: ${formatoDataX.toString()},diaSelecionado: ${diaSelecionado.toString()},showRegistro: ${showRegistro.toString()},diaSelecionadoCadastro: ${diaSelecionadoCadastro.toString()}';
-    return '{$string}';
+    return '''
+registro_anotacao: ${registro_anotacao},
+registroObj: ${registroObj},
+pressao: ${pressao},
+atividades: ${atividades},
+atividades_selecionadas: ${atividades_selecionadas},
+atividades_selecionadas_filtro: ${atividades_selecionadas_filtro},
+medicamentos_selecionados_filtro: ${medicamentos_selecionados_filtro},
+medicamentos: ${medicamentos},
+medicamentos_selecionados: ${medicamentos_selecionados},
+braco: ${braco},
+pulso: ${pulso},
+postura: ${postura},
+registros: ${registros},
+listaEventos: ${listaEventos},
+eventosSelecionados: ${eventosSelecionados},
+showCalendario: ${showCalendario},
+telaDescricaoMedicao: ${telaDescricaoMedicao},
+atividadesRelacionadas: ${atividadesRelacionadas},
+medicamentosRelacionadasFiltro: ${medicamentosRelacionadasFiltro},
+atividadesRelacionadasFiltro: ${atividadesRelacionadasFiltro},
+medicamentosRelacionadas: ${medicamentosRelacionadas},
+sistolicaGrafico: ${sistolicaGrafico},
+diastolicaGrafico: ${diastolicaGrafico},
+pulsoGrafico: ${pulsoGrafico},
+sistolicaGraficoAtividade: ${sistolicaGraficoAtividade},
+diastolicaGraficoAtividade: ${diastolicaGraficoAtividade},
+pulsoGraficoAtividade: ${pulsoGraficoAtividade},
+sistolicaGraficoMedicamento: ${sistolicaGraficoMedicamento},
+diastolicaGraficoMedicamento: ${diastolicaGraficoMedicamento},
+pulsoGraficoMedicamento: ${pulsoGraficoMedicamento},
+periodosGrafico: ${periodosGrafico},
+filtroGraficoTempo: ${filtroGraficoTempo},
+formatoDataX: ${formatoDataX},
+diaSelecionado: ${diaSelecionado},
+showRegistro: ${showRegistro},
+diaSelecionadoCadastro: ${diaSelecionadoCadastro}
+    ''';
   }
 }
