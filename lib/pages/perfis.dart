@@ -132,12 +132,14 @@ class _PerfilPageState extends State<PerfilPage> {
               },
             ),
           ),
-          RaisedButton(
-              child:Text(perfil_controller.batteryPercentage),
-              onPressed: () {
-                perfil_controller.getBatteryInformation();
-              }
-          ),
+          Observer(builder:(_) {
+            return RaisedButton(
+                child:Text(perfil_controller.batteryPercentage),
+                onPressed: () {
+                  perfil_controller.getBatteryInformation();
+                }
+            );
+          }),
           Row(
             children: <Widget>[
               Expanded(child: Divider(color: Colors.black)),
