@@ -16,23 +16,28 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothDevice;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.widget.Toast;
+import android.Manifest;
+import 	android.content.pm.PackageManager;
+import java.util.Set;
 import android.os.Bundle;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "samples.flutter.dev/battery";
     private final static int REQUEST_ENABLE_BT = 1;
+    Set<BluetoothDevice> listaDispositivos = new HashSet<>();
     // Create a BroadcastReceiver for ACTION_FOUND.
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            System.out.println("PORRAAAAAA");
             System.out.println(action);
-            System.out.println("entrou no receive");
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                System.out.println("if do krlh");
                 // Discovery has found a device. Get the BluetoothDevice
                 // object and its info from the Intent.
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+               if (device != null) {
+                   listaDispositivos.add(device);
+               }
                 String deviceName = device.getName();
                 String deviceHardwareAddress = device.getAddress(); // MAC address
                 System.out.println(deviceName);
@@ -74,7 +79,13 @@ public class MainActivity extends FlutterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        System.out.println("AAA" + VERSION.SDK_INT);
+
+        if(VERSION.SDK_INT >= VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},1);
+        }else{
+            Toast toast = Toast.makeText(MainActivity.this, "Permission granted", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
 
         // Register for broadcasts when a device is discovered.
