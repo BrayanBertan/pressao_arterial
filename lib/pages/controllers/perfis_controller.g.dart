@@ -132,29 +132,26 @@ mixin _$PerfilController on _PerfilController, Store {
     });
   }
 
-  final _$batteryPercentageAtom =
-      Atom(name: '_PerfilController.batteryPercentage');
+  final _$bateriaAtom = Atom(name: '_PerfilController.bateria');
 
   @override
-  String get batteryPercentage {
-    _$batteryPercentageAtom.reportRead();
-    return super.batteryPercentage;
+  String get bateria {
+    _$bateriaAtom.reportRead();
+    return super.bateria;
   }
 
   @override
-  set batteryPercentage(String value) {
-    _$batteryPercentageAtom.reportWrite(value, super.batteryPercentage, () {
-      super.batteryPercentage = value;
+  set bateria(String value) {
+    _$bateriaAtom.reportWrite(value, super.bateria, () {
+      super.bateria = value;
     });
   }
 
-  final _$getBatteryInformationAsyncAction =
-      AsyncAction('_PerfilController.getBatteryInformation');
+  final _$getBateriaAsyncAction = AsyncAction('_PerfilController.getBateria');
 
   @override
-  Future<void> getBatteryInformation() {
-    return _$getBatteryInformationAsyncAction
-        .run(() => super.getBatteryInformation());
+  Future<void> getBateria() {
+    return _$getBateriaAsyncAction.run(() => super.getBateria());
   }
 
   final _$setAvatarAsyncAction = AsyncAction('_PerfilController.setAvatar');
@@ -230,7 +227,7 @@ avatarNome: ${avatarNome},
 listaPerfis: ${listaPerfis},
 objPerfil: ${objPerfil},
 batteryChannel: ${batteryChannel},
-batteryPercentage: ${batteryPercentage}
+bateria: ${bateria}
     ''';
   }
 }

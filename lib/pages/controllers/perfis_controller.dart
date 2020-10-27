@@ -44,20 +44,20 @@ abstract class _PerfilController with Store {
     var batteryChannel =  MethodChannel('samples.flutter.dev/battery');
 
   @observable
-  String batteryPercentage = 'Battery precentage';
+  String bateria = '0';
 
   @action
-  Future<void> getBatteryInformation() async {
+  Future<void> getBateria() async {
     String resultado;
     try {
       var result = await batteryChannel.invokeMethod('getBatteryLevel');
-      resultado = 'Battery level at $result%';
+      resultado = '$result%';
     } on PlatformException catch (e) {
-      resultado = "Failed to get battery level: '${e.message}'.";
+      resultado = e.message;
     }
 
 
-      batteryPercentage = resultado;
+    bateria = resultado;
 
   }
 

@@ -26,6 +26,7 @@ class _PerfilPageState extends State<PerfilPage> {
     perfil_controller.getAllPerfis();
     perfil_controller.clearPerfil();
     perfil_controller.setShowLista(false);
+
     Timer(Duration(milliseconds: 500), () {
       perfil_controller.setShowLista(true);
     });
@@ -42,9 +43,11 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-            child: Text('Diário de pressão', textAlign: TextAlign.center)
-        ),
+        title: Observer(builder: (_) {
+          return Center(
+              child: Text('Diário de pressão bateria: ' + perfil_controller.bateria, textAlign: TextAlign.center)
+          );
+        })
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -131,15 +134,12 @@ class _PerfilPageState extends State<PerfilPage> {
                 }
               },
             ),
+
           ),
-          Observer(builder:(_) {
-            return RaisedButton(
-                child:Text(perfil_controller.batteryPercentage),
-                onPressed: () {
-                  perfil_controller.getBatteryInformation();
-                }
-            );
-          }),
+          RaisedButton(
+            child: Text("PEGA PLMDS"),
+            onPressed: () => perfil_controller.getBateria(),
+          ),
           Row(
             children: <Widget>[
               Expanded(child: Divider(color: Colors.black)),

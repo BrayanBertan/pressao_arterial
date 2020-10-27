@@ -5,16 +5,39 @@ import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothDevice;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "samples.flutter.dev/battery";
+    private final static int REQUEST_ENABLE_BT = 1;
+    // Create a BroadcastReceiver for ACTION_FOUND.
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            System.out.println(action);
+            System.out.println("entrou no receive");
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                System.out.println("if do krlh");
+                // Discovery has found a device. Get the BluetoothDevice
+                // object and its info from the Intent.
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                String deviceName = device.getName();
+                String deviceHardwareAddress = device.getAddress(); // MAC address
+                System.out.println(deviceName);
+            }
+        }
+    };
 
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
@@ -24,19 +47,48 @@ public class MainActivity extends FlutterActivity {
                         (call, result) -> {
                             // Note: this method is invoked on the main thread.
                             if (call.method.equals("getBatteryLevel")) {
-                                int batteryLevel = getBatteryLevel();
-
-                                if (batteryLevel != -1) {
-                                    result.success(batteryLevel);
-                                } else {
-                                    result.error("UNAVAILABLE", "Battery level not available.", null);
+                                System.out.println("entrou");
+                                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                                if (bluetoothAdapter == null) {
+                                    // Device doesn't support Bluetooth
                                 }
+                                if (!bluetoothAdapter.isEnabled()) {
+                                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                                }
+                                if (bluetoothAdapter.isDiscovering()) {
+                                    bluetoothAdapter.cancelDiscovery();
+                                }
+                                System.out.println(bluetoothAdapter.startDiscovery());
                             } else {
                                 result.notImplemented();
                             }
                         }
 
                 );
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Register for broadcasts when a device is discovered.
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        registerReceiver(receiver, filter);
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
+        // Don't forget to unregister the ACTION_FOUND receiver.
+        unregisterReceiver(receiver);
     }
 
     private int getBatteryLevel() {
