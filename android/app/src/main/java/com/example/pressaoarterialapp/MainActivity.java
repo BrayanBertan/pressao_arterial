@@ -25,6 +25,7 @@ public class MainActivity extends FlutterActivity {
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            System.out.println("PORRAAAAAA");
             System.out.println(action);
             System.out.println("entrou no receive");
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
@@ -72,6 +73,10 @@ public class MainActivity extends FlutterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        System.out.println("AAA" + VERSION.SDK_INT);
+
+
         // Register for broadcasts when a device is discovered.
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
