@@ -19,13 +19,13 @@ import android.os.Build.VERSION_CODES;
 import android.widget.Toast;
 import android.Manifest;
 import 	android.content.pm.PackageManager;
-import java.util.Set;
+import java.util.*;
 import android.os.Bundle;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "samples.flutter.dev/battery";
     private final static int REQUEST_ENABLE_BT = 1;
-    Set<BluetoothDevice> listaDispositivos = new HashSet<>();
+    List<Dispositivo> listaDispositivos = new ArrayList();
     // Create a BroadcastReceiver for ACTION_FOUND.
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -36,8 +36,11 @@ public class MainActivity extends FlutterActivity {
                 // object and its info from the Intent.
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                if (device != null) {
-                   listaDispositivos.add(device);
+
+
+                   listaDispositivos.add(new Dispositivo(device.getAddress(),device.getName()));
                }
+                System.out.println(listaDispositivos.size());
                 String deviceName = device.getName();
                 String deviceHardwareAddress = device.getAddress(); // MAC address
                 System.out.println(deviceName);
@@ -53,7 +56,6 @@ public class MainActivity extends FlutterActivity {
                         (call, result) -> {
                             // Note: this method is invoked on the main thread.
                             if (call.method.equals("getBatteryLevel")) {
-                                System.out.println("entrou");
                                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                                 if (bluetoothAdapter == null) {
                                     // Device doesn't support Bluetooth
@@ -69,6 +71,8 @@ public class MainActivity extends FlutterActivity {
                             } else {
                                 result.notImplemented();
                             }
+
+                            result.success(listaDispositivos.toString());
                         }
 
                 );
@@ -121,5 +125,53 @@ public class MainActivity extends FlutterActivity {
 
         return batteryLevel;
     }
+
+}
+
+
+
+
+
+
+
+
+
+
+ class Dispositivo {
+    private String id;
+    private String nome;
+
+    public Dispositivo() {
+
+    }
+
+    public Dispositivo(String id, String nome) {
+        this.setId(id);
+        this.setNome(nome);
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome.trim().isEmpty()?"NOME":nome.toUpperCase();
+    }
+
+    @Override
+    public String toString() {
+        return this.nome + "-" +  this.id;
+    }
+
+
+
 
 }

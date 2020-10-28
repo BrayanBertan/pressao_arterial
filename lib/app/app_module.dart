@@ -18,7 +18,7 @@ import 'package:pressaoarterialapp/pages/relatorio_grafico.dart';
 import 'package:pressaoarterialapp/pages/registro_pressao.dart';
 import 'package:pressaoarterialapp/pages/controllers/medicamentos_controller.dart';
 import 'package:pressaoarterialapp/Helpers/medicamento_helper.dart';
-
+import 'package:pressaoarterialapp/pages/transferir.dart';
 
 class AppModule extends MainModule {
 
@@ -44,6 +44,7 @@ class AppModule extends MainModule {
     ModularRouter("/relatorios", child: (_, args) => RelatorioGraficoPage()),
     ModularRouter("/registroPressao", child: (_, args) => RegistroPressaoPage()),
     ModularRouter("/dicas", child: (_, args) => DicaPage()),
+    ModularRouter("/transferir", child: (_, args) => TransferirPage()),
 
   ];
 

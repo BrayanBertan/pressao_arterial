@@ -201,6 +201,25 @@ class _ListaMedicoesPageState extends State<ListaMedicoesPage> {
                   });
                 });
               }),
+          SpeedDialChild(
+              child: Tab(
+                icon: Container(
+                  child: Image(
+                    image: AssetImage(
+                      'assets/images/bd.png',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  height: 46,
+                  width: 46,
+                ),
+              ),
+              backgroundColor: Colors.green,
+              label: 'Transferir',
+              labelBackgroundColor: Colors.white,
+              onTap: () {
+                Modular.to.pushNamed('/transferir');
+              }),
         ],
       ),
     );
