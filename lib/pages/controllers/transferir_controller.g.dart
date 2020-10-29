@@ -74,6 +74,23 @@ mixin _$TransferirController on _TransferirController, Store {
     });
   }
 
+  final _$listaDispositivosPareadosAtom =
+      Atom(name: '_TransferirController.listaDispositivosPareados');
+
+  @override
+  ObservableList<dynamic> get listaDispositivosPareados {
+    _$listaDispositivosPareadosAtom.reportRead();
+    return super.listaDispositivosPareados;
+  }
+
+  @override
+  set listaDispositivosPareados(ObservableList<dynamic> value) {
+    _$listaDispositivosPareadosAtom
+        .reportWrite(value, super.listaDispositivosPareados, () {
+      super.listaDispositivosPareados = value;
+    });
+  }
+
   final _$getListaDispositivosAsyncAction =
       AsyncAction('_TransferirController.getListaDispositivos');
 
@@ -83,13 +100,23 @@ mixin _$TransferirController on _TransferirController, Store {
         .run(() => super.getListaDispositivos());
   }
 
+  final _$getListaDispositivosPareadosAsyncAction =
+      AsyncAction('_TransferirController.getListaDispositivosPareados');
+
+  @override
+  Future<void> getListaDispositivosPareados() {
+    return _$getListaDispositivosPareadosAsyncAction
+        .run(() => super.getListaDispositivosPareados());
+  }
+
   @override
   String toString() {
     return '''
 showDispositivos: ${showDispositivos},
 showDispositivosPareados: ${showDispositivosPareados},
 bluetoothChannel: ${bluetoothChannel},
-listaDispositivos: ${listaDispositivos}
+listaDispositivos: ${listaDispositivos},
+listaDispositivosPareados: ${listaDispositivosPareados}
     ''';
   }
 }

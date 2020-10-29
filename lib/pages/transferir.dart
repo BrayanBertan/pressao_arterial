@@ -14,6 +14,7 @@ class _TransferirPageState extends State<TransferirPage> {
   @override
   void initState() {
     transferir_controller.getListaDispositivos();
+    transferir_controller.getListaDispositivosPareados();
     super.initState();
   }
 

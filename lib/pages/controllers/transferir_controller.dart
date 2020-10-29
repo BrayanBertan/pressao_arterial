@@ -21,13 +21,16 @@ abstract class _TransferirController with Store {
   bool showDispositivos;
 
   @observable
-  bool showDispositivosPareados =  false;
+  bool showDispositivosPareados;
 
   @observable
   var bluetoothChannel =  MethodChannel('samples.flutter.dev/dispositivo');
 
   @observable
   ObservableList listaDispositivos = new List().asObservable();
+
+  @observable
+  ObservableList listaDispositivosPareados = new List().asObservable();
 
   @action
   Future<void> getListaDispositivos() async {
@@ -50,6 +53,35 @@ abstract class _TransferirController with Store {
          });
        }
        Timer(Duration(seconds: 15),() => showDispositivos = true);
+
+
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
+
+  }
+
+  @action
+  Future<void> getListaDispositivosPareados() async {
+    print("show ${showDispositivosPareados}");
+    showDispositivosPareados = false;
+    listaDispositivosPareados = [].asObservable();
+    try {
+      String retorno = '';
+      retorno = await bluetoothChannel.invokeMethod('getListaDispositivosPareados');
+      print("retorno ${retorno}");
+      if(retorno != '[]') {
+        var retornoArray = retorno.split(",");
+        retornoArray.forEach((element) {
+          listaDispositivosPareados.add(
+              {
+                'nome':element.split("-")[0].replaceAll('[', ''),
+                'id':element.split("-")[1].replaceAll('[', ''),
+              }
+          );
+        });
+      }
+      Timer(Duration(seconds: 15),() => showDispositivosPareados = true);
 
 
     } on PlatformException catch (e) {

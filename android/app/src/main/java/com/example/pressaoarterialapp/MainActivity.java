@@ -27,6 +27,7 @@ public class MainActivity extends FlutterActivity {
     private final static int REQUEST_ENABLE_BT = 1;
     List<Dispositivo> listaDispositivos = new ArrayList();
     List<BluetoothDevice> listaBluetoothDevice = new ArrayList();
+    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     // Create a BroadcastReceiver for ACTION_FOUND.
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -59,18 +60,25 @@ public class MainActivity extends FlutterActivity {
 
                             if (call.method.equals("getListaDispositivos")) {
                                 getDispositivos();
+                                result.success(listaDispositivos.toString());
                             } else {
-                                result.notImplemented();
+                                if(call.method.equals("getListaDispositivosPareados")) {
+                                    System.out.println("PAREADOSSSSSSSSSSSSSS");
+                                    System.out.println(bluetoothAdapter.getBondedDevices());
+                                }else{
+                                    result.notImplemented();
+                                }
                             }
 
-                            result.success(listaDispositivos.toString());
+
+
                         }
 
                 );
     }
 
     private void getDispositivos() {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         if (bluetoothAdapter == null) {
             // Device doesn't support Bluetooth
         }
