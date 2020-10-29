@@ -117,43 +117,6 @@ mixin _$PerfilController on _PerfilController, Store {
     });
   }
 
-  final _$batteryChannelAtom = Atom(name: '_PerfilController.batteryChannel');
-
-  @override
-  MethodChannel get batteryChannel {
-    _$batteryChannelAtom.reportRead();
-    return super.batteryChannel;
-  }
-
-  @override
-  set batteryChannel(MethodChannel value) {
-    _$batteryChannelAtom.reportWrite(value, super.batteryChannel, () {
-      super.batteryChannel = value;
-    });
-  }
-
-  final _$bateriaAtom = Atom(name: '_PerfilController.bateria');
-
-  @override
-  String get bateria {
-    _$bateriaAtom.reportRead();
-    return super.bateria;
-  }
-
-  @override
-  set bateria(String value) {
-    _$bateriaAtom.reportWrite(value, super.bateria, () {
-      super.bateria = value;
-    });
-  }
-
-  final _$getBateriaAsyncAction = AsyncAction('_PerfilController.getBateria');
-
-  @override
-  Future<void> getBateria() {
-    return _$getBateriaAsyncAction.run(() => super.getBateria());
-  }
-
   final _$setAvatarAsyncAction = AsyncAction('_PerfilController.setAvatar');
 
   @override
@@ -225,9 +188,7 @@ showLista: ${showLista},
 avatarLinkSelecionado: ${avatarLinkSelecionado},
 avatarNome: ${avatarNome},
 listaPerfis: ${listaPerfis},
-objPerfil: ${objPerfil},
-batteryChannel: ${batteryChannel},
-bateria: ${bateria}
+objPerfil: ${objPerfil}
     ''';
   }
 }

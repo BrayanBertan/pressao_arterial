@@ -13,31 +13,45 @@ class TransferirController = _TransferirController with _$TransferirController;
 abstract class _TransferirController with Store {
   final perfil_helper = Modular.get<PerfilHelper>();
 
-  _PerfilController() {
+  _TransferirController() {
   }
 
 
   @observable
-  var batteryChannel =  MethodChannel('samples.flutter.dev/battery');
+  bool showDispositivos;
 
   @observable
-   List<Map<dynamic, dynamic>> listaDispositivos = [];
+  bool showDispositivosPareados =  false;
+
+  @observable
+  var bluetoothChannel =  MethodChannel('samples.flutter.dev/dispositivo');
+
+  @observable
+  ObservableList listaDispositivos = new List().asObservable();
 
   @action
-  Future<void> getBateria() async {
+  Future<void> getListaDispositivos() async {
+    print("show ${showDispositivos}");
+    showDispositivos = false;
+    listaDispositivos = [].asObservable();
     try {
-      String retorno = await batteryChannel.invokeMethod('getBatteryLevel');
-      var retornoArray = retorno.split(",");
-      retornoArray.forEach((element) {
-        listaDispositivos.add(
-          {
-            'nome':element.split("-")[0],
-            'id':element.split("-")[0]
-          }
-        );
-      });
-      print(listaDispositivos);
-      print('pegou');
+      String retorno = '';
+       retorno = await bluetoothChannel.invokeMethod('getListaDispositivos');
+       print("retorno ${retorno}");
+       if(retorno != '[]') {
+         var retornoArray = retorno.split(",");
+         retornoArray.forEach((element) {
+           listaDispositivos.add(
+               {
+                 'nome':element.split("-")[0].replaceAll('[', ''),
+                 'id':element.split("-")[1].replaceAll('[', ''),
+               }
+           );
+         });
+       }
+       Timer(Duration(seconds: 15),() => showDispositivos = true);
+
+
     } on PlatformException catch (e) {
       print(e.message);
     }

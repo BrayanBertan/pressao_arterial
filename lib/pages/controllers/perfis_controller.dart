@@ -40,26 +40,7 @@ abstract class _PerfilController with Store {
   @observable
   Perfil objPerfil = Perfil(nome: '', icone: '');
 
-  @observable
-    var batteryChannel =  MethodChannel('samples.flutter.dev/battery');
 
-  @observable
-  String bateria = '0';
-
-  @action
-  Future<void> getBateria() async {
-    String resultado;
-    try {
-      var result = await batteryChannel.invokeMethod('getBatteryLevel');
-      resultado = '$result%';
-    } on PlatformException catch (e) {
-      resultado = e.message;
-    }
-
-
-    bateria = resultado;
-
-  }
 
   @action
   setAvatarSelecionado(int index) {

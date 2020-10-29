@@ -23,9 +23,11 @@ import java.util.*;
 import android.os.Bundle;
 
 public class MainActivity extends FlutterActivity {
-    private static final String CHANNEL = "samples.flutter.dev/battery";
+    private static final String CHANNEL = "samples.flutter.dev/dispositivo";
     private final static int REQUEST_ENABLE_BT = 1;
     List<Dispositivo> listaDispositivos = new ArrayList();
+    List<BluetoothDevice> listaBluetoothDevice = new ArrayList();
+
     // Create a BroadcastReceiver for ACTION_FOUND.
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -36,14 +38,12 @@ public class MainActivity extends FlutterActivity {
                 // object and its info from the Intent.
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                if (device != null) {
+                   if (!listaBluetoothDevice.contains(device)) {
+                       listaBluetoothDevice.add(device);
+                       listaDispositivos.add(new Dispositivo(device.getAddress(),device.getName()));
+                   }
 
-
-                   listaDispositivos.add(new Dispositivo(device.getAddress(),device.getName()));
                }
-                System.out.println(listaDispositivos.size());
-                String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-                System.out.println(deviceName);
             }
         }
     };
@@ -55,19 +55,10 @@ public class MainActivity extends FlutterActivity {
                 .setMethodCallHandler(
                         (call, result) -> {
                             // Note: this method is invoked on the main thread.
-                            if (call.method.equals("getBatteryLevel")) {
-                                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                                if (bluetoothAdapter == null) {
-                                    // Device doesn't support Bluetooth
-                                }
-                                if (!bluetoothAdapter.isEnabled()) {
-                                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-                                }
-                                if (bluetoothAdapter.isDiscovering()) {
-                                    bluetoothAdapter.cancelDiscovery();
-                                }
-                                System.out.println(bluetoothAdapter.startDiscovery());
+
+
+                            if (call.method.equals("getListaDispositivos")) {
+                                getDispositivos();
                             } else {
                                 result.notImplemented();
                             }
@@ -78,11 +69,26 @@ public class MainActivity extends FlutterActivity {
                 );
     }
 
+    private void getDispositivos() {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            // Device doesn't support Bluetooth
+        }
+        if (!bluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+        if (bluetoothAdapter.isDiscovering()) {
+            bluetoothAdapter.cancelDiscovery();
+        }
+
+        System.out.println(bluetoothAdapter.startDiscovery());
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         if(VERSION.SDK_INT >= VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},1);
@@ -105,26 +111,10 @@ public class MainActivity extends FlutterActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
         // Don't forget to unregister the ACTION_FOUND receiver.
         unregisterReceiver(receiver);
     }
 
-    private int getBatteryLevel() {
-        int batteryLevel = -1;
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-            BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
-            batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        } else {
-            Intent intent = new ContextWrapper(getApplicationContext()).
-                    registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-            batteryLevel = (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100) /
-                    intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-        }
-
-        return batteryLevel;
-    }
 
 }
 
@@ -163,7 +153,7 @@ public class MainActivity extends FlutterActivity {
     }
 
     public void setNome(String nome) {
-        this.nome = nome.trim().isEmpty()?"NOME":nome.toUpperCase();
+        this.nome = nome;
     }
 
     @Override

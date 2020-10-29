@@ -45,7 +45,7 @@ class _PerfilPageState extends State<PerfilPage> {
       appBar: AppBar(
         title: Observer(builder: (_) {
           return Center(
-              child: Text('Diário de pressão bateria: ' + perfil_controller.bateria, textAlign: TextAlign.center)
+              child: Text('Diário de pressão ', textAlign: TextAlign.center)
           );
         })
       ),
@@ -135,10 +135,6 @@ class _PerfilPageState extends State<PerfilPage> {
               },
             ),
 
-          ),
-          RaisedButton(
-            child: Text("PEGA PLMDS"),
-            onPressed: () => perfil_controller.getBateria(),
           ),
           Row(
             children: <Widget>[
