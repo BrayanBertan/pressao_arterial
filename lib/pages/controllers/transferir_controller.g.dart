@@ -42,6 +42,21 @@ mixin _$TransferirController on _TransferirController, Store {
     });
   }
 
+  final _$disableAtom = Atom(name: '_TransferirController.disable');
+
+  @override
+  bool get disable {
+    _$disableAtom.reportRead();
+    return super.disable;
+  }
+
+  @override
+  set disable(bool value) {
+    _$disableAtom.reportWrite(value, super.disable, () {
+      super.disable = value;
+    });
+  }
+
   final _$bluetoothChannelAtom =
       Atom(name: '_TransferirController.bluetoothChannel');
 
@@ -114,6 +129,7 @@ mixin _$TransferirController on _TransferirController, Store {
     return '''
 showDispositivos: ${showDispositivos},
 showDispositivosPareados: ${showDispositivosPareados},
+disable: ${disable},
 bluetoothChannel: ${bluetoothChannel},
 listaDispositivos: ${listaDispositivos},
 listaDispositivosPareados: ${listaDispositivosPareados}

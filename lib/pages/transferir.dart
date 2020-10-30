@@ -13,8 +13,8 @@ class TransferirPage extends StatefulWidget {
 class _TransferirPageState extends State<TransferirPage> {
   @override
   void initState() {
-    transferir_controller.getListaDispositivos();
     transferir_controller.getListaDispositivosPareados();
+    transferir_controller.getListaDispositivos();
     super.initState();
   }
 
@@ -23,7 +23,7 @@ class _TransferirPageState extends State<TransferirPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Transferir dados entre dispositivos'),
+        title: Text('Transferir Dados'),
       ),
       body: Container(
         margin: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -32,70 +32,93 @@ class _TransferirPageState extends State<TransferirPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                ListTile(
-                  title: Text(
-                    'Dispositivos Pareados:',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  trailing: GestureDetector(
-                    child: CircleAvatar(
-                      backgroundImage:
-                          ExactAssetImage('assets/images/reload.png'),
-                      minRadius: 20,
-                      maxRadius: 20,
-                    ),
-                  ),
-                ),
-    Observer(builder: (_) {return Text("${transferir_controller.showDispositivos}");}),
                 Observer(builder: (_) {
-                  return Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 15,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Observer(
-                            builder: (_) {
-                              return GestureDetector(
-                                onTap: () {},
-                                child: Card(
-                                  child: ListTile(
-                                    leading: CircleAvatar(
-                                      backgroundImage: ExactAssetImage(
-                                          'assets/images/bluetooth.png'),
-                                      minRadius: 20,
-                                      maxRadius: 20,
-                                    ),
-                                    title: Text("aaaaaa"),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ));
-                }),
-                ListTile(
-                  title: Text(
-                    'Dispositivos não Pareados:',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  trailing: GestureDetector(
-                    onTap: () => transferir_controller.getListaDispositivos(),
-                    child: CircleAvatar(
-                      backgroundImage:
-                          ExactAssetImage('assets/images/reload.png'),
-                      minRadius: 20,
-                      maxRadius: 20,
+                  return IgnorePointer(
+                    ignoring: transferir_controller.disable,
+                    child: ListTile(
+                      title: Text(
+                        'Dispositivos Pareados:',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      trailing: GestureDetector(
+                        onTap: () => transferir_controller
+                            .getListaDispositivosPareados(),
+                        child: CircleAvatar(
+                          backgroundImage:
+                          ExactAssetImage(transferir_controller.disable?'assets/images/carregando.gif':'assets/images/reload.png'),
+                          minRadius: 20,
+                          maxRadius: 20,
+                        ),
+                      ),
                     ),
-                  ),
+                  );
+                }),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Observer(builder: (_) {
+                    return (!transferir_controller.showDispositivosPareados)
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : (transferir_controller
+                                    .listaDispositivosPareados.length >
+                                0)
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: transferir_controller
+                                    .listaDispositivosPareados.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Observer(
+                                    builder: (_) {
+                                      return GestureDetector(
+                                          child: Card(
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            backgroundImage: ExactAssetImage(
+                                                'assets/images/bluetooth.png'),
+                                            minRadius: 20,
+                                            maxRadius: 20,
+                                          ),
+                                          title: Text(
+                                              "${transferir_controller.listaDispositivosPareados[index]['nome']}"),
+                                        ),
+                                      ));
+                                    },
+                                  );
+                                },
+                              )
+                            : Center(
+                                child: Text('Sem dispositivos disponiveis!'),
+                              );
+                  }),
                 ),
-                 Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    child:Observer(builder: (_) {
-                      return (!transferir_controller.showDispositivos)
+                Observer(builder: (_) {
+                  return IgnorePointer(
+                    ignoring: transferir_controller.disable,
+                    child: ListTile(
+                      title: Text(
+                        'Dispositivos não Pareados:',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      trailing: GestureDetector(
+                        onTap: () =>
+                            transferir_controller.getListaDispositivos(),
+                        child: CircleAvatar(
+                          backgroundImage:
+                          ExactAssetImage(transferir_controller.disable?'assets/images/carregando.gif':'assets/images/reload.png'),
+                          minRadius: 20,
+                          maxRadius: 20,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Observer(builder: (_) {
+                    return (!transferir_controller.showDispositivos)
                         ? Center(
                             child: CircularProgressIndicator(),
                           )
@@ -108,20 +131,18 @@ class _TransferirPageState extends State<TransferirPage> {
                                   return Observer(
                                     builder: (_) {
                                       return GestureDetector(
-                                          onTap: () => transferir_controller
-                                              .getListaDispositivos(),
                                           child: Card(
-                                            child: ListTile(
-                                              leading: CircleAvatar(
-                                                backgroundImage: ExactAssetImage(
-                                                    'assets/images/bluetooth.png'),
-                                                minRadius: 20,
-                                                maxRadius: 20,
-                                              ),
-                                              title: Text(
-                                                  "${transferir_controller.listaDispositivos[index]['nome']}"),
-                                            ),
-                                          ));
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            backgroundImage: ExactAssetImage(
+                                                'assets/images/bluetooth.png'),
+                                            minRadius: 20,
+                                            maxRadius: 20,
+                                          ),
+                                          title: Text(
+                                              "${transferir_controller.listaDispositivos[index]['nome']}"),
+                                        ),
+                                      ));
                                     },
                                   );
                                 },
@@ -129,9 +150,8 @@ class _TransferirPageState extends State<TransferirPage> {
                             : Center(
                                 child: Text('Sem dispositivos disponiveis!'),
                               );
-                }),
-                  )
-
+                  }),
+                )
               ]),
         ),
       ),

@@ -14,6 +14,7 @@ abstract class _TransferirController with Store {
   final perfil_helper = Modular.get<PerfilHelper>();
 
   _TransferirController() {
+    disable = true;
   }
 
 
@@ -22,6 +23,9 @@ abstract class _TransferirController with Store {
 
   @observable
   bool showDispositivosPareados;
+
+  @observable
+  bool disable;
 
   @observable
   var bluetoothChannel =  MethodChannel('samples.flutter.dev/dispositivo');
@@ -34,13 +38,13 @@ abstract class _TransferirController with Store {
 
   @action
   Future<void> getListaDispositivos() async {
-    print("show ${showDispositivos}");
+    print("disable ${disable}");
+    disable = true;
     showDispositivos = false;
     listaDispositivos = [].asObservable();
     try {
       String retorno = '';
        retorno = await bluetoothChannel.invokeMethod('getListaDispositivos');
-       print("retorno ${retorno}");
        if(retorno != '[]') {
          var retornoArray = retorno.split(",");
          retornoArray.forEach((element) {
@@ -52,7 +56,8 @@ abstract class _TransferirController with Store {
            );
          });
        }
-       Timer(Duration(seconds: 15),() => showDispositivos = true);
+      showDispositivos = true;
+      disable = false;
 
 
     } on PlatformException catch (e) {
@@ -63,9 +68,9 @@ abstract class _TransferirController with Store {
 
   @action
   Future<void> getListaDispositivosPareados() async {
-    print("show ${showDispositivosPareados}");
     showDispositivosPareados = false;
     listaDispositivosPareados = [].asObservable();
+    listaDispositivosPareados.removeRange(0, listaDispositivosPareados.length-1);
     try {
       String retorno = '';
       retorno = await bluetoothChannel.invokeMethod('getListaDispositivosPareados');
@@ -81,7 +86,7 @@ abstract class _TransferirController with Store {
           );
         });
       }
-      Timer(Duration(seconds: 15),() => showDispositivosPareados = true);
+      showDispositivosPareados = true;
 
 
     } on PlatformException catch (e) {

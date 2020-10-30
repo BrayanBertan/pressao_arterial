@@ -27,7 +27,9 @@ public class MainActivity extends FlutterActivity {
     private final static int REQUEST_ENABLE_BT = 1;
     List<Dispositivo> listaDispositivos = new ArrayList();
     List<BluetoothDevice> listaBluetoothDevice = new ArrayList();
+    List<Dispositivo> listaDispositivosPareados = new ArrayList();
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private MethodChannel.Result myResult;
 
     // Create a BroadcastReceiver for ACTION_FOUND.
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -46,6 +48,10 @@ public class MainActivity extends FlutterActivity {
 
                }
             }
+
+            if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                myResult.success(listaDispositivos.toString());
+            }
         }
     };
 
@@ -56,15 +62,18 @@ public class MainActivity extends FlutterActivity {
                 .setMethodCallHandler(
                         (call, result) -> {
                             // Note: this method is invoked on the main thread.
-
+                            myResult = result;
 
                             if (call.method.equals("getListaDispositivos")) {
                                 getDispositivos();
-                                result.success(listaDispositivos.toString());
                             } else {
                                 if(call.method.equals("getListaDispositivosPareados")) {
-                                    System.out.println("PAREADOSSSSSSSSSSSSSS");
-                                    System.out.println(bluetoothAdapter.getBondedDevices());
+                                    Set<BluetoothDevice> original = bluetoothAdapter.getBondedDevices();
+                                    listaDispositivosPareados.clear();
+                                    for(BluetoothDevice d: original) {
+                                        listaDispositivosPareados.add(new Dispositivo(d.getAddress(),d.getName()));
+                                    }
+                                    result.success(listaDispositivosPareados.toString());
                                 }else{
                                     result.notImplemented();
                                 }
