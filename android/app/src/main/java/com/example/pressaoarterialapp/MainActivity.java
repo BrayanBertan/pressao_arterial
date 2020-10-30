@@ -87,7 +87,7 @@ public class MainActivity extends FlutterActivity {
     }
 
     private void getDispositivos() {
-
+        listaDispositivos.clear();
         if (bluetoothAdapter == null) {
             // Device doesn't support Bluetooth
         }
