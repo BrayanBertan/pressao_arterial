@@ -61,7 +61,6 @@ public class MainActivity extends FlutterActivity {
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
                 .setMethodCallHandler(
                         (call, result) -> {
-                            // Note: this method is invoked on the main thread.
                             myResult = result;
 
                             if (call.method.equals("getListaDispositivos")) {
